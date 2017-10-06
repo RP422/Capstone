@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class FileSelectActivity extends AppCompatActivity {
+    // NOTE: Use startActivityForResult and add an onActivityResult listener to the receiving activity.
+    // https://stackoverflow.com/questions/920306/sending-data-back-to-the-main-activity-in-android
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
