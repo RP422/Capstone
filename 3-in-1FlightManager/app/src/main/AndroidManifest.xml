@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChecklistMainActivity"
-            android:label="@string/title_activity_scrolling_test"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".LogbookMainActivity"
             android:label="@string/title_activity_logbook_main"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -46,9 +42,14 @@
         <activity
             android:name=".PlannerMainActivity"
             android:label="@string/title_activity_planner_main" />
+        <activity android:name=".FileSelectActivity" />
         <activity
-            android:name=".FileSelectActivity"
-            android:label="@string/title_activity_file_select"
+            android:name=".ChecklistMainActivity"
+            android:label="@string/title_activity_checklist_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChecklistRunthroughActivity"
+            android:label="@string/title_activity_checklist_runthrough"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

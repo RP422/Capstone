@@ -94,4 +94,6 @@
     <string name="title_activity_logbook_main">LogbookMainActivity</string>
     <string name="title_activity_planner_main">Map</string>
     <string name="title_activity_file_select">FileSelectActivity</string>
+    <string name="title_activity_checklist_main">ChecklistMainActivity</string>
+    <string name="title_activity_checklist_runthrough">ChecklistRunthroughActivity</string>
 </resources>
