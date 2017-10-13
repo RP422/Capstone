@@ -2,30 +2,17 @@ package com.capstone.mike.a3_in_1flightmanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
 public class ChecklistMainActivity extends AppCompatActivity {
+    private static final int SELECT_CHECKLIST_FIlE = 6453;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     private void testFilePicker(View view)
@@ -34,17 +21,21 @@ public class ChecklistMainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, FileSelectActivity.class);
         intent.putExtra("path", path);
-        startActivityForResult(intent, FileSelectActivity.FILE_SELECT);
+        startActivityForResult(intent, FileSelectActivity.FILE_SELECT_TEST);
     }
-    private void selectChecklist(View view)
+    private void selectAndLaunchChecklist(View view)
     {
-        // TODO link the file picker here and use the returned path to feed the ChecklistRunthroughActivity
+        // TODO Implement method
+        // Ask file picker for path
+        Intent intent = new Intent(this, FileSelectActivity.class);
+        intent.putExtra("PATH", "/checklists");
+        startActivityForResult(intent, SELECT_CHECKLIST_FIlE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if(requestCode == FileSelectActivity.FILE_SELECT)
+        if(requestCode == FileSelectActivity.FILE_SELECT_TEST)
         {
             if(resultCode == RESULT_OK)
             {
@@ -53,6 +44,18 @@ public class ChecklistMainActivity extends AppCompatActivity {
                 // TODO Replace the button text with something to prove you got something back
                 Button button = (Button)findViewById(R.id.fileSelectAppTest);
                 button.setText(filePath);
+            }
+        }
+        else if(requestCode == SELECT_CHECKLIST_FIlE)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                // TODO Use returned path to feed ChecklistRunthroughActivity
+                // For now, I'm just using the testing path
+                Intent newIntent = new Intent(this, ChecklistRunthroughActivity.class);
+
+                newIntent.putExtra("TEST", true); // Either set this to false or comment out if not testing
+                startActivity(newIntent);
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.capstone.mike.a3_in_1flightmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,21 +10,32 @@ import android.view.View;
 
 public class ChecklistRunthroughActivity extends AppCompatActivity {
 
+    String[] testItems = new String[] { "Check Wheels", "Check Wings", "Check Rudders" };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist_runthrough);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        boolean useTestData = false;
+
+        CustomChecklistAdapter adapter;
+
+        Intent intent = this.getIntent();
+
+        // TODO Populate the ListView
+        if(intent.hasExtra("TEST"))
+        {
+            useTestData = intent.getBooleanExtra("TEST", false);
+        }
+
+        if(useTestData)
+        {
+            adapter = new CustomChecklistAdapter(this, testItems);
+        }
+        else
+        {
+            String filepath = intent.getStringExtra("FILEPATH");
+        }
     }
-
 }

@@ -2,12 +2,10 @@ package com.capstone.mike.a3_in_1flightmanager;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class FileSelectActivity extends ListActivity {
-    public static final int FILE_SELECT = 4221997;
+    public static final int FILE_SELECT_TEST = 4221997;
     private String path;
 
     @Override
@@ -23,9 +21,9 @@ public class FileSelectActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_select);
 
-        if(getIntent().hasExtra("path"))
+        if(getIntent().hasExtra("PATH"))
         {
-            path = getIntent().getStringExtra("path");
+            path = getIntent().getStringExtra("PATH");
         }
         else
         {
@@ -72,7 +70,7 @@ public class FileSelectActivity extends ListActivity {
         if (new File(filename).isDirectory()) {
             Intent intent = new Intent(this, FileSelectActivity.class);
             intent.putExtra("path", filename);
-            startActivityForResult(intent, FILE_SELECT);
+            startActivityForResult(intent, FILE_SELECT_TEST);
         } else {
             //// This Toast stuff looks like something I may want to look into later
             //Toast.makeText(this, filename + " is not a directory", Toast.LENGTH_LONG).show();
@@ -87,7 +85,7 @@ public class FileSelectActivity extends ListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if(requestCode == FILE_SELECT)
+        if(requestCode == FILE_SELECT_TEST)
         {
             if(resultCode == RESULT_OK)
             {
