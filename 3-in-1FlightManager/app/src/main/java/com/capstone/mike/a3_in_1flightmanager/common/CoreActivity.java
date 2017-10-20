@@ -1,9 +1,14 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.common;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.capstone.mike.a3_in_1flightmanager.R;
+import com.capstone.mike.a3_in_1flightmanager.flightPlanner.PlannerMainActivity;
+import com.capstone.mike.a3_in_1flightmanager.logbook.LogbookMainActivity;
+import com.capstone.mike.a3_in_1flightmanager.preflightChecklist.ChecklistMainActivity;
 
 import java.io.FileOutputStream;
 
@@ -68,10 +73,5 @@ public class CoreActivity extends AppCompatActivity {
         {
             e.printStackTrace();
         }
-    }
-
-    public void testFileSelect()
-    {
-
     }
 }

@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CoreActivity">
+        <activity android:name=".common.CoreActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogbookMainActivity"
+            android:name=".logbook.LogbookMainActivity"
             android:label="@string/title_activity_logbook_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
@@ -40,17 +40,23 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".PlannerMainActivity"
+            android:name=".flightPlanner.PlannerMainActivity"
             android:label="@string/title_activity_planner_main" />
-        <activity android:name=".FileSelectActivity" />
+        <activity android:name=".common.FileSelectActivity" />
         <activity
-            android:name=".ChecklistMainActivity"
+            android:name=".preflightChecklist.ChecklistMainActivity"
             android:label="@string/title_activity_checklist_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ChecklistRunthroughActivity"
+            android:name=".preflightChecklist.ChecklistRunthroughActivity"
             android:label="@string/title_activity_checklist_runthrough"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".preflightChecklist.CreateChecklistActivity"
+            android:label="@string/title_activity_create_checklist"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".logbook.LogbookDataViewActivity" />
+        <activity android:name=".logbook.LogbookQuerySelectionActivity"></activity>
     </application>
 
 </manifest>

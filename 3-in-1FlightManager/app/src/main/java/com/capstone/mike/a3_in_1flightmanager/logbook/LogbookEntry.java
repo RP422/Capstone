@@ -1,4 +1,4 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.logbook;
 
 import java.sql.Date;
 
@@ -15,11 +15,17 @@ public class LogbookEntry
         MULTI_ENGINE_LAND
     };
     // Make an enum for class maybe?
+    public enum AircraftClass
+    {
+        TAIL_WHEEL,
+        GLIDER,
+        // Figure out more classes
+    }
 
     private int id;
     private Date date;
 
-    private String aircraftType;
+    private String aircraftModel;
     private String aircraftID;
 
     private String flightDeparture;
@@ -29,8 +35,8 @@ public class LogbookEntry
 
     private String remarksAndEndorsements;
 
-    private int numTakeoffs;
-    private int numLandings;
+    private int numDayLandings;
+    private int numNightLandings;
 
     private AircraftCategory aircraftCategory;
     private float flightTime;
@@ -65,12 +71,12 @@ public class LogbookEntry
         this.date = date;
     }
 
-    public String getAircraftType() {
-        return aircraftType;
+    public String getAircraftModel() {
+        return aircraftModel;
     }
 
-    public void setAircraftType(String aircraftType) {
-        this.aircraftType = aircraftType;
+    public void setAircraftModel(String aircraftModel) {
+        this.aircraftModel = aircraftModel;
     }
 
     public String getAircraftID() {
@@ -113,20 +119,20 @@ public class LogbookEntry
         this.remarksAndEndorsements = remarksAndEndorsements;
     }
 
-    public int getNumTakeoffs() {
-        return numTakeoffs;
+    public int getNumDayLandings() {
+        return numDayLandings;
     }
 
-    public void setNumTakeoffs(int numTakeoffs) {
-        this.numTakeoffs = numTakeoffs;
+    public void setNumDayLandings(int numDayLandings) {
+        this.numDayLandings = numDayLandings;
     }
 
-    public int getNumLandings() {
-        return numLandings;
+    public int getNumNightLandings() {
+        return numNightLandings;
     }
 
-    public void setNumLandings(int numLandings) {
-        this.numLandings = numLandings;
+    public void setNumNightLandings(int numNightLandings) {
+        this.numNightLandings = numNightLandings;
     }
 
     public AircraftCategory getAircraftCategory() {

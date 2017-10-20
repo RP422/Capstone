@@ -5,4 +5,4 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.capstone.mike.a3_in_1flightmanager.PlannerMainActivity" />
+    tools:context="com.capstone.mike.a3_in_1flightmanager.flightPlanner.PlannerMainActivity" />

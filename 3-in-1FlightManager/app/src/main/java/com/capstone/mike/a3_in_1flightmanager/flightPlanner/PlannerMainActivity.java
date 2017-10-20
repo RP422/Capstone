@@ -1,8 +1,9 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.flightPlanner;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.capstone.mike.a3_in_1flightmanager.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

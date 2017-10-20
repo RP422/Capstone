@@ -96,4 +96,5 @@
     <string name="title_activity_file_select">FileSelectActivity</string>
     <string name="title_activity_checklist_main">ChecklistMainActivity</string>
     <string name="title_activity_checklist_runthrough">ChecklistRunthroughActivity</string>
+    <string name="title_activity_create_checklist">CreateChecklistActivity</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.common;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.capstone.mike.a3_in_1flightmanager.R;
 
 import java.io.File;
 import java.util.ArrayList;

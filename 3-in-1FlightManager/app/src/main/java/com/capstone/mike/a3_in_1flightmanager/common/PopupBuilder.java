@@ -1,4 +1,4 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.common;
 
 import android.app.AlertDialog;
 import android.content.Context;

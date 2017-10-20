@@ -1,0 +1,9 @@
+<TableLayout
+    android:id="@+id/dataViewLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <!-- Gonna want a header row. Possibly one that sticks to the top. -->
+
+</TableLayout>

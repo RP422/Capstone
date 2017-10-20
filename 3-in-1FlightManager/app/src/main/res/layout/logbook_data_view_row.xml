@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/entryDate"
+        android:text="Entry Date"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/aircraftModel"
+        android:text="AircraftModel"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/entryDate"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/aircraftID"
+        android:text="Aircraft ID"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/aircraftModel"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/departureLoc"
+        android:text="Departure Loc"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/aircraftID"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/arrivalLoc"
+        android:text="Arrival Loc"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/departureLoc"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/numInstApr"
+        android:text="#IA"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/arrivalLoc"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/remarksAndEndorsments"
+        android:text="Remarks and Endorsements and Remarks and Endorsements"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/numInstApr"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/aircraftCategory"
+        android:text="Category"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/remarksAndEndorsments"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/categoryFlightTime"
+        android:text="Flight time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/aircraftCategory"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/aircraftClass"
+        android:text="Aircraft Class"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/categoryFlightTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/classFlightTime"
+        android:text="Flight time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/aircraftClass"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/nightTime"
+        android:text="Night time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/classFlightTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/actInstTime"
+        android:text="Act Inst Time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/nightTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/simInstTime"
+        android:text="Sim Inst Time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/actInstTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/flgtSimTime"
+        android:text="Flgt Sim Time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/simInstTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/crossCountryTime"
+        android:text="XCountry Time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/flgtSimTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/flgtInstructorTime"
+        android:text="As Flgt Instr"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/crossCountryTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/dualRecievedTime"
+        android:text="Dual Received"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/flgtInstructorTime"
+        android:layout_margin="15dp"/>
+    <TextView
+        android:id="@+id/picTime"
+        android:text="PIC time"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/dualRecievedTime"
+        android:layout_margin="15dp"/>
+
+
+</android.support.constraint.ConstraintLayout>

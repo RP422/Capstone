@@ -1,10 +1,13 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.preflightChecklist;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import com.capstone.mike.a3_in_1flightmanager.common.FileSelectActivity;
+import com.capstone.mike.a3_in_1flightmanager.R;
 
 public class ChecklistMainActivity extends AppCompatActivity {
     private static final int SELECT_CHECKLIST_FIlE = 6453;
@@ -26,7 +29,6 @@ public class ChecklistMainActivity extends AppCompatActivity {
     private void selectAndLaunchChecklist(View view)
     {
         // TODO Implement method
-        // Ask file picker for path
         Intent intent = new Intent(this, FileSelectActivity.class);
         intent.putExtra("PATH", "/checklists");
         startActivityForResult(intent, SELECT_CHECKLIST_FIlE);
@@ -51,9 +53,9 @@ public class ChecklistMainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK)
             {
                 // TODO Use returned path to feed ChecklistRunthroughActivity
-                // For now, I'm just using the testing path
                 Intent newIntent = new Intent(this, ChecklistRunthroughActivity.class);
 
+                // For now, I'm just using the testing path
                 newIntent.putExtra("TEST", true); // Either set this to false or comment out if not testing
                 startActivity(newIntent);
             }

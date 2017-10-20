@@ -1,4 +1,4 @@
-package com.capstone.mike.a3_in_1flightmanager;
+package com.capstone.mike.a3_in_1flightmanager.preflightChecklist;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.capstone.mike.a3_in_1flightmanager.R;
 
 /**
  * Created by Mike on 10/13/2017.
