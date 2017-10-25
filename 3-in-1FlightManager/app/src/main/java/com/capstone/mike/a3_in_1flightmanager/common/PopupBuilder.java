@@ -20,7 +20,7 @@ import java.io.OutputStreamWriter;
 public class PopupBuilder
 {
     // Do I want to keep the String saveFileInput variable a String or should it be some kind of JSON object?
-    public static void CreateSaveDialog(final Context context, String prompt, final String saveFileInput, final String path)
+    public static void createSaveDialog(final Context context, String prompt, final String saveFileInput, final String path)
     {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -53,6 +53,28 @@ public class PopupBuilder
                 }
             }
         });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public static void promptForString(final Context context, String prompt, DialogInterface.OnClickListener listener)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(prompt);
+
+        final EditText input = new EditText(context);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", listener);
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
         {
             @Override

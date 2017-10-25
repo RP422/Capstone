@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/icon_plus_big"/> <!-- TODO Replace that drawable with a better plus -->
+        app:srcCompat="@drawable/icon_plus_big"/> <!-- TODO Replace that drawable with a better looking plus -->
 
 
 </android.support.design.widget.CoordinatorLayout>

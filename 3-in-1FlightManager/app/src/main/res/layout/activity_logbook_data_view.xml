@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <!-- Gonna want a header row. Possibly one that sticks to the top. -->
+    <TableRow> <!-- TODO Look into how to make this stick to the top -->
+        <!-- TODO Fill in header row -->
+    </TableRow>
 
 </TableLayout>

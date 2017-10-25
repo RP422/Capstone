@@ -8,20 +8,6 @@ import java.sql.Date;
 
 public class LogbookEntry
 {
-    // TODO Figure out what columns the database need
-    public enum AircraftCategory
-    {
-        SINGLE_ENGINE_LAND,
-        MULTI_ENGINE_LAND
-    };
-    // Make an enum for class maybe?
-    public enum AircraftClass
-    {
-        TAIL_WHEEL,
-        GLIDER,
-        // Figure out more classes
-    }
-
     private int id;
     private Date date;
 
@@ -40,6 +26,7 @@ public class LogbookEntry
 
     private AircraftCategory aircraftCategory;
     private float flightTime;
+
 
     private String aircraftClass; // Change this to an enum later?
     private float classFlightTime;
