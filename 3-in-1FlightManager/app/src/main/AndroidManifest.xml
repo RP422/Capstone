@@ -39,9 +39,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".flightPlanner.PlannerMainActivity"
-            android:label="@string/title_activity_planner_main" />
         <activity android:name=".common.FileSelectActivity" />
         <activity
             android:name=".preflightChecklist.ChecklistMainActivity"
@@ -56,7 +53,12 @@
             android:label="@string/title_activity_create_checklist"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".logbook.LogbookDataViewActivity" />
-        <activity android:name=".logbook.LogbookQuerySelectionActivity"></activity>
+        <activity android:name=".logbook.LogbookQuerySelectionActivity" />
+        <activity android:name=".flightPlanner.FlightPlannerMainActivity" />
+        <activity
+            android:name=".flightPlanner.EditRouteActivity"
+            android:label="@string/title_activity_edit_route" />
+        <activity android:name=".flightPlanner.ReviewPlanActivity"></activity>
     </application>
 
 </manifest>

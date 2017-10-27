@@ -32,7 +32,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.logbook_data_view_row, parent, false);
 
-        // fill in the view for each box. If value is 0 or empty, just leave blank
+
 
         return convertView;
     }

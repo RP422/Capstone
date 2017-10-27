@@ -28,4 +28,6 @@ public class LogbookMainActivity extends AppCompatActivity {
         });
     }
 
+    // TODO Add a onActivityResponse method
+
 }

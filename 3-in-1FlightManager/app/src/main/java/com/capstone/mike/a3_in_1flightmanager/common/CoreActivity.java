@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
-import com.capstone.mike.a3_in_1flightmanager.flightPlanner.PlannerMainActivity;
 import com.capstone.mike.a3_in_1flightmanager.logbook.LogbookMainActivity;
 import com.capstone.mike.a3_in_1flightmanager.preflightChecklist.ChecklistMainActivity;
 

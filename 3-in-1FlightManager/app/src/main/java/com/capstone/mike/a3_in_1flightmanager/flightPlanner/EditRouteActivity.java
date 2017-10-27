@@ -3,7 +3,6 @@ package com.capstone.mike.a3_in_1flightmanager.flightPlanner;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
-import com.capstone.mike.a3_in_1flightmanager.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -11,14 +10,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class PlannerMainActivity extends FragmentActivity implements OnMapReadyCallback {
+public class EditRouteActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_planner_main);
+        setContentView(R.layout.activity_edit_route);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
