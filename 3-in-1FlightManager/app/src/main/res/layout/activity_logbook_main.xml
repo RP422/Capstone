@@ -28,7 +28,9 @@
         app:layout_constraintTop_toBottomOf="@id/logbookTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/showAllButton"/>
+        />
+
+    <!-- app:layout_constraintBottom_toTopOf="@id/showAllButton" -->
 
     <!-- Show all entries button
           Forwards to the Logbook data viewer using the standard SELECT * FROM [TABLE] query -->

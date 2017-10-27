@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
+import com.capstone.mike.a3_in_1flightmanager.flightPlanner.FlightPlannerMainActivity;
 import com.capstone.mike.a3_in_1flightmanager.logbook.LogbookMainActivity;
 import com.capstone.mike.a3_in_1flightmanager.preflightChecklist.ChecklistMainActivity;
 
@@ -25,7 +26,7 @@ public class CoreActivity extends AppCompatActivity {
     // Maybe image buttons???
     public void goToPlanner(View view)
     {
-        Intent intent = new Intent(this, PlannerMainActivity.class);
+        Intent intent = new Intent(this, FlightPlannerMainActivity.class);
         startActivity(intent);
     }
     public void goToChecklist(View view)
