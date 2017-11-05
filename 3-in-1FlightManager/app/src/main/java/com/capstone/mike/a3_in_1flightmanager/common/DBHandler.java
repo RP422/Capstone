@@ -1,4 +1,4 @@
-package com.capstone.mike.a3_in_1flightmanager.logbook;
+package com.capstone.mike.a3_in_1flightmanager.common;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.security.InvalidParameterException;
+import com.capstone.mike.a3_in_1flightmanager.logbook.AircraftCategory;
+import com.capstone.mike.a3_in_1flightmanager.logbook.AircraftClass;
+import com.capstone.mike.a3_in_1flightmanager.logbook.LogbookEntry;
+import com.capstone.mike.a3_in_1flightmanager.logbook.SpecialConditions;
+
+import org.json.JSONObject;
+
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,9 +28,9 @@ public class DBHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "logbookInfo";
-    private static final String TABLE_FLIGHT_LOG = "flightLog";
 
-    private static final String COLUMN_ID                   = "ID";
+    private static final String TABLE_FLIGHT_LOG = "flightLog";
+    private static final String COLUMN_LOG_ID = "ID";
     private static final String COLUMN_DATE                 = "FLIGHT_DATE";
     private static final String COLUMN_AIRCRAFT_MODEL       = "AIRCRAFT_MODEL";
     private static final String COLUMN_AIRCRAFT_IDENT       = "AIRCRAFT_IDENT";
@@ -46,6 +52,13 @@ public class DBHandler extends SQLiteOpenHelper
     private static final String COLUMN_AS_FLGT_INSTRUCT     = "AS_FLGT_INSTRUCT";
     private static final String COLUMN_DUAL_RECIVED         = "DUAL_RECIVED";
     private static final String COLUMN_PIC_TIME             = "PIC_TIME";
+
+    private static final String TABLE_JSON_STORE = "jsonStore";
+    private static final String COLUMN_REFERENCE_NAME = "REFERENCE_NAME";
+    private static final String COLUMN_SCHEMA = "SCHEMA";
+    private static final String COLUMN_JSON = "JSON";
+
+    // TODO Create another table that maps schemas to int
 
     private static DBHandler dbInstance;
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -70,9 +83,9 @@ public class DBHandler extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         // First creation of the Table
-        String createStatement = // Prepare yourself, this is gonna be beautiful
+        String createFlightLog = // Prepare yourself, this is gonna be beautiful
                 "CREATE TABLE "             +     TABLE_FLIGHT_LOG        + "(" +
-                COLUMN_ID                   +  " INTEGER PRIMARY KEY, "   +
+                COLUMN_LOG_ID               +  " INTEGER PRIMARY KEY, "   +
                 COLUMN_DATE                 +      " VARCHAR(10), "       + // YYYY-MM-DD
                 COLUMN_AIRCRAFT_MODEL       +      " VARCHAR(50), "       +
                 COLUMN_AIRCRAFT_IDENT       +      " VARCHAR(15), "       +
@@ -93,9 +106,16 @@ public class DBHandler extends SQLiteOpenHelper
                 COLUMN_XCOUNTRY_TIME        +         " FLOAT, "          +
                 COLUMN_AS_FLGT_INSTRUCT     +         " FLOAT, "          +
                 COLUMN_DUAL_RECIVED         +         " FLOAT, "          +
-                COLUMN_PIC_TIME             +          " FLOAT"           ;
+                COLUMN_PIC_TIME             +         " FLOAT)"           ;
 
-        db.execSQL(createStatement);
+        String createJSONStore =
+                "CREATE TABLE " + TABLE_JSON_STORE + "(" +
+                COLUMN_REFERENCE_NAME +     " VARCHAR(100) PRIMARY KEY, " +
+                COLUMN_SCHEMA         +           " VARCHAR(25), "        +
+                COLUMN_JSON           +         " VARCHAR(100000)) "       ; // This might be excessive, but I'm not taking the chance
+
+        db.execSQL(createFlightLog);
+        db.execSQL(createJSONStore);
     }
 
     @Override
@@ -103,16 +123,123 @@ public class DBHandler extends SQLiteOpenHelper
     {
         // Update table from older version
             // Unnecessary step on DB Ver 1, as this is the only version right now.
-        return;
+    }
+//    @Override
+//    public void onDowngrade(SQLiteDatabase database, int oldVersion, int newVersion)
+//    {
+//        // Downgrade table from newer version
+//            // Should only be necessary if I need to roll back changes made in an update.
+//    }
+
+    // // General methods
+    private Cursor submitQuery(String query)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery(query, null);
+    }
+    public void createNewEntry(ContentValues values, String table)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try
+        {
+            db.insertOrThrow(table, null, values);
+            db.setTransactionSuccessful();
+        }
+        catch(Exception e)
+        {
+            Log.d("Creating Entry", "There was an error inserting the database entry");
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+    }
+    public void updateEntry(ContentValues values, String table, String whereClause)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        try
+        {
+            int rows = db.update(table, values, whereClause, null);
+            Cursor cursor;
+
+            if(rows == 1)
+            {
+                switch(table)
+                {
+                    case TABLE_FLIGHT_LOG:
+                        cursor = submitQuery("SELECT * " +
+                                "FROM " + TABLE_FLIGHT_LOG + " " +
+                                "WHERE " + COLUMN_LOG_ID + " = " + values.getAsInteger(COLUMN_LOG_ID));
+                        break;
+                    case TABLE_JSON_STORE:
+                        cursor = submitQuery("SELECT * " +
+                                "FROM " + TABLE_JSON_STORE + " " +
+                                "WHERE " + COLUMN_REFERENCE_NAME + " = " + values.getAsString(COLUMN_REFERENCE_NAME));
+                        break;
+                    default:
+                        throw new UnsupportedOperationException();
+                }
+
+                try
+                {
+                    if(cursor.moveToFirst())
+                    {
+                        String id = cursor.getString(0);
+                        db.setTransactionSuccessful();
+                    }
+                }
+                finally
+                {
+                    if(cursor != null && !cursor.isClosed())
+                    {
+                        cursor.close();
+                    }
+                }
+            }
+
+            // TODO Think about including a "entry does not exist" failsafe?
+        }
+        catch(Exception e)
+        {
+            Log.d("Updating Entry", "There was an error updating the database");
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+    }
+    public void deleteEntry(String table, String whereClause)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try
+        {
+            db.delete(table, whereClause, null);
+            db.setTransactionSuccessful();
+        }
+        catch(Exception e)
+        {
+            Log.d("Delete Entry", "Error while trying to delete from the database");
+        }
+        finally
+        {
+            db.endTransaction();
+        }
     }
 
+    // // Logbook methods
+    // General
     private static ContentValues translateToContentValues(LogbookEntry entry, boolean includeID)
     {
         ContentValues values = new ContentValues();
 
         if(includeID)
         {
-            values.put(COLUMN_ID, entry.id);
+            values.put(COLUMN_LOG_ID, entry.id);
         }
 
         values.put(COLUMN_DATE,                 dateFormat.format(entry.date));
@@ -139,12 +266,6 @@ public class DBHandler extends SQLiteOpenHelper
 
         return values;
     }
-
-    private Cursor submitQuery(String query)
-    {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery(query, null);
-    }
     private ArrayList<LogbookEntry> getEntries(String query)
     {
         ArrayList<LogbookEntry> entries = new ArrayList<LogbookEntry>();
@@ -159,7 +280,7 @@ public class DBHandler extends SQLiteOpenHelper
                     LogbookEntry entry = new LogbookEntry();
 
                     // Again, start with the simple ones
-                    entry.id =                      cursor.getInt   (cursor.getColumnIndex(COLUMN_ID));
+                    entry.id =                      cursor.getInt   (cursor.getColumnIndex(COLUMN_LOG_ID));
                     entry.aircraftModel =           cursor.getString(cursor.getColumnIndex(COLUMN_AIRCRAFT_MODEL));
                     entry.aircraftID =              cursor.getString(cursor.getColumnIndex(COLUMN_AIRCRAFT_IDENT));
                     entry.flightDeparture =         cursor.getString(cursor.getColumnIndex(COLUMN_DEPARTURE_LOC));
@@ -229,7 +350,17 @@ public class DBHandler extends SQLiteOpenHelper
 
         return entries;
     }
-    private float getAggretateFloat(String query)
+
+    // Create
+    public void createLogbookEntry(LogbookEntry entry)
+    {
+        ContentValues values = translateToContentValues(entry, false);
+
+        createNewEntry(values, TABLE_FLIGHT_LOG);
+    }
+
+    // Read
+    private float getAggregateFloat(String query)
     {
         Cursor cursor = submitQuery(query);
 
@@ -242,7 +373,7 @@ public class DBHandler extends SQLiteOpenHelper
             return 0;
         }
     }
-    private int getAggretateInt(String query)
+    private int getAggregateInt(String query)
     {
         Cursor cursor = submitQuery(query);
 
@@ -301,7 +432,7 @@ public class DBHandler extends SQLiteOpenHelper
             query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
 
     public float getTotalHoursFlown(AircraftCategory category)
@@ -310,7 +441,7 @@ public class DBHandler extends SQLiteOpenHelper
                        "FROM " + TABLE_FLIGHT_LOG + " " +
                        "WHERE " + COLUMN_AIRCRAFT_CATEGORY + " = " + category;
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
     public float getHoursFlown(int numDays, AircraftCategory category)
     {
@@ -327,7 +458,7 @@ public class DBHandler extends SQLiteOpenHelper
             query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
 
     public float getTotalHoursFlown(AircraftClass aircraftClass)
@@ -336,7 +467,7 @@ public class DBHandler extends SQLiteOpenHelper
                        "FROM " + TABLE_FLIGHT_LOG + " " +
                        "WHERE " + COLUMN_AIRCRAFT_CATEGORY + " = " + aircraftClass;
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
     public float getHoursFlown(int numDays, AircraftClass aircraftClass)
     {
@@ -353,7 +484,7 @@ public class DBHandler extends SQLiteOpenHelper
             query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
 
     public float getTotalHoursFlown(SpecialConditions conditions)
@@ -393,7 +524,7 @@ public class DBHandler extends SQLiteOpenHelper
         String query = "SELECT SUM(" + requestedColumn + ") " +
                        "FROM " + TABLE_FLIGHT_LOG + " ";
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
     public float getHoursFlown(int numDays, SpecialConditions conditions)
     {
@@ -441,7 +572,7 @@ public class DBHandler extends SQLiteOpenHelper
             query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
 
     public float getTotalHoursFlown(String id)
@@ -450,7 +581,7 @@ public class DBHandler extends SQLiteOpenHelper
                        "FROM " + TABLE_FLIGHT_LOG + " " +
                        "WHERE " + COLUMN_AIRCRAFT_IDENT + " = " + id;
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
     public float getHoursFlown(int numDays, String id)
     {
@@ -467,11 +598,10 @@ public class DBHandler extends SQLiteOpenHelper
             query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateFloat(query);
+        return getAggregateFloat(query);
     }
-    // getHoursFlown like the above methods, but with a date range instead of the last X number of days
+    // TODO getHoursFlown like the above methods, but with a date range instead of the last X number of days?
 
-    // Retrieve an entry or entries via date
     public LogbookEntry[] getEntries(Date date)
     {
         String query = "SELECT * " +
@@ -480,7 +610,7 @@ public class DBHandler extends SQLiteOpenHelper
 
         return (LogbookEntry[])getEntries(query).toArray();
     }
-    // Retrieve flights via departure or arrival locations
+
     public LogbookEntry[] getFlightsTo(String airportID)
     {
         String query = "SELECT * " +
@@ -498,15 +628,14 @@ public class DBHandler extends SQLiteOpenHelper
         return (LogbookEntry[])getEntries(query).toArray();
     }
 
-    // getNumDayLandings / getNumNightLandings methods
     public int getNumDayLandings()
     {
         String query = "SELECT SUM(" + COLUMN_NR_DAY_LDG + ") " +
                        "FROM " + TABLE_FLIGHT_LOG;
 
-        return getAggretateInt(query);
+        return getAggregateInt(query);
     }
-    public int getNumDayLanding(int numDays)
+    public int getNumDayLandings(int numDays)
     {
         String query = "SELECT SUM(" + COLUMN_NR_DAY_LDG + ") " +
                        "FROM " + TABLE_FLIGHT_LOG + " ";
@@ -520,16 +649,16 @@ public class DBHandler extends SQLiteOpenHelper
             query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateInt(query);
+        return getAggregateInt(query);
     }
     public int getNumNightLandings()
     {
         String query = "SELECT SUM(" + COLUMN_NR_NGT_LDG + ") " +
                 "FROM " + TABLE_FLIGHT_LOG;
 
-        return getAggretateInt(query);
+        return getAggregateInt(query);
     }
-    public int getNumNightLanding(int numDays)
+    public int getNumNightLandings(int numDays)
     {
         String query = "SELECT SUM(" + COLUMN_NR_NGT_LDG + ") " +
                 "FROM " + TABLE_FLIGHT_LOG + " ";
@@ -543,16 +672,16 @@ public class DBHandler extends SQLiteOpenHelper
             query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateInt(query);
+        return getAggregateInt(query);
     }
     public int getTotalLandings()
     {
         String query = "SELECT SUM(" + COLUMN_NR_NGT_LDG + ") " +
                 "FROM " + TABLE_FLIGHT_LOG;
 
-        return getAggretateInt(query);
+        return getAggregateInt(query);
     }
-    public int getTotalLanding(int numDays)
+    public int getTotalLandings(int numDays)
     {
         String query = "SELECT SUM(" + COLUMN_NR_DAY_LDG + " + " + COLUMN_NR_NGT_LDG + ") " +
                 "FROM " + TABLE_FLIGHT_LOG + " ";
@@ -566,9 +695,9 @@ public class DBHandler extends SQLiteOpenHelper
             query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
         }
 
-        return getAggretateInt(query);
+        return getAggregateInt(query);
     }
-    // Retrieve flights based on if hours were logged under the special conditions
+
     public LogbookEntry[] getSpecialConditionFlights(SpecialConditions conditions)
     {
         String requestedColumn;
@@ -604,9 +733,131 @@ public class DBHandler extends SQLiteOpenHelper
         }
 
         String query = "SELECT * " +
-                       "FROM " + TABLE_FLIGHT_LOG + " " +
-                       "WHERE " + requestedColumn + " > 0";
+                "FROM " + TABLE_FLIGHT_LOG + " " +
+                "WHERE " + requestedColumn + " > 0";
 
         return (LogbookEntry[])getEntries(query).toArray();
+    }
+    // TODO getSpecialConditionsFlights with a dateRange
+    // TODO getSpecialConditionsHours, both variants
+
+    // Update
+    public void updateLogbook(LogbookEntry entry)
+    {
+        ContentValues values = translateToContentValues(entry, true);
+
+        updateEntry(values, TABLE_FLIGHT_LOG, COLUMN_LOG_ID + " = " + entry.id);
+    }
+
+    // Delete
+    public void removeLogbookEntry(int id)
+    {
+        deleteEntry(TABLE_FLIGHT_LOG, COLUMN_LOG_ID + " = " + id);
+    }
+    public void removeAllLogbookEntries()
+    {
+        deleteEntry(TABLE_FLIGHT_LOG, null);
+    }
+
+    // // JSON Store methods
+    // General
+    public ContentValues translateToContentValues(String referenceName, JSONSchema schema, JSONObject json)
+    {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_REFERENCE_NAME, referenceName);
+        values.put(COLUMN_SCHEMA, schema.toString());
+        values.put(COLUMN_JSON, json.toString());
+
+        return values;
+    }
+
+    // Create
+    public void insertJSON(String referenceName, JSONSchema schema, JSONObject json)
+    {
+        ContentValues values = translateToContentValues(referenceName, schema, json);
+
+        createNewEntry(values, TABLE_JSON_STORE);
+    }
+
+    // Read
+    public String[] getFilesOfSchema(JSONSchema schema)
+    {
+        // TODO When I get that schema mapping table up, do the translation here
+        String query = "SELECT " + COLUMN_REFERENCE_NAME + " " +
+                "FROM " + TABLE_JSON_STORE + " " +
+                "WHERE " + COLUMN_SCHEMA + " = " + schema;
+
+        ArrayList<String> referenceNames = new ArrayList<String>();
+        Cursor cursor = submitQuery(query);
+
+        try
+        {
+            if(cursor.moveToFirst())
+            {
+                do
+                {
+                    referenceNames.add(cursor.getString(cursor.getColumnIndex(COLUMN_REFERENCE_NAME)));
+                }
+                while(cursor.moveToNext());
+            }
+        }
+        catch(Exception e)
+        {
+            Log.d("Query", "There was a problem retrieving JSON files from the database");
+        }
+        finally
+        {
+            if(cursor != null && !cursor.isClosed())
+            {
+                cursor.close();
+            }
+        }
+
+        return (String[])referenceNames.toArray();
+    }
+    public JSONObject getJSONfromReferenceName(String referenceName)
+    {
+        String query = "SELECT " + COLUMN_JSON + " " +
+                       "FROM " + TABLE_JSON_STORE + " " +
+                       "WHERE " + COLUMN_REFERENCE_NAME + " = " + referenceName;
+
+        Cursor cursor = submitQuery(query);
+
+        JSONObject json = null;
+
+        try
+        {
+            if(cursor.moveToFirst())
+            {
+                json = new JSONObject(cursor.getString(cursor.getColumnIndex(COLUMN_JSON)));
+            }
+        }
+        catch(Exception e)
+        {
+            Log.d("Query", "There was a problem retrieving the requested JSON file");
+        }
+        finally
+        {
+            if(cursor != null && !cursor.isClosed())
+            {
+                cursor.close();
+            }
+        }
+
+        return json;
+    }
+
+    // Update
+    public void updateJSON(String referenceName, JSONSchema schema, JSONObject json)
+    {
+        ContentValues values = translateToContentValues(referenceName, schema, json);
+
+        updateEntry(values, TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = " + values.getAsString(COLUMN_REFERENCE_NAME));
+    }
+
+    // Delete
+    public void deleteJSON(String referenceName)
+    {
+        deleteEntry(TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = " + referenceName);
     }
 }

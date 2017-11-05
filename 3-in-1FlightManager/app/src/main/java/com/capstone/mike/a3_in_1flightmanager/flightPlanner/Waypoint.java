@@ -1,5 +1,6 @@
 package com.capstone.mike.a3_in_1flightmanager.flightPlanner;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 /**
@@ -8,13 +9,13 @@ import com.google.android.gms.maps.model.Marker;
 
 public class Waypoint
 {
-    public final Marker marker;
+    public final LatLng pos;
     public final int altitude;
     // TODO Do I need more data than this?
 
-    public Waypoint(Marker marker, int altitude)
+    public Waypoint(LatLng pos, int altitude)
     {
-        this.marker = marker;
+        this.pos = pos;
         this.altitude = altitude;
     }
 }
