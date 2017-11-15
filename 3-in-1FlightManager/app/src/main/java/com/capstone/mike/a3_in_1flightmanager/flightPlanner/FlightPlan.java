@@ -38,8 +38,8 @@ public class FlightPlan
     {
         this.map = map;
 
-        // TODO Deserialize the flightPlan
-        try {
+        try
+        {
             JSONArray waypoints = flightPlan.getJSONArray("waypoints");
 
             for(int x = 0; x < waypoints.length(); x++)
@@ -65,7 +65,10 @@ public class FlightPlan
                     end = node;
                 }
             }
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
+            // TODO Create a better catch clause
             e.printStackTrace();
         }
     }
@@ -75,6 +78,8 @@ public class FlightPlan
         return nodeCount;
     }
 
+    // Slightly non-indicitive name here. It adds the new node just before the
+    //     last node
     public void addToEnd(Waypoint waypoint)
     {
         FlightPlanNode newNode = new FlightPlanNode(waypoint);

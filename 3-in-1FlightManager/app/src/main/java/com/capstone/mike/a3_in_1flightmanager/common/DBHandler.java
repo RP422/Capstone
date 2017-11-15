@@ -55,10 +55,14 @@ public class DBHandler extends SQLiteOpenHelper
 
     private static final String TABLE_JSON_STORE = "jsonStore";
     private static final String COLUMN_REFERENCE_NAME = "REFERENCE_NAME";
-    private static final String COLUMN_SCHEMA = "SCHEMA";
+    private static final String COLUMN_JSON_SCHEMA = "SCHEMA";
     private static final String COLUMN_JSON = "JSON";
 
-    // TODO Create another table that maps schemas to int
+    private static final String TABLE_SCHEMA_MAP = "schemas";
+    private static final String COLUMN_SCHEMA_ID = "ID";
+    private static final String COLUMN_SCHEMA_NAME = "SCHEMA_NAME";
+
+    private static final JSONSchema[] schemas = new JSONSchema[] {JSONSchema.CHECKLIST, JSONSchema.FLIGHT_PLAN};
 
     private static DBHandler dbInstance;
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -84,38 +88,54 @@ public class DBHandler extends SQLiteOpenHelper
     {
         // First creation of the Table
         String createFlightLog = // Prepare yourself, this is gonna be beautiful
-                "CREATE TABLE "             +     TABLE_FLIGHT_LOG        + "(" +
-                COLUMN_LOG_ID               +  " INTEGER PRIMARY KEY, "   +
-                COLUMN_DATE                 +      " VARCHAR(10), "       + // YYYY-MM-DD
-                COLUMN_AIRCRAFT_MODEL       +      " VARCHAR(50), "       +
-                COLUMN_AIRCRAFT_IDENT       +      " VARCHAR(15), "       +
-                COLUMN_DEPARTURE_LOC        +      " VARCHAR(15), "       +
-                COLUMN_ARRIVAL_LOC          +      " VARCHAR(15), "       +
-                COLUMN_NR_INST_APP          +          " INT, "           +
-                COLUMN_RMKS_AND_ENDSMTS     +     " VARCHAR(1000), "      +
-                COLUMN_NR_DAY_LDG           +          " INT, "           +
-                COLUMN_NR_NGT_LDG           +          " INT, "           +
-                COLUMN_AIRCRAFT_CATEGORY    +      " VARCHAR(50), "       +
-                COLUMN_CATEGORY_FLIGHT_TIME +         " FLOAT, "          +
-                COLUMN_AIRCRAFT_CLASS       +      " VARCHAR(50), "       +
-                COLUMN_CLASS_FLIGHT_TIME    +         " FLOAT, "          +
-                COLUMN_NGT_TIME             +         " FLOAT, "          +
-                COLUMN_ACTL_INST_TIME       +         " FLOAT, "          +
-                COLUMN_SIM_INST_TIME        +         " FLOAT, "          +
-                COLUMN_FLGT_SIM_TIME        +         " FLOAT, "          +
-                COLUMN_XCOUNTRY_TIME        +         " FLOAT, "          +
-                COLUMN_AS_FLGT_INSTRUCT     +         " FLOAT, "          +
-                COLUMN_DUAL_RECIVED         +         " FLOAT, "          +
-                COLUMN_PIC_TIME             +         " FLOAT)"           ;
+                "CREATE TABLE "             +          TABLE_FLIGHT_LOG           + "(" +
+                COLUMN_LOG_ID               +  " INT PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_DATE                 +          " VARCHAR(10), "           + // YYYY-MM-DD
+                COLUMN_AIRCRAFT_MODEL       +          " VARCHAR(50), "           +
+                COLUMN_AIRCRAFT_IDENT       +          " VARCHAR(15), "           +
+                COLUMN_DEPARTURE_LOC        +          " VARCHAR(15), "           +
+                COLUMN_ARRIVAL_LOC          +          " VARCHAR(15), "           +
+                COLUMN_NR_INST_APP          +              " INT, "               +
+                COLUMN_RMKS_AND_ENDSMTS     +         " VARCHAR(1000), "          +
+                COLUMN_NR_DAY_LDG           +              " INT, "               +
+                COLUMN_NR_NGT_LDG           +              " INT, "               +
+                COLUMN_AIRCRAFT_CATEGORY    +          " VARCHAR(50), "           +
+                COLUMN_CATEGORY_FLIGHT_TIME +             " FLOAT, "              +
+                COLUMN_AIRCRAFT_CLASS       +          " VARCHAR(50), "           +
+                COLUMN_CLASS_FLIGHT_TIME    +             " FLOAT, "              +
+                COLUMN_NGT_TIME             +             " FLOAT, "              +
+                COLUMN_ACTL_INST_TIME       +             " FLOAT, "              +
+                COLUMN_SIM_INST_TIME        +             " FLOAT, "              +
+                COLUMN_FLGT_SIM_TIME        +             " FLOAT, "              +
+                COLUMN_XCOUNTRY_TIME        +             " FLOAT, "              +
+                COLUMN_AS_FLGT_INSTRUCT     +             " FLOAT, "              +
+                COLUMN_DUAL_RECIVED         +             " FLOAT, "              +
+                COLUMN_PIC_TIME             +             " FLOAT) "              ;
 
         String createJSONStore =
-                "CREATE TABLE " + TABLE_JSON_STORE + "(" +
-                COLUMN_REFERENCE_NAME +     " VARCHAR(100) PRIMARY KEY, " +
-                COLUMN_SCHEMA         +           " VARCHAR(25), "        +
-                COLUMN_JSON           +         " VARCHAR(100000)) "       ; // This might be excessive, but I'm not taking the chance
+                "CREATE TABLE "       +       TABLE_JSON_STORE        + "(" +
+                COLUMN_REFERENCE_NAME + " VARCHAR(100) PRIMARY KEY, " +
+                COLUMN_JSON_SCHEMA    +           " INT, "            +
+                COLUMN_JSON           +     " VARCHAR(100000), "      + // This might be excessive, but I'm not taking the chance
+                "FOREIGN KEY(" + COLUMN_JSON_SCHEMA + ") REFERENCES " + TABLE_SCHEMA_MAP + ")" + COLUMN_SCHEMA_ID + "))";
+
+        String createShcemaMap =
+                "CREATE TABLE "    +   TABLE_SCHEMA_MAP   + "(" +
+                COLUMN_SCHEMA_ID   + " INT PRIMARY KEY, " +
+                COLUMN_SCHEMA_NAME +   " VARCHAR(50)) "   ;
 
         db.execSQL(createFlightLog);
         db.execSQL(createJSONStore);
+        db.execSQL(createShcemaMap);
+
+        ContentValues values;
+        for(int x = 0; x < schemas.length; x++)
+        {
+            values = new ContentValues();
+            values.put(COLUMN_SCHEMA_ID, x);
+            values.put(COLUMN_SCHEMA_NAME, schemas[x].toString());
+            createNewEntry(values, TABLE_SCHEMA_MAP);
+        }
     }
 
     @Override
@@ -601,6 +621,7 @@ public class DBHandler extends SQLiteOpenHelper
         return getAggregateFloat(query);
     }
     // TODO getHoursFlown like the above methods, but with a date range instead of the last X number of days?
+    // Do I really need that method?
 
     public LogbookEntry[] getEntries(Date date)
     {
@@ -738,7 +759,7 @@ public class DBHandler extends SQLiteOpenHelper
 
         return (LogbookEntry[])getEntries(query).toArray();
     }
-    // TODO getSpecialConditionsFlights with a dateRange
+    // TODO getSpecialConditionsFlights with numDays
     // TODO getSpecialConditionsHours, both variants
 
     // Update
@@ -765,18 +786,56 @@ public class DBHandler extends SQLiteOpenHelper
     {
         ContentValues values = new ContentValues();
         values.put(COLUMN_REFERENCE_NAME, referenceName);
-        values.put(COLUMN_SCHEMA, schema.toString());
+        values.put(COLUMN_JSON_SCHEMA, translateShcemaToID(schema));
         values.put(COLUMN_JSON, json.toString());
 
         return values;
     }
+    private int translateShcemaToID(JSONSchema schema)
+    {
+        for(int x = 0; x < schemas.length; x++)
+        {
+            if(schemas[x] == schema)
+            {
+                return x;
+            }
+        }
+
+        throw new IllegalArgumentException("That schema is not in the database");
+    }
+    private JSONSchema translateIDtoSchema(int schemaID)
+    {
+        try
+        {
+            return schemas[schemaID];
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            throw new IllegalArgumentException("That ID is not associated with a schema");
+        }
+    }
 
     // Create
-    public void insertJSON(String referenceName, JSONSchema schema, JSONObject json)
+    // @Returns: true if referenceName does not exist in the database.
+    public Boolean insertJSON(String referenceName, JSONSchema schema, JSONObject json)
     {
-        ContentValues values = translateToContentValues(referenceName, schema, json);
+        String query = "SELECT * " +
+                "FROM " + TABLE_JSON_STORE + " " +
+                "WHERE " + COLUMN_REFERENCE_NAME + " = " + referenceName;
 
-        createNewEntry(values, TABLE_JSON_STORE);
+        Cursor cursor = submitQuery(query);
+
+        if((cursor != null) && (cursor.getCount() > 0))
+        {
+            return false;
+        }
+        else
+        {
+            ContentValues values = translateToContentValues(referenceName, schema, json);
+
+            createNewEntry(values, TABLE_JSON_STORE);
+            return true;
+        }
     }
 
     // Read
@@ -784,8 +843,8 @@ public class DBHandler extends SQLiteOpenHelper
     {
         // TODO When I get that schema mapping table up, do the translation here
         String query = "SELECT " + COLUMN_REFERENCE_NAME + " " +
-                "FROM " + TABLE_JSON_STORE + " " +
-                "WHERE " + COLUMN_SCHEMA + " = " + schema;
+                       "FROM " + TABLE_JSON_STORE + " " +
+                       "WHERE " + COLUMN_JSON_SCHEMA + " = " + translateShcemaToID(schema);
 
         ArrayList<String> referenceNames = new ArrayList<String>();
         Cursor cursor = submitQuery(query);

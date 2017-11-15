@@ -3,16 +3,23 @@ package com.capstone.mike.a3_in_1flightmanager.preflightChecklist;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
+import com.capstone.mike.a3_in_1flightmanager.common.JSONSchema;
 import com.capstone.mike.a3_in_1flightmanager.common.PopupBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -29,7 +36,7 @@ public class CreateChecklistActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         final Context context = this;
 
-        setContentView(R.layout.activity_create_checklist);
+        setContentView(R.layout.activity_checklist_create);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,10 +46,10 @@ public class CreateChecklistActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                // TODO AddRow
                 PopupBuilder.promptForString(context, "What would you like this checklist item to be?", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // TODO AddRow
                         // Add text to items ArrayList
                         // Refresh adapter?
                     }
@@ -66,26 +73,80 @@ public class CreateChecklistActivity extends AppCompatActivity
 
     public void editText(View view)
     {
-        // TODO Edit the text inside the view
+        // TODO Retrieve the old text from the View
+        ConstraintLayout parent = (ConstraintLayout)view.getParent();
+        TextView textView = (TextView)parent.findViewById(R.id.newRowTextView);
+        final CharSequence oldText = textView.getText();
 
-        PopupBuilder.promptForString(this, "What would you like this checklist item to be?", new DialogInterface.OnClickListener() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("What would you like this checklist item to be?");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Replace it with the proper element in the list
-                // Refresh the adapter?
+                int index = -1;
+                for(int x = 0; x < items.size(); x++)
+                {
+                    if(items.get(0).equals(oldText))
+                    {
+                        index = x;
+                        break;
+                    }
+                }
+
+                items.set(index, input.getText().toString());
+                refreshAdapter();
             }
         });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
     public void deleteRow(View view)
     {
-        // TODO Remove the row from the list
+        ConstraintLayout parent = (ConstraintLayout)view.getParent();
+        TextView textView = (TextView)parent.findViewById(R.id.newRowTextView);
+        final CharSequence textToRemove = textView.getText();
 
-        // Delete the item form the list
-        // Refresh the adapter?
+        items.remove(textToRemove);
+        refreshAdapter();
+    }
+
+    public void refreshAdapter()
+    {
+        // TODO Refresh the items on screen, if not automatically done
     }
 
     public void saveList(View view)
     {
-        // TODO Ask for a file name and save the list
+        JSONObject json = new JSONObject();
+        JSONArray jsonItems = new JSONArray();
+
+        for(String item : items)
+        {
+            jsonItems.put(item);
+        }
+
+        try
+        {
+            json.put("CHECKLIST", jsonItems);
+            PopupBuilder.createSaveDialog(this, "What do you want to name the checklist?", JSONSchema.CHECKLIST, json);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+            // TODO Give some kind of error notice maybe?
+        }
     }
 }

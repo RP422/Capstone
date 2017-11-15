@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.capstone.mike.a3_in_1flightmanager.preflightChecklist.CreateChecklistActivity"
-    tools:showIn="@layout/activity_create_checklist">
+    tools:showIn="@layout/activity_checklist_create">
 
     <ListView
         android:id="@+id/newChecklistItems"

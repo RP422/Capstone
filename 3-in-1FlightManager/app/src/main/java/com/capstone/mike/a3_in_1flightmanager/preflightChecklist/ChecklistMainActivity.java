@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
-import com.capstone.mike.a3_in_1flightmanager.common.FileSelectActivity;
 import com.capstone.mike.a3_in_1flightmanager.R;
+import com.capstone.mike.a3_in_1flightmanager.common.PopupBuilder;
 
 public class ChecklistMainActivity extends AppCompatActivity {
-    private static final int SELECT_CHECKLIST_FIlE = 6453;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,47 +16,14 @@ public class ChecklistMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checklist_main);
     }
 
-    private void testFilePicker(View view)
+    public void selectAndLaunchChecklist(View view)
     {
-        String path = "/checklists";
-
-        Intent intent = new Intent(this, FileSelectActivity.class);
-        intent.putExtra("path", path);
-        startActivityForResult(intent, FileSelectActivity.FILE_SELECT_TEST);
-    }
-    private void selectAndLaunchChecklist(View view)
-    {
-        // TODO Implement method
-        Intent intent = new Intent(this, FileSelectActivity.class);
-        intent.putExtra("PATH", "/checklists");
-        startActivityForResult(intent, SELECT_CHECKLIST_FIlE);
+        PopupBuilder.selectChecklist(this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    public void createNewChecklist(View view)
     {
-        if(requestCode == FileSelectActivity.FILE_SELECT_TEST)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                String filePath = data.getStringExtra("FILEPATH");
-
-                // TODO Replace the button text with something to prove you got something back
-                Button button = (Button)findViewById(R.id.fileSelectAppTest);
-                button.setText(filePath);
-            }
-        }
-        else if(requestCode == SELECT_CHECKLIST_FIlE)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                // TODO Use returned path to feed ChecklistRunthroughActivity
-                Intent newIntent = new Intent(this, ChecklistRunthroughActivity.class);
-
-                // For now, I'm just using the testing path
-                newIntent.putExtra("TEST", true); // Either set this to false or comment out if not testing
-                startActivity(newIntent);
-            }
-        }
+        Intent intent = new Intent(this, CreateChecklistActivity.class);
+        startActivity(intent);
     }
 }

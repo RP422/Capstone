@@ -6,8 +6,7 @@ import android.os.Bundle;
 import com.capstone.mike.a3_in_1flightmanager.R;
 
 public class LogbookQuerySelectionActivity extends AppCompatActivity {
-    public String[] presetQueries = new String[] {
-            "Get all entries within 30 days",
+    public static final String[] presetQueries = new String[] {
             "Get total hours flown",
             "Get total hours flown within 30 days",
             "Get total landings within 30 days",
@@ -15,6 +14,9 @@ public class LogbookQuerySelectionActivity extends AppCompatActivity {
             "Get total night flying time"
             // TODO fill the rest of this in later
     };
+
+    public static final int QUERY_ALL = 0;
+    // TODO Create keys for the rest of the queries
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

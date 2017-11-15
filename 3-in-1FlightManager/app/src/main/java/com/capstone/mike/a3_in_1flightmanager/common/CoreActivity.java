@@ -1,5 +1,8 @@
 package com.capstone.mike.a3_in_1flightmanager.common;
 
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,15 +14,30 @@ import com.capstone.mike.a3_in_1flightmanager.logbook.LogbookMainActivity;
 import com.capstone.mike.a3_in_1flightmanager.preflightChecklist.ChecklistMainActivity;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class CoreActivity extends AppCompatActivity {
+
+    public NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
 
+        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
+        ArrayList<NotificationChannel> channels = new ArrayList<NotificationChannel>();
+
+        String channelID = "3_in_1_flightmanager_reminders";
+        CharSequence channelName = "Reminders";
+        channels.add(new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT));
+
+        channelID = "3_in_1_flightmanager_weather_alert";
+        channelName = "Weather Alerts";
+        channels.add(new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT));
+
+        notificationManager.createNotificationChannels(channels);
     }
 
     // I really want to replace these lame buttons with something bigger and nicer.

@@ -9,46 +9,36 @@
         android:id="@+id/titleTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:text="Pre-Flight\nChecklist"
+        android:text="@string/preflight_checklist_title"
         android:textAlignment="center"
         android:textColor="?attr/actionMenuTextColor"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/checklistRunthroughBtn"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/fileSelectAppTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test File Picker"
-        android:onClick="testFilePicker"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextBox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/checklistRunthroughBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select a Checklist"
+        android:text="@string/preflight_checklist_select_a_checklist"
         android:onClick="selectAndLaunchChecklist"
-        app:layout_constraintTop_toBottomOf="@+id/fileSelectAppTest"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextBox"
+        app:layout_constraintBottom_toTopOf="@+id/newChecklistBtn"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
+        android:id="@id/newChecklistBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a new checklist"
+        android:text="@string/preflight_checklist_create_a_new_checklist"
         android:onClick="createNewChecklist"
         app:layout_constraintTop_toBottomOf="@+id/checklistRunthroughBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

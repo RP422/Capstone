@@ -6,4 +6,51 @@
     android:layout_height="match_parent"
     tools:context="com.capstone.mike.a3_in_1flightmanager.flightPlanner.FlightPlannerMainActivity">
 
+    <TextView
+        android:id="@+id/flightPlannerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flight_planner_title"
+        android:textAlignment="center"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/newFlightPlanBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/newFlightPlanBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flight_plan_new_plan"
+        android:onClick="newPlan"
+        app:layout_constraintTop_toBottomOf="@id/flightPlannerTitle"
+        app:layout_constraintBottom_toTopOf="@id/editFlightPlanBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/editFlightPlanBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flight_plan_edit_plan"
+        android:onClick="editPlan"
+        app:layout_constraintTop_toBottomOf="@id/newFlightPlanBtn"
+        app:layout_constraintBottom_toTopOf="@id/reviewFlightPlanBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/reviewFlightPlanBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flight_plan_review_plan"
+        android:onClick="reviewPlan"
+        app:layout_constraintTop_toBottomOf="@id/editFlightPlanBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>

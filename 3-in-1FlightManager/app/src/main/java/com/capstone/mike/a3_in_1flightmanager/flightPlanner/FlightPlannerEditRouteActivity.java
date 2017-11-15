@@ -16,18 +16,46 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
-public class EditRouteActivity extends FragmentActivity implements OnMapReadyCallback {
+public class FlightPlannerEditRouteActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ArrayList<LatLng> points;
 
+    private int locIndex = -1; // For use during OnMarkerDragStart and OnMarkerDragEnd
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_route);
+        setContentView(R.layout.activity_flight_planner_edit_route);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker)
+            {
+                for(int x = 0; x < points.size(); x++)
+                {
+                    if(marker.getPosition().equals(points.get(x)))
+                    { // This block should always be entered before the loop completes
+                        locIndex = x;
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) { }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker)
+            {
+                points.remove(locIndex);
+                points.add(locIndex, marker.getPosition());
+                drawRoute();
+            }
+        });
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
             @Override
