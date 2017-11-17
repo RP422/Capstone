@@ -54,10 +54,6 @@
         <activity android:name=".logbook.LogbookDataViewActivity" />
         <activity android:name=".logbook.LogbookQuerySelectionActivity" />
         <activity android:name=".flightPlanner.FlightPlannerMainActivity" />
-        <activity
-            android:name=".flightPlanner.FlightPlannerEditRouteActivity"
-            android:label="@string/title_activity_edit_route" />
-        <activity android:name=".flightPlanner.FlightPlannerReviewPlanActivity" />
         <activity android:name=".logbook.LogbookNewEntryActivity"></activity>
     </application>
 

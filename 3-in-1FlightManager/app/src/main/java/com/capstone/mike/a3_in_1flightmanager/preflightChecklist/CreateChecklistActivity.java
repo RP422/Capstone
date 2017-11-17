@@ -1,12 +1,12 @@
 package com.capstone.mike.a3_in_1flightmanager.preflightChecklist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -31,29 +31,46 @@ public class CreateChecklistActivity extends AppCompatActivity
 
     private static boolean TESTING = true;
 
+    private ListView list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Context context = this;
 
         setContentView(R.layout.activity_checklist_create);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.newRowFAB);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                PopupBuilder.promptForString(context, "What would you like this checklist item to be?", new DialogInterface.OnClickListener() {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("What would you like this checklist item to be?");
+
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO AddRow
-                        // Add text to items ArrayList
-                        // Refresh adapter?
+                        items.add(input.getText().toString());
+                        refreshAdapter();
                     }
                 });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             };
         });
 
@@ -65,15 +82,13 @@ public class CreateChecklistActivity extends AppCompatActivity
             }
         }
 
-        ListView list = (ListView)findViewById(R.id.newChecklistItems);
+        list = (ListView)findViewById(R.id.newChecklistItems);
 
-        adapter = new CreateChecklistAdapter(this, items);
-        list.setAdapter(adapter);
+        list.setAdapter(new CreateChecklistAdapter(this, items));
     }
 
     public void editText(View view)
     {
-        // TODO Retrieve the old text from the View
         ConstraintLayout parent = (ConstraintLayout)view.getParent();
         TextView textView = (TextView)parent.findViewById(R.id.newRowTextView);
         final CharSequence oldText = textView.getText();
@@ -82,6 +97,7 @@ public class CreateChecklistActivity extends AppCompatActivity
         builder.setTitle("What would you like this checklist item to be?");
 
         final EditText input = new EditText(this);
+        input.setText(oldText);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
@@ -91,7 +107,7 @@ public class CreateChecklistActivity extends AppCompatActivity
                 int index = -1;
                 for(int x = 0; x < items.size(); x++)
                 {
-                    if(items.get(0).equals(oldText))
+                    if(items.get(x).equals(oldText))
                     {
                         index = x;
                         break;
@@ -125,7 +141,7 @@ public class CreateChecklistActivity extends AppCompatActivity
 
     public void refreshAdapter()
     {
-        // TODO Refresh the items on screen, if not automatically done
+        list.setAdapter(new CreateChecklistAdapter(this, items));
     }
 
     public void saveList(View view)

@@ -23,12 +23,22 @@
     <include layout="@layout/content_create_checklist" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/newRowFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/icon_plus_big"/> <!-- TODO Replace that drawable with a better looking plus -->
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        app:srcCompat="@drawable/white_plus"/> <!-- TODO Replace that drawable with a better looking plus -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/saveListFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="65dp"
+        app:srcCompat="@drawable/checkmark"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

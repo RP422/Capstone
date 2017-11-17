@@ -109,5 +109,8 @@
     <string name="flight_plan_new_plan">Create a new Flight Plan</string>
     <string name="flight_plan_edit_plan">Edit a Flight Plan</string>
     <string name="flight_plan_review_plan">Review a Flight Plan</string>
+    <string name="checklist_new_row_edit">Edit</string>
+    <string name="checklist_new_row_delete">Delete</string>
+    <string name="sample_text">SAMPLE TEXT</string>
 
 </resources>

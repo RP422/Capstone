@@ -25,11 +25,12 @@ public class ChecklistRunthroughActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         ListView lv = (ListView)findViewById(R.id.checklistListView);
 
-        boolean useTestData = false;
-        if(intent.hasExtra("TEST"))
-        {
-            useTestData = intent.getBooleanExtra("TEST", false);
-        }
+        boolean useTestData = intent.getBooleanExtra("TEST", false);
+//        boolean useTestData = false;
+//        if(intent.hasExtra("TEST"))
+//        {
+//            useTestData = intent.getBooleanExtra("TEST", false);
+//        }
 
         if(useTestData)
         {

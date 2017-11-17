@@ -25,19 +25,19 @@ public class CoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
 
-        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
-        ArrayList<NotificationChannel> channels = new ArrayList<NotificationChannel>();
-
-        String channelID = "3_in_1_flightmanager_reminders";
-        CharSequence channelName = "Reminders";
-        channels.add(new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT));
-
-        channelID = "3_in_1_flightmanager_weather_alert";
-        channelName = "Weather Alerts";
-        channels.add(new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT));
-
-        notificationManager.createNotificationChannels(channels);
+//        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+//
+//        ArrayList<NotificationChannel> channels = new ArrayList<NotificationChannel>();
+//
+//        String channelID = "3_in_1_flightmanager_reminders";
+//        CharSequence channelName = "Reminders";
+//        channels.add(new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT));
+//
+//        channelID = "3_in_1_flightmanager_weather_alert";
+//        channelName = "Weather Alerts";
+//        channels.add(new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT));
+//
+//        notificationManager.createNotificationChannels(channels);
     }
 
     // I really want to replace these lame buttons with something bigger and nicer.

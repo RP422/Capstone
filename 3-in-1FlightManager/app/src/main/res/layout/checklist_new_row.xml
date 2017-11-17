@@ -8,27 +8,36 @@
         android:id="@+id/newRowTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SAMPLE TEXT"
+        android:text="@string/sample_text"
         android:textColor="?attr/actionMenuTextColor"
-        android:textSize="17dp"
+        android:textSize="17sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/newRowButton"
-        android:layout_margin="10dp"/>
+        android:layout_marginLeft="15dp"/>
 
     <Button
         android:id="@+id/newRowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="@string/checklist_new_row_edit"
+        android:onClick="editText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="20dp"
-        android:onClick="editText"/>
+        app:layout_constraintLeft_toRightOf="@id/newRowTextView"
+        app:layout_constraintRight_toLeftOf="@+id/deleteRowButton"/>
 
-    <!-- TODO Add delete image button -->
+    <Button
+        android:id="@+id/deleteRowButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checklist_new_row_delete"
+        android:onClick="deleteRow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/newRowButton"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
 </android.support.constraint.ConstraintLayout>

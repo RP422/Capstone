@@ -18,7 +18,10 @@ public class ChecklistMainActivity extends AppCompatActivity {
 
     public void selectAndLaunchChecklist(View view)
     {
-        PopupBuilder.selectChecklist(this);
+        Intent intent = new Intent(this, ChecklistRunthroughActivity.class);
+        intent.putExtra("TEST", true);
+        this.startActivity(intent);
+        //PopupBuilder.selectChecklist(this);
     }
 
     public void createNewChecklist(View view)

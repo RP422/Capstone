@@ -19,18 +19,18 @@ public class FlightPlannerMainActivity extends AppCompatActivity
 
     public void newPlan(View view)
     {
-        Intent intent = new Intent(this, FlightPlannerEditRouteActivity.class);
-        intent.putExtra("NEW_PLAN", true);
-        startActivity(intent);
+//        Intent intent = new Intent(this, FlightPlannerEditRouteActivity.class);
+//        intent.putExtra("NEW_PLAN", true);
+//        startActivity(intent);
     }
 
     public void editPlan(View view)
     {
-        PopupBuilder.selectFlightPlan(this, FlightPlannerEditRouteActivity.class);
+//        PopupBuilder.selectFlightPlan(this, FlightPlannerEditRouteActivity.class);
     }
 
     public void reviewPlan(View view)
     {
-        PopupBuilder.selectFlightPlan(this, FlightPlannerReviewPlanActivity.class);
+//        PopupBuilder.selectFlightPlan(this, FlightPlannerReviewPlanActivity.class);
     }
 }
