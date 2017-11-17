@@ -40,13 +40,12 @@ public class CreateChecklistActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_checklist_create);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.newRowFAB);
-        fab.setOnClickListener(new View.OnClickListener()
+        FloatingActionButton newRowFAB = (FloatingActionButton) findViewById(R.id.newRowFAB);
+        newRowFAB.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("What would you like this checklist item to be?");
 
@@ -71,6 +70,15 @@ public class CreateChecklistActivity extends AppCompatActivity
                 });
 
                 builder.show();
+            };
+        });
+        FloatingActionButton saveListFab = (FloatingActionButton) findViewById(R.id.saveListFAB);
+        saveListFab.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                saveList();
             };
         });
 
@@ -144,7 +152,7 @@ public class CreateChecklistActivity extends AppCompatActivity
         list.setAdapter(new CreateChecklistAdapter(this, items));
     }
 
-    public void saveList(View view)
+    public void saveList()
     {
         JSONObject json = new JSONObject();
         JSONArray jsonItems = new JSONArray();
@@ -157,12 +165,13 @@ public class CreateChecklistActivity extends AppCompatActivity
         try
         {
             json.put("CHECKLIST", jsonItems);
+
+            // TODO Modify this when the time comes
             PopupBuilder.createSaveDialog(this, "What do you want to name the checklist?", JSONSchema.CHECKLIST, json);
         }
         catch (JSONException e)
         {
             e.printStackTrace();
-            // TODO Give some kind of error notice maybe?
         }
     }
 }
