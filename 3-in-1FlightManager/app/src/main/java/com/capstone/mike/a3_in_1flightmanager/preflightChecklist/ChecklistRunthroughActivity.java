@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
@@ -26,11 +27,6 @@ public class ChecklistRunthroughActivity extends AppCompatActivity {
         ListView lv = (ListView)findViewById(R.id.checklistListView);
 
         boolean useTestData = intent.getBooleanExtra("TEST", false);
-//        boolean useTestData = false;
-//        if(intent.hasExtra("TEST"))
-//        {
-//            useTestData = intent.getBooleanExtra("TEST", false);
-//        }
 
         if(useTestData)
         {
@@ -39,6 +35,9 @@ public class ChecklistRunthroughActivity extends AppCompatActivity {
         else
         {
             String file = intent.getStringExtra("FILE");
+
+            TextView titleBar = (TextView)findViewById(R.id.runthroughTitleTextView);
+            titleBar.setText(file);
 
             DBHandler db = DBHandler.getInstance(this);
             JSONObject json = db.getJSONfromReferenceName(file);
@@ -58,6 +57,7 @@ public class ChecklistRunthroughActivity extends AppCompatActivity {
             catch (JSONException e)
             {
                 Toast.makeText(this, "Sorry, there was a problem with the file.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }

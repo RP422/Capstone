@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Mike on 10/18/2017.
  */
@@ -32,8 +34,181 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.logbook_data_view_row, parent, false);
 
+        LogbookEntry entry = logbookEntries[position];
 
+        TextView date = (TextView)convertView.findViewById(R.id.EntryDate);
+        if(entry.date != null)
+        {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            date.setText(format.format(entry.date));
+        }
+        else
+        {
+            date.setText("N/A");
+        }
+
+        TextView model = (TextView)convertView.findViewById(R.id.AircraftModel);
+        if(entry.aircraftModel != null)
+        {
+            model.setText(entry.aircraftModel);
+        }
+        else
+        {
+            model.setText("N/A");
+        }
+
+        TextView id = (TextView)convertView.findViewById(R.id.AircraftID);
+        if(entry.aircraftID != null)
+        {
+            id.setText(entry.aircraftID);
+        }
+        else
+        {
+            id.setText("N/A");
+        }
+
+        TextView arrival = (TextView)convertView.findViewById(R.id.Arrival);
+        if(entry.flightArrival != null)
+        {
+            arrival.setText(entry.flightArrival);
+        }
+        else
+        {
+            arrival.setText("N/A");
+        }
+
+        TextView instApr = (TextView)convertView.findViewById(R.id.NumInstApr);
+        if(entry.numInstrumentApproach != null)
+        {
+            instApr.setText("" + entry.numInstrumentApproach);
+        }
+        else
+        {
+            instApr.setText("N/A");
+        }
+
+        TextView remarks = (TextView)convertView.findViewById(R.id.RemarksAndEndorsments);
+        if(entry.remarksAndEndorsements != null)
+        {
+            remarks.setText(entry.remarksAndEndorsements);
+        }
+        else
+        {
+            remarks.setText("N/A");
+        }
+
+        TextView aircraftClass = (TextView)convertView.findViewById(R.id.AircraftClass);
+        if(entry.aircraftClass != null)
+        {
+            aircraftClass.setText(AircraftClass.asString(entry.aircraftClass));
+        }
+        else
+        {
+            aircraftClass.setText("N/A");
+        }
+
+        TextView category = (TextView)convertView.findViewById(R.id.AircraftCategory);
+        if(entry.aircraftCategory != null)
+        {
+            category.setText(AircraftCategory.asString(entry.aircraftCategory));
+        }
+        else
+        {
+            category.setText("N/A");
+        }
+
+        TextView totalTime = (TextView)convertView.findViewById(R.id.FlightTime);
+        if(entry.flightTime != null)
+        {
+            totalTime.setText("" + entry.flightTime);
+        }
+        else
+        {
+            totalTime.setText("N/A");
+        }
+
+        TextView night = (TextView)convertView.findViewById(R.id.NightTime);
+        if(entry.nightFlyingTime != null)
+        {
+            night.setText("" + entry.nightFlyingTime);
+        }
+        else
+        {
+            night.setText("N/A");
+        }
+
+        TextView actInst = (TextView)convertView.findViewById(R.id.ActInstTime);
+        if(entry.actualInstrumentTime != null)
+        {
+            actInst.setText("" + entry.actualInstrumentTime);
+        }
+        else
+        {
+            actInst.setText("N/A");
+        }
+
+        TextView simInst = (TextView)convertView.findViewById(R.id.SimInstTime);
+        if(entry.simulatedInstrumentTime != null)
+        {
+            simInst.setText("" + entry.simulatedInstrumentTime);
+        }
+        else
+        {
+            simInst.setText("N/A");
+        }
+
+        TextView flgtSim = (TextView)convertView.findViewById(R.id.FlgtSimTime);
+        if(entry.flightSimulatorTime != null)
+        {
+            flgtSim.setText("" + entry.flightSimulatorTime);
+        }
+        else
+        {
+            flgtSim.setText("N/A");
+        }
+
+        TextView xCountry = (TextView)convertView.findViewById(R.id.CrossCountryTime);
+        if(entry.crossCountryTime != null)
+        {
+            xCountry.setText("" + entry.crossCountryTime);
+        }
+        else
+        {
+            xCountry.setText("N/A");
+        }
+
+        TextView instr = (TextView)convertView.findViewById(R.id.FlgtInstructorTime);
+        if(entry.asFlightInstructorTime != null)
+        {
+            instr.setText("" + entry.asFlightInstructorTime);
+        }
+        else
+        {
+            instr.setText("N/A");
+        }
+
+        TextView dual = (TextView)convertView.findViewById(R.id.DualReceivedTime);
+        if(entry.dualRecievedTime != null)
+        {
+            dual.setText("" + entry.dualRecievedTime);
+        }
+        else
+        {
+            dual.setText("N/A");
+        }
+
+        TextView pic = (TextView)convertView.findViewById(R.id.PicTime);
+        if(entry.pilotInCommandTime != null)
+        {
+            pic.setText("" + entry.pilotInCommandTime);
+        }
+        else
+        {
+            pic.setText("N/A");
+        }
 
         return convertView;
     }
+
+
 }

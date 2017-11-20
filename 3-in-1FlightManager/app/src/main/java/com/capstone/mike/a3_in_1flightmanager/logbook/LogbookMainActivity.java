@@ -2,19 +2,14 @@ package com.capstone.mike.a3_in_1flightmanager.logbook;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
-import com.capstone.mike.a3_in_1flightmanager.common.DBHandler;
-
-import org.json.JSONObject;
 
 public class LogbookMainActivity extends AppCompatActivity {
-    private final int REQUEST_CODE_QUERY = 4221997;
+    private final int REQUEST_CODE_QUERY = 422;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +17,7 @@ public class LogbookMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logbook_main);
     }
 
-    public void selectQuery(View view)
+    public void filterFlights(View view)
     {
         Intent intent = new Intent(this, LogbookQuerySelectionActivity.class);
         startActivityForResult(intent, REQUEST_CODE_QUERY);
@@ -31,7 +26,8 @@ public class LogbookMainActivity extends AppCompatActivity {
     public void showAll(View view)
     {
         Intent intent = new Intent(this, LogbookDataViewActivity.class);
-        intent.putExtra("QUERY", LogbookQuerySelectionActivity.QUERY_ALL);
+        intent.putExtra("QUERY", LogbookQuerySelectionActivity.FILTER_NONE);
+        startActivity(intent);
     }
 
     public void newEntry (View view)
@@ -47,8 +43,15 @@ public class LogbookMainActivity extends AppCompatActivity {
         {
             if(resultCode == RESULT_OK)
             {
+                int queryCode = data.getIntExtra("QUERY", -1);
+
+//                // START DEBUG LINES
+//                Button btn = (Button)findViewById(R.id.quickSearchButton);
+//                btn.setText("Returned Query Code: " + queryCode);
+//                // END DEBUG LINES
+
                 Intent intent = new Intent(this, LogbookDataViewActivity.class);
-                intent.putExtra("QUERY", data.getIntExtra("QUERY", -1));
+                intent.putExtra("QUERY", queryCode);
 
                 startActivity(intent);
             }

@@ -82,20 +82,7 @@ public class PopupBuilder
 
     public static void selectChecklist(final Context context)
     {
-        DBHandler db = DBHandler.getInstance(context);
-        final String[] files = db.getFilesOfSchema(JSONSchema.CHECKLIST);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Which list do you want?");
-        builder.setItems(files, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(context, ChecklistRunthroughActivity.class);
-                intent.putExtra("FILE", files[which]);
-                context.startActivity(intent);
-            }
-        });
-        builder.show();
     }
 
     public static void selectFlightPlan(final Context context, final Class activityToStart)

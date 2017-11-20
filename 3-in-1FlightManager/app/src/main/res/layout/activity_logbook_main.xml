@@ -14,43 +14,39 @@
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/quickSearchButton"
+        app:layout_constraintBottom_toTopOf="@+id/showAllButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
-        android:id="@id/quickSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logbook_quick_search"
-        android:onClick="selectQuery"
-        app:layout_constraintTop_toBottomOf="@id/logbookTitle"
-        app:layout_constraintBottom_toTopOf="@+id/showAllButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <!-- Show all entries button
-          Forwards to the Logbook data viewer using the standard SELECT * FROM [TABLE] query -->
-    <Button
-        android:id="@id/showAllButton"
+        android:id="@+id/showAllButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/logbook_show_all_entries"
         android:onClick="showAll"
-        app:layout_constraintTop_toBottomOf="@id/quickSearchButton"
+        app:layout_constraintTop_toBottomOf="@+id/logbookTitle"
+        app:layout_constraintBottom_toTopOf="@+id/quickSearchButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/quickSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logbook_filter_flights"
+        android:onClick="filterFlights"
+        app:layout_constraintTop_toBottomOf="@+id/showAllButton"
         app:layout_constraintBottom_toTopOf="@+id/createNewButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <!-- Add new entry
-             Starts up the LogbookNewEntryActivity -->
     <Button
         android:id="@+id/createNewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/logbook_create_new_entry"
         android:onClick="newEntry"
-        app:layout_constraintTop_toBottomOf="@id/showAllButton"
+        app:layout_constraintTop_toBottomOf="@+id/quickSearchButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

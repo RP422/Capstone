@@ -98,7 +98,6 @@
     <string name="title_activity_checklist_runthrough">ChecklistRunthroughActivity</string>
     <string name="title_activity_create_checklist">CreateChecklistActivity</string>
     <string name="title_activity_edit_route">Map</string>
-    <string name="logbook_quick_search">Quick Search</string>
     <string name="logbook_show_all_entries">Show All Entries</string>
     <string name="logbook_create_new_entry">Create New Entry</string>
     <string name="logbook_title">Logbook</string>
@@ -112,5 +111,18 @@
     <string name="checklist_new_row_edit">Edit</string>
     <string name="checklist_new_row_delete">Delete</string>
     <string name="sample_text">SAMPLE TEXT</string>
+    <string name="logbook_filter_flights">Filter Flights</string>
+
+    <string-array name="aircraftClasses">
+        <item>Tail Wheel</item>
+        <item>Glider</item>
+    </string-array>
+    <string-array name="aircraftCategories">
+        <item>Single-Engine Land</item>
+        <item>Multi-Engine Land</item>
+    </string-array>
+    <string name="title_activity_flight_planner_edit_route">Edit Route</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_flight_planner_edit">Flight Plan</string>
 
 </resources>

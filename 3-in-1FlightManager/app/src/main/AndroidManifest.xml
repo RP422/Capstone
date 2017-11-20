@@ -54,7 +54,8 @@
         <activity android:name=".logbook.LogbookDataViewActivity" />
         <activity android:name=".logbook.LogbookQuerySelectionActivity" />
         <activity android:name=".flightPlanner.FlightPlannerMainActivity" />
-        <activity android:name=".logbook.LogbookNewEntryActivity"></activity>
+        <activity android:name=".logbook.LogbookNewEntryActivity" />
+        <activity android:name=".flightPlanner.FlightPlannerEditActivity"></activity>
     </application>
 
 </manifest>

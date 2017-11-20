@@ -25,6 +25,9 @@ public class CoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
 
+        DBHandler db = DBHandler.getInstance(this);
+        db.getAll();
+
 //        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 //
 //        ArrayList<NotificationChannel> channels = new ArrayList<NotificationChannel>();
@@ -56,40 +59,5 @@ public class CoreActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, LogbookMainActivity.class);
         startActivity(intent);
-    }
-
-    public void createTestFiles()
-    {
-        String checklistFileName = "checklistTest.json";
-        String flightPlanFileName = "flightPlanTest.json";
-
-        String checklistFileContent = "{ \"Title\": \"checklistTest\",\n\"Content\": \"this\" }";
-        String flightPlanFileContent = "{ \"Title\": \"flightPlanTest\" }";
-
-        FileOutputStream fileOutputStream = null;
-
-        // Checklist File
-        try
-        {
-            fileOutputStream = openFileOutput("checklists/" + checklistFileName, MODE_PRIVATE);
-            fileOutputStream.write(checklistFileContent.getBytes());
-            fileOutputStream.close();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        // Flight Plan File
-        try
-        {
-            fileOutputStream = openFileOutput("flight_plans/" + flightPlanFileName, MODE_PRIVATE);
-            fileOutputStream.write(flightPlanFileContent.getBytes());
-            fileOutputStream.close();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 }

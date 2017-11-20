@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Created by Mike on 10/26/2017.
  */
@@ -33,21 +35,10 @@ public class QuerySelectionAdapter extends ArrayAdapter<String>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        convertView = inflater.inflate(R.layout.logbook_data_view_row, parent, false);
+        convertView = inflater.inflate(R.layout.query_selection_item, parent, false);
 
         TextView tv = (TextView) convertView.findViewById(R.id.querySelectionListItem);
         tv.setText(presetQueries[position]);
-
-        ListView lv = (ListView)parent;
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-            {
-                Intent intent = ((Activity) context).getIntent();
-                intent.putExtra("SELECTED QUERY", i);
-                ((Activity) context).finish();
-            }
-        });
 
         return convertView;
     }

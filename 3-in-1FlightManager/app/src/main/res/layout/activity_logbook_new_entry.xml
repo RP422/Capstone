@@ -1,9 +1,495 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.capstone.mike.a3_in_1flightmanager.logbook.LogbookNewEntryActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.capstone.mike.a3_in_1flightmanager.logbook.LogbookNewEntryActivity">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/newEntryDateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Date"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryDatePicker"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryDatePicker"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:hint="Select Date..."
+            android:textColorHint="#888"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp">
+        </EditText>
+
+        <TextView
+            android:id="@+id/newEntryModelTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Aircraft Model"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDateTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryModelET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryModelET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDatePicker"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryAircraftIDTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Aircraft ID"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryModelTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryAircraftIDET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryAircraftIDET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryModelET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryDepartureIDTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Departure Airport"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryAircraftIDTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryDepartureIDET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryDepartureIDET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryAircraftIDET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryArrivalIDTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Arrival Airport"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDepartureIDTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryArrivalIDET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryArrivalIDET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDepartureIDET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryInstAprTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Instrument\nApproaches"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryArrivalIDTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryInstAprET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryInstAprET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/newEntryArrivalIDET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryRemarksTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Remarks and\nEndorsements"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryInstAprTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryRemarksET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryRemarksET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryInstAprET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryDayLandingsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Daytime Landings"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryRemarksTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryDayLandingsET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryDayLandingsET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/newEntryRemarksET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryNgtLandingsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Nighttime Landings"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDayLandingsTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryNgtLandingsET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryNgtLandingsET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDayLandingsET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryClassTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Aircraft Class"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryNgtLandingsTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryClassSpinner"
+            android:layout_margin="15dp"/>
+        <Spinner
+            android:id="@+id/newEntryClassSpinner"
+            android:spinnerMode="dropdown"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryNgtLandingsET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp"/>
+
+        <TextView
+            android:id="@+id/newEntryCategoryTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Aircraft Category"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryClassTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryCategorySpinner"
+            android:layout_margin="15dp"/>
+        <Spinner
+            android:id="@+id/newEntryCategorySpinner"
+            android:spinnerMode="dropdown"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryClassSpinner"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp"/>
+
+        <TextView
+            android:id="@+id/newEntryTotalTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Flight Time"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryCategoryTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryTotalTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryTotalTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryCategorySpinner"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryNightTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Night Flying Time"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryTotalTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryNightTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryNightTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryTotalTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryActInstTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Actual Instrument\nTime"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryNightTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryActInstTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryActInstTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryNightTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntrySimInstTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Simulated\nInstrument Time"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryActInstTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntrySimInstTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntrySimInstTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryActInstTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryFlgtSimTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Flight Simulator\nTime"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntrySimInstTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryFlgtSimTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryFlgtSimTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntrySimInstTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryXCountryTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Cross Country Time"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryFlgtSimTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryXCountryTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryXCountryTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryFlgtSimTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryFlgtInstTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="As Flight\nInstructor Time"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryXCountryTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryNightTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryFlgtInstTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryXCountryTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryDualTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Dual Recieved Time"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryFlgtInstTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryDualTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryDualTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryFlgtInstTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newEntryPICTimeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Pilot-In-Command\nTime"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDualTimeTV"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newEntryPICTimeET"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newEntryPICTimeET"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/newEntryDualTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:onClick="saveEntry"
+            app:layout_constraintTop_toBottomOf="@id/newEntryPICTimeET"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="20dp"/>
+    </android.support.constraint.ConstraintLayout>

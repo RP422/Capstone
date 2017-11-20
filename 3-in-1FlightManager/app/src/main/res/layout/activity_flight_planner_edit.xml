@@ -1,0 +1,67 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- TODO Add buttons that lead to airplane and airport info -->
+
+            <TextView
+                android:id="@+id/startingAirportLabel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Starting Airport:"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/flightPlanSteps"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="30dp" />
+
+            <TextView
+                android:id="@+id/startingAirportTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/flightPlanSteps"
+                app:layout_constraintLeft_toRightOf="@id/startingAirportLabel"
+                android:layout_margin="20dp"/>
+
+            <ListView
+                android:id="@+id/flightPlanSteps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/startingAirportLabel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="15dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Row"
+                android:onClick="addRow"
+                app:layout_constraintTop_toBottomOf="@id/flightPlanSteps"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </HorizontalScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

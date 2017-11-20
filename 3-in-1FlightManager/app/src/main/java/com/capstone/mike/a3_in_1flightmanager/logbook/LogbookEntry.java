@@ -8,7 +8,7 @@ import java.sql.Date;
 
 public class LogbookEntry
 {
-    public int id;
+    public Integer id;
     public Date date;
 
     public String aircraftModel;
@@ -17,27 +17,25 @@ public class LogbookEntry
     public String flightDeparture;
     public String flightArrival;
 
-    public int numInsturmentApproach;
+    public Integer numInstrumentApproach;
 
     public String remarksAndEndorsements;
 
-    public int numDayLandings;
-    public int numNightLandings;
+    public Integer numDayLandings;
+    public Integer numNightLandings;
 
     public AircraftCategory aircraftCategory;
-    public float flightTime;
-
     public AircraftClass aircraftClass;
-    public float classFlightTime;
+    public Float flightTime;
 
-    public float nightFlyingTime;
-    public float actualInstrumentTime;
-    public float simulatedInstrumentTime;
+    public Float nightFlyingTime;
+    public Float actualInstrumentTime;
+    public Float simulatedInstrumentTime;
 
-    public float flightSimulatorTime;
+    public Float flightSimulatorTime;
 
-    public float crossCountryTime;
-    public float asFlightInstructorTime;
-    public float dualRecievedTime;
-    public float pilotInCommandTime;
+    public Float crossCountryTime;
+    public Float asFlightInstructorTime;
+    public Float dualRecievedTime;
+    public Float pilotInCommandTime;
 }

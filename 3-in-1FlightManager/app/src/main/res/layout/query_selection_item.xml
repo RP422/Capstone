@@ -8,15 +8,15 @@
 
     <TextView
         android:id="@+id/querySelectionListItem"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sample_text"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
-        android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="20dp"/>
 
 </android.support.constraint.ConstraintLayout>
