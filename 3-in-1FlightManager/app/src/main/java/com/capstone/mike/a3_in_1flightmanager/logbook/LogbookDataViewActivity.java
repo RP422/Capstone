@@ -78,5 +78,7 @@ public class LogbookDataViewActivity extends AppCompatActivity {
         ListView list = (ListView)findViewById(R.id.logbookDataViewListView);
 
         list.setAdapter(adapter);
+
+        // TODO Put edit and delete buttons for these entries
     }
 }

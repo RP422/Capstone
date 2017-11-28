@@ -37,8 +37,9 @@ public class QuerySelectionAdapter extends ArrayAdapter<String>
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         convertView = inflater.inflate(R.layout.query_selection_item, parent, false);
 
-        TextView tv = (TextView) convertView.findViewById(R.id.querySelectionListItem);
-        tv.setText(presetQueries[position]);
+        TextView tv = convertView.findViewById(R.id.querySelectionListItem);
+        String s = presetQueries[position];
+        tv.setText(s);
 
         return convertView;
     }

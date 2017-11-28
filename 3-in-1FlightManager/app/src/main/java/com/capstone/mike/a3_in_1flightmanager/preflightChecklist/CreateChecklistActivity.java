@@ -1,16 +1,18 @@
 package com.capstone.mike.a3_in_1flightmanager.preflightChecklist;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +21,6 @@ import android.widget.Toast;
 import com.capstone.mike.a3_in_1flightmanager.R;
 import com.capstone.mike.a3_in_1flightmanager.common.DBHandler;
 import com.capstone.mike.a3_in_1flightmanager.common.JSONSchema;
-import com.capstone.mike.a3_in_1flightmanager.common.PopupBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,12 +43,11 @@ public class CreateChecklistActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        items = new ArrayList<>();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checklist_create);
+        setContentView(R.layout.activity_checklist_create_x);
 
         Intent intent = getIntent();
-
+        items = new ArrayList<>();
         list = (ListView)findViewById(R.id.newChecklistItems);
 
         if(intent.getBooleanExtra("TEST", false))
@@ -80,11 +80,6 @@ public class CreateChecklistActivity extends AppCompatActivity
                 Toast.makeText(this, "Sorry, there was a problem with the file.", Toast.LENGTH_SHORT).show();
                 finish();
             }
-        }
-        else
-        {
-            items.add("You can add a new item to the checklist by pressing the Plus button.");
-            items.add("When you're ready to save, just press the Check button.");
         }
 
         refreshAdapter();
@@ -177,6 +172,7 @@ public class CreateChecklistActivity extends AppCompatActivity
 
     public void saveList(View view)
     {
+        // TODO Update the file if the activity started with a file
         JSONObject json = new JSONObject();
         JSONArray jsonItems = new JSONArray();
 
@@ -197,18 +193,21 @@ public class CreateChecklistActivity extends AppCompatActivity
 
             final EditText input = new EditText(context);
             input.setInputType(InputType.TYPE_CLASS_TEXT);
+//            input.setText(fileName);
             builder.setView(input);
 
             final JSONObject jsonToSave = json;
 
-            if(editingExistingList)
-            {
-                DBHandler db = DBHandler.getInstance(this);
-
-                db.updateJSON(fileName, JSONSchema.CHECKLIST, json);
-            }
-            else
-            {
+//            if(editingExistingList)
+//            {
+//                DBHandler db = DBHandler.getInstance(this);
+//
+//                db.updateJSON(fileName, JSONSchema.CHECKLIST, json);
+//                finish();
+//                Toast.makeText(context, "Save Sucessful", Toast.LENGTH_SHORT).show();
+//            }
+//            else
+//            {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -238,7 +237,7 @@ public class CreateChecklistActivity extends AppCompatActivity
                 });
 
                 builder.show();
-            }
+//            }
         }
         catch (JSONException e)
         {

@@ -15,6 +15,8 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
     ListView stepsList;
     ArrayList<FlightPlanStep> steps = new ArrayList<>();
 
+    FlightPlan flightPlan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,13 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
         if(testing)
         {
             startingAirport = "N87";
-            steps.add(new FlightPlanStep("TOC 1", 265, 10, 3000, 90, 36, 15, 13, 0));
-            steps.add(new FlightPlanStep("Turn 1", 275, 40, 3000, 110, 36, 15, 13, 0));
-            steps.add(new FlightPlanStep("TOC 2", 272, 15, 6500, 90, 1, 10, 13, 0));
-            steps.add(new FlightPlanStep("TOD", 272, 182, 6500, 110, 1, 10, 14, 0));
-            steps.add(new FlightPlanStep("AGC", 276, 12, 2200, 110, 1, 10, 14, 0));
+            flightPlan = new FlightPlan("N87", 500);
+            flightPlan.setFuelRate(11.5f);
+            flightPlan.add(new FlightPlanStep("TOC 1", 265, 10, 3000, 90, 36, 15, 13, 0));
+            flightPlan.add(new FlightPlanStep("Turn 1", 275, 40, 3000, 110, 36, 15, 13, 0));
+            flightPlan.add(new FlightPlanStep("TOC 2", 272, 15, 6500, 90, 1, 10, 13, 0));
+            flightPlan.add(new FlightPlanStep("TOD", 272, 182, 6500, 110, 1, 10, 14, 0));
+            flightPlan.add(new FlightPlanStep("AGC", 276, 12, 2200, 110, 1, 10, 14, 0));
         }
         else if(data.hasExtra("FILE"))
         {
@@ -55,6 +59,6 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
 
     private void refreshAdapter()
     {
-        stepsList.setAdapter(new FlightPlannerEditArrayAdapter(this, steps.toArray(new FlightPlanStep[] {})));
+        stepsList.setAdapter(new FlightPlannerEditArrayAdapter(this, flightPlan.toArray()));
     }
 }

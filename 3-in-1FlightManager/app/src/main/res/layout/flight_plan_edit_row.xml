@@ -6,9 +6,9 @@
 
     <TextView
         android:id="@+id/checkpointLabel"
-        android:layout_width="160dp"
-        android:layout_height="55dp"
-        android:text="Next Checkpoint"
+        android:layout_width="140dp"
+        android:layout_height="75dp"
+        android:text="Checkpoint"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
         android:textAlignment="center"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/checkpointTV"
-        android:layout_width="160dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:text="N/A"
         android:textColor="?attr/actionMenuTextColor"
@@ -27,13 +27,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/checkpointLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="10dp"/>
 
     <TextView
         android:id="@+id/freqLabel"
         android:layout_width="70dp"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:text="Freq"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -52,13 +53,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/freqLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/checkpointTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/identLabel"
         android:layout_width="70dp"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:text="Ident"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -77,13 +79,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/identLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/freqTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/courseLabel"
         android:layout_width="70dp"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:text="Course"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -102,13 +105,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/courseLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/identTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/windLabel"
         android:layout_width="140dp"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:text="Wind"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -120,7 +124,7 @@
     <TextView
         android:id="@+id/windDirLabel"
         android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:text="Dir"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -132,7 +136,7 @@
     <TextView
         android:id="@+id/windVelLabel"
         android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:text="Vel"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -151,8 +155,9 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/windDirLabel"
-        app:layout_constraintLeft_toLeftOf="@+id/windDirLabel"
-        android:layout_marginTop="10dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/courseTV"
+        android:layout_margin="10dp" />
     <TextView
         android:id="@+id/windVelTV"
         android:layout_width="70dp"
@@ -163,13 +168,15 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/windVelLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/windDirTV"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/tasLabel"
         android:layout_width="80dp"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:text="True Air Speed"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -188,13 +195,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/tasLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/windVelTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/correctedHeadingLabel"
         android:layout_width="100dp"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:text="Corrected Heading"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -213,13 +221,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/correctedHeadingLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tasTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/distanceLabel"
         android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:text="Distance"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -231,7 +240,7 @@
     <TextView
         android:id="@+id/distanceLegLabel"
         android:layout_width="75dp"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:text="Leg"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -243,7 +252,7 @@
     <TextView
         android:id="@+id/distanceRemainLabel"
         android:layout_width="75dp"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:text="Remain"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -255,32 +264,35 @@
     <TextView
         android:id="@+id/distanceLegTV"
         android:layout_width="75dp"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:text="N/A"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/distanceLegLabel"
-        app:layout_constraintLeft_toLeftOf="@id/distanceLegLabel"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/correctedHeadingTV"
+        android:layout_margin="10dp"/>
     <TextView
         android:id="@+id/distanceRemainTV"
         android:layout_width="75dp"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:text="N/A"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/distanceRemainLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="@id/distanceRemainLabel"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/groundSpeedLabel"
         android:layout_width="80dp"
-        android:layout_height="55dp"
+        android:layout_height="75dp"
         android:text="Ground Speed"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -299,14 +311,15 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/groundSpeedLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/distanceRemainTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/eteLabel"
-        android:layout_width="70dp"
-        android:layout_height="55dp"
-        android:text="ETE"
+        android:layout_width="95dp"
+        android:layout_height="75dp"
+        android:text="ETE (Minutes)"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
         android:textAlignment="center"
@@ -316,7 +329,7 @@
         android:layout_margin="10dp"/>
     <TextView
         android:id="@+id/eteTV"
-        android:layout_width="70dp"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:text="N/A"
         android:textColor="?attr/actionMenuTextColor"
@@ -324,13 +337,14 @@
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/eteLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/groundSpeedTV"
         android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/fuelLabel"
-        android:layout_width="140dp"
-        android:layout_height="25dp"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
         android:text="Fuel"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -341,8 +355,8 @@
         android:layout_margin="10dp"/>
     <TextView
         android:id="@+id/fuelLegLabel"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
         android:text="Leg"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -353,8 +367,8 @@
         android:layout_marginTop="5dp"/>
     <TextView
         android:id="@+id/fuelRemainLabel"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
         android:text="Remain"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
@@ -365,27 +379,30 @@
         android:layout_marginTop="5dp"/>
     <TextView
         android:id="@+id/fuelLegTV"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
         android:text="N/A"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/fuelLegLabel"
-        app:layout_constraintLeft_toLeftOf="@id/fuelLegLabel"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/eteTV"
+        android:layout_margin="10dp"/>
     <TextView
         android:id="@+id/fuelRemainTV"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
         android:text="N/A"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="20sp"
         android:textAlignment="center"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@id/fuelRemainLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="@id/fuelRemainLabel"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
 </android.support.constraint.ConstraintLayout>

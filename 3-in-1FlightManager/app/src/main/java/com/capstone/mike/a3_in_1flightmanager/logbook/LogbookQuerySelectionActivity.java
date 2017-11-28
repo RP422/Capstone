@@ -46,13 +46,9 @@ public class LogbookQuerySelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logbook_query_selection);
 
-        list = (ListView)findViewById(R.id.querySelectionList);
-        QuerySelectionAdapter adapter = new QuerySelectionAdapter(this, presetQueries);
-
-        list.setAdapter(adapter);
-
         final Activity activity = this;
 
+        list = (ListView)findViewById(R.id.querySelectionList);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
@@ -72,5 +68,8 @@ public class LogbookQuerySelectionActivity extends AppCompatActivity {
                 activity.finish();
             }
         });
+
+        QuerySelectionAdapter adapter = new QuerySelectionAdapter(this, presetQueries);
+        list.setAdapter(adapter);
     }
 }

@@ -48,7 +48,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView model = (TextView)convertView.findViewById(R.id.AircraftModel);
-        if(entry.aircraftModel != null)
+        if(entry.aircraftModel != null && !entry.aircraftModel.isEmpty())
         {
             model.setText(entry.aircraftModel);
         }
@@ -58,7 +58,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView id = (TextView)convertView.findViewById(R.id.AircraftID);
-        if(entry.aircraftID != null)
+        if(entry.aircraftID != null && !entry.aircraftID.isEmpty())
         {
             id.setText(entry.aircraftID);
         }
@@ -67,8 +67,18 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
             id.setText("N/A");
         }
 
+        TextView depatrure = (TextView)convertView.findViewById(R.id.Departure);
+        if(entry.flightDeparture != null && !entry.flightDeparture.isEmpty())
+        {
+            depatrure.setText(entry.flightDeparture);
+        }
+        else
+        {
+            depatrure.setText("N/A");
+        }
+
         TextView arrival = (TextView)convertView.findViewById(R.id.Arrival);
-        if(entry.flightArrival != null)
+        if(entry.flightArrival != null && !entry.aircraftID.isEmpty())
         {
             arrival.setText(entry.flightArrival);
         }
@@ -78,7 +88,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView instApr = (TextView)convertView.findViewById(R.id.NumInstApr);
-        if(entry.numInstrumentApproach != null)
+        if(entry.numInstrumentApproach != null && entry.numInstrumentApproach != 0)
         {
             instApr.setText("" + entry.numInstrumentApproach);
         }
@@ -88,7 +98,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView remarks = (TextView)convertView.findViewById(R.id.RemarksAndEndorsments);
-        if(entry.remarksAndEndorsements != null)
+        if(entry.remarksAndEndorsements != null && !entry.remarksAndEndorsements.isEmpty())
         {
             remarks.setText(entry.remarksAndEndorsements);
         }
@@ -118,7 +128,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView totalTime = (TextView)convertView.findViewById(R.id.FlightTime);
-        if(entry.flightTime != null)
+        if(entry.flightTime != null && entry.flightTime > 0)
         {
             totalTime.setText("" + entry.flightTime);
         }
@@ -128,7 +138,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView night = (TextView)convertView.findViewById(R.id.NightTime);
-        if(entry.nightFlyingTime != null)
+        if(entry.nightFlyingTime != null && entry.nightFlyingTime > 0)
         {
             night.setText("" + entry.nightFlyingTime);
         }
@@ -138,7 +148,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView actInst = (TextView)convertView.findViewById(R.id.ActInstTime);
-        if(entry.actualInstrumentTime != null)
+        if(entry.actualInstrumentTime != null && entry.actualInstrumentTime > 0)
         {
             actInst.setText("" + entry.actualInstrumentTime);
         }
@@ -148,7 +158,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView simInst = (TextView)convertView.findViewById(R.id.SimInstTime);
-        if(entry.simulatedInstrumentTime != null)
+        if(entry.simulatedInstrumentTime != null && entry.simulatedInstrumentTime > 0)
         {
             simInst.setText("" + entry.simulatedInstrumentTime);
         }
@@ -158,7 +168,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView flgtSim = (TextView)convertView.findViewById(R.id.FlgtSimTime);
-        if(entry.flightSimulatorTime != null)
+        if(entry.flightSimulatorTime != null && entry.flightSimulatorTime > 0)
         {
             flgtSim.setText("" + entry.flightSimulatorTime);
         }
@@ -168,7 +178,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView xCountry = (TextView)convertView.findViewById(R.id.CrossCountryTime);
-        if(entry.crossCountryTime != null)
+        if(entry.crossCountryTime != null && entry.crossCountryTime > 0)
         {
             xCountry.setText("" + entry.crossCountryTime);
         }
@@ -178,7 +188,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView instr = (TextView)convertView.findViewById(R.id.FlgtInstructorTime);
-        if(entry.asFlightInstructorTime != null)
+        if(entry.asFlightInstructorTime != null && entry.asFlightInstructorTime > 0)
         {
             instr.setText("" + entry.asFlightInstructorTime);
         }
@@ -188,7 +198,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView dual = (TextView)convertView.findViewById(R.id.DualReceivedTime);
-        if(entry.dualRecievedTime != null)
+        if(entry.dualRecievedTime != null && entry.dualRecievedTime > 0)
         {
             dual.setText("" + entry.dualRecievedTime);
         }
@@ -198,7 +208,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         }
 
         TextView pic = (TextView)convertView.findViewById(R.id.PicTime);
-        if(entry.pilotInCommandTime != null)
+        if(entry.pilotInCommandTime != null && entry.pilotInCommandTime > 0)
         {
             pic.setText("" + entry.pilotInCommandTime);
         }

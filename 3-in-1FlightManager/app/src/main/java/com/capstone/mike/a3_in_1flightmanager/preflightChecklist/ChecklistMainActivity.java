@@ -67,4 +67,10 @@ public class ChecklistMainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateChecklistActivity.class);
         startActivity(intent);
     }
+
+    // TODO Create a delete entry button
+    public void deleteChecklist(View view)
+    {
+
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
 import com.capstone.mike.a3_in_1flightmanager.common.DBHandler;
@@ -78,6 +79,7 @@ public class LogbookNewEntryActivity extends AppCompatActivity
             int iNum = 0;
             float fNum = 0f;
 
+            // TODO Reject saves in the future
             EditText dateET = (EditText)findViewById(R.id.newEntryDatePicker);
             SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
             entry.date = new Date(format.parse(dateET.getText().toString()).getTime());
@@ -95,19 +97,28 @@ public class LogbookNewEntryActivity extends AppCompatActivity
             entry.flightArrival = arrival.getText().toString();
 
             EditText instApr = (EditText)findViewById(R.id.newEntryInstAprET);
-            iNum = Integer.parseInt(instApr.getText().toString());
-            entry.numInstrumentApproach = iNum;
+            if(instApr.getText().toString().length() > 0)
+            {
+                iNum = Integer.parseInt(instApr.getText().toString());
+                entry.numInstrumentApproach = iNum;
+            }
 
             EditText remarks = (EditText)findViewById(R.id.newEntryRemarksET);
             entry.remarksAndEndorsements = remarks.getText().toString();
 
             EditText dayLandings = (EditText)findViewById(R.id.newEntryDayLandingsET);
-            iNum = Integer.parseInt(dayLandings.getText().toString());
-            entry.numDayLandings = iNum;
+            if(dayLandings.getText().toString().length() > 0)
+            {
+                iNum = Integer.parseInt(dayLandings.getText().toString());
+                entry.numDayLandings = iNum;
+            }
 
             EditText ngtLandings = (EditText)findViewById(R.id.newEntryNgtLandingsET);
-            iNum = Integer.parseInt(ngtLandings.getText().toString());
-            entry.numNightLandings = iNum;
+            if(ngtLandings.getText().toString().length() > 0)
+            {
+                iNum = Integer.parseInt(ngtLandings.getText().toString());
+                entry.numNightLandings = iNum;
+            }
 
             Spinner classSpinner = (Spinner)findViewById(R.id.newEntryClassSpinner);
             entry.aircraftClass = AircraftClass.values()[classSpinner.getSelectedItemPosition()];
@@ -116,45 +127,73 @@ public class LogbookNewEntryActivity extends AppCompatActivity
             entry.aircraftCategory = AircraftCategory.values()[categorySpinner.getSelectedItemPosition()];
 
             EditText flightTime = (EditText)findViewById(R.id.newEntryTotalTimeET);
-            fNum = Float.parseFloat(flightTime.getText().toString());
-            entry.flightTime = fNum;
+            if(flightTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(flightTime.getText().toString());
+                entry.flightTime = fNum;
+            }
 
             EditText nightTime = (EditText)findViewById(R.id.newEntryNightTimeET);
-            fNum = Float.parseFloat(nightTime.getText().toString());
-            entry.nightFlyingTime = fNum;
+            if(nightTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(nightTime.getText().toString());
+                entry.nightFlyingTime = fNum;
+            }
 
             EditText actInstTime = (EditText)findViewById(R.id.newEntryActInstTimeET);
-            fNum = Float.parseFloat(actInstTime.getText().toString());
-            entry.actualInstrumentTime = fNum;
+            if(actInstTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(actInstTime.getText().toString());
+                entry.actualInstrumentTime = fNum;
+            }
 
             EditText simInstTime = (EditText)findViewById(R.id.newEntrySimInstTimeET);
-            fNum = Float.parseFloat(simInstTime.getText().toString());
-            entry.simulatedInstrumentTime = fNum;
+            if(simInstTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(simInstTime.getText().toString());
+                entry.simulatedInstrumentTime = fNum;
+            }
 
             EditText flgtSimTime = (EditText)findViewById(R.id.newEntryFlgtSimTimeET);
-            fNum = Float.parseFloat(flgtSimTime.getText().toString());
-            entry.flightSimulatorTime = fNum;
+            if(flgtSimTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(flgtSimTime.getText().toString());
+                entry.flightSimulatorTime = fNum;
+            }
 
             EditText xCountry = (EditText)findViewById(R.id.newEntryXCountryTimeET);
-            fNum = Float.parseFloat(xCountry.getText().toString());
-            entry.crossCountryTime = fNum;
+            if(xCountry.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(xCountry.getText().toString());
+                entry.crossCountryTime = fNum;
+            }
+
             EditText flgtInstTime = (EditText)findViewById(R.id.newEntryFlgtInstTimeET);
-            fNum = Float.parseFloat(flgtInstTime.getText().toString());
-            entry.asFlightInstructorTime = fNum;
+            if(flgtInstTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(flgtInstTime.getText().toString());
+                entry.asFlightInstructorTime = fNum;
+            }
 
             EditText dualTime = (EditText)findViewById(R.id.newEntryDualTimeET);
-            fNum = Float.parseFloat(dualTime.getText().toString());
-            entry.dualRecievedTime = fNum;
+            if(dualTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(dualTime.getText().toString());
+                entry.dualRecievedTime = fNum;
+            }
 
             EditText picTime = (EditText)findViewById(R.id.newEntryPICTimeET);
-            fNum = Float.parseFloat(picTime.getText().toString());
-            entry.pilotInCommandTime = fNum;
+            if(picTime.getText().toString().length() > 0)
+            {
+                fNum = Float.parseFloat(picTime.getText().toString());
+                entry.pilotInCommandTime = fNum;
+            }
 
             db.createLogbookEntry(entry);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            Toast.makeText(this, "Save Successful", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (Exception e) {
+            Toast.makeText(this, "Save Failed: Parse Error", Toast.LENGTH_LONG).show();
         }
-
-
     }
 }

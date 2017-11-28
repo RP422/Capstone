@@ -88,8 +88,8 @@ public class FlightPlannerEditArrayAdapter  extends ArrayAdapter<FlightPlanStep>
         TextView fuelLeg = convertView.findViewById(R.id.fuelLegTV);
         TextView fuelRemain = convertView.findViewById(R.id.fuelRemainTV);
 
-        fuelLeg.setText("" + step.getLegFuelUsage());
-        fuelRemain.setText("" + step.getRemainingFuel());
+        fuelLeg.setText("" + String.format("%1$.3f", step.getLegFuelUsage()));
+        fuelRemain.setText("" + String.format("%1$.3f", step.getRemainingFuel()));
 
         return convertView;
     }

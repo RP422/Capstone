@@ -29,7 +29,7 @@ public class FlightPlanStep
     public Integer finalCorrectedHeading;
 
     public Integer legDistance;
-    public Integer remainingDistance;
+    public Integer remainingDistance = 0;
 
     public Integer estimatedGroundSpeed;
     public Integer actualGroundSpeed;
@@ -39,8 +39,8 @@ public class FlightPlanStep
     public Integer estimatedTimeArrival;
     public Integer actualTimeArrival;
 
-    public Integer legFuelUsage;
-    public Integer remainingFuel;
+    public Float legFuelUsage;
+    public Float remainingFuel = 0f;
 
     public FlightPlanStep(String checkpointName, int course, int legDistance,
                           int altitude, int trueAirSpeed, int windDirection,
@@ -56,19 +56,79 @@ public class FlightPlanStep
         this.trueHeadingAdjustment = headingAdjustment;
         this.magneticHeadingAdjustment = magneticHeadingAdjustment;
 
-        int awa = Math.abs(course - windDirection) <= 90 ? course - windDirection : (course + 180) - windDirection;
+        int awa = 0;
+        int windAngleToCourse = windDirection - course;
+        int absWindAngle = Math.abs(windAngleToCourse);
 
-        double wca = Math.asin(((double)windSpeed * (Math.sin((double)awa) / this.trueAirSpeed)));
-        double roundingTemp = wca - (int)wca;
-        if(roundingTemp >= .5)
+        if(absWindAngle == 0 || absWindAngle == 180)
         {
-            windAdjustment = (int)wca + 1;
+            awa = 0;
+        }
+        else if(absWindAngle <= 90)
+        {
+            awa = windAngleToCourse;
+        }
+        else if(absWindAngle > 90 && absWindAngle < 180)
+        {
+            if(windAngleToCourse > 0)
+            {
+                awa = -(windAngleToCourse - 90);
+            }
+            else
+            {
+                awa = -(windAngleToCourse + 90);
+            }
+        }
+        else if(absWindAngle > 180 && absWindAngle < 270)
+        {
+            if(windAngleToCourse > 0)
+            {
+                awa = -(windAngleToCourse - 180);
+            }
+            else
+            {
+                awa = -(windAngleToCourse + 180);
+            }
+        }
+        else // absRawAWA <= 270
+        {
+            if(windAngleToCourse > 0)
+            {
+                awa = -(360 - windAngleToCourse);
+            }
+            else
+            {
+                awa = -(-360 - windAngleToCourse);
+            }
+        }
+
+        // This next line is kinda dense on the Math functions.
+        // Here's an easier to understand way of putting it:
+
+        //          /               sin(Acute Wind Angle)  \
+        //  arcsin |  Wind Speed X -----------------------  |
+        //          \                   True Air Speed     /
+
+        double wca = Math.toDegrees(Math.asin((double)windSpeed * (Math.sin(Math.toRadians((double)awa)) / (double)trueAirSpeed)));
+
+        double roundingVar = wca - (int)wca;
+        if(Math.abs(roundingVar) >= .5)
+        {
+            if(wca > 0)
+            {
+                windAdjustment = (int)wca + 1;
+            }
+            else
+            {
+                windAdjustment = (int)wca - 1;
+            }
         }
         else
         {
             windAdjustment = (int)wca;
         }
 
+        // Apply the wind adjustment
         windAdjustmentAngle = course + windAdjustment;
         if(windAdjustmentAngle < 0)
         {
@@ -79,6 +139,7 @@ public class FlightPlanStep
             windAdjustmentAngle -= 360;
         }
 
+        // Apply the plane's heading correction
         headingCorrectedAngle = windAdjustmentAngle + headingAdjustment;
         if(headingCorrectedAngle < 0)
         {
@@ -89,6 +150,7 @@ public class FlightPlanStep
             headingCorrectedAngle -= 360;
         }
 
+        // Finalize the heading with the magnetic heading adjustment
         finalCorrectedHeading = headingCorrectedAngle + magneticHeadingAdjustment;
         if(finalCorrectedHeading < 0)
         {
@@ -192,11 +254,11 @@ public class FlightPlanStep
         return actualTimeArrival;
     }
 
-    public Integer getLegFuelUsage() {
+    public Float getLegFuelUsage() {
         return legFuelUsage;
     }
 
-    public Integer getRemainingFuel() {
+    public Float getRemainingFuel() {
         return remainingFuel;
     }
 }

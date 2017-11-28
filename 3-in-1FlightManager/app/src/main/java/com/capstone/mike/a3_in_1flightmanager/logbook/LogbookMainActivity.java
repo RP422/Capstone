@@ -45,11 +45,6 @@ public class LogbookMainActivity extends AppCompatActivity {
             {
                 int queryCode = data.getIntExtra("QUERY", -1);
 
-//                // START DEBUG LINES
-//                Button btn = (Button)findViewById(R.id.quickSearchButton);
-//                btn.setText("Returned Query Code: " + queryCode);
-//                // END DEBUG LINES
-
                 Intent intent = new Intent(this, LogbookDataViewActivity.class);
                 intent.putExtra("QUERY", queryCode);
 

@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.capstone.mike.a3_in_1flightmanager.logbook.LogbookQuerySelectionActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.capstone.mike.a3_in_1flightmanager.flightPlanner.FlightPlannerEditNewRowActivity"
+    tools:showIn="@layout/activity_flight_planner_edit_new_row">
 
-        <ListView
-            android:id="@+id/querySelectionList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <!-- TODO Ask for data input -->
 
 </android.support.constraint.ConstraintLayout>

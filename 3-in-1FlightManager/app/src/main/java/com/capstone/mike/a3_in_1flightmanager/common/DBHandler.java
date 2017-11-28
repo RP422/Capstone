@@ -149,7 +149,7 @@ public class DBHandler extends SQLiteOpenHelper
         };
         String[] testChecklistItems2 = new String[]
         {
-                "Check Tyres",
+                "Check Tires",
                 "Check Fuel",
                 "Check Flight Stick",
                 "Check Instruments",
@@ -387,25 +387,82 @@ public class DBHandler extends SQLiteOpenHelper
             values.put(COLUMN_LOG_ID, entry.id);
         }
 
-        values.put(COLUMN_DATE,                 dateFormat.format(entry.date));
-        values.put(COLUMN_AIRCRAFT_MODEL,       entry.aircraftModel);
-        values.put(COLUMN_AIRCRAFT_IDENT,       entry.aircraftID);
-        values.put(COLUMN_DEPARTURE_LOC,        entry.flightDeparture);
-        values.put(COLUMN_ARRIVAL_LOC,          entry.flightArrival);
-        values.put(COLUMN_NR_INST_APP,          entry.numInstrumentApproach);
-        values.put(COLUMN_RMKS_AND_ENDSMTS,     entry.remarksAndEndorsements);
-        values.put(COLUMN_NR_DAY_LDG,           entry.numDayLandings);
-        values.put(COLUMN_NR_NGT_LDG,           entry.numNightLandings);
-        values.put(COLUMN_AIRCRAFT_CATEGORY,    entry.aircraftCategory.toString());
-        values.put(COLUMN_AIRCRAFT_CLASS,       entry.aircraftClass.toString());
-        values.put(COLUMN_NGT_TIME,             entry.nightFlyingTime);
-        values.put(COLUMN_ACTL_INST_TIME,       entry.actualInstrumentTime);
-        values.put(COLUMN_SIM_INST_TIME,        entry.simulatedInstrumentTime);
-        values.put(COLUMN_FLGT_SIM_TIME,        entry.flightSimulatorTime);
-        values.put(COLUMN_XCOUNTRY_TIME,        entry.crossCountryTime);
-        values.put(COLUMN_AS_FLGT_INSTRUCT,     entry.asFlightInstructorTime);
-        values.put(COLUMN_DUAL_RECIVED,         entry.dualRecievedTime);
-        values.put(COLUMN_PIC_TIME,             entry.pilotInCommandTime);
+        if(entry.date != null)
+        {
+            values.put(COLUMN_DATE,                 dateFormat.format(entry.date));
+        }
+        if(entry.aircraftModel != null)
+        {
+            values.put(COLUMN_AIRCRAFT_MODEL,       entry.aircraftModel);
+        }
+        if(entry.aircraftID != null)
+        {
+            values.put(COLUMN_AIRCRAFT_IDENT,       entry.aircraftID);
+        }
+        if(entry.flightDeparture != null)
+        {
+            values.put(COLUMN_DEPARTURE_LOC,        entry.flightDeparture);
+        }
+        if(entry.flightArrival != null)
+        {
+            values.put(COLUMN_ARRIVAL_LOC,          entry.flightArrival);
+        }
+        if(entry.numInstrumentApproach != null)
+        {
+            values.put(COLUMN_NR_INST_APP,          entry.numInstrumentApproach);
+        }
+        if(entry.remarksAndEndorsements != null)
+        {
+            values.put(COLUMN_RMKS_AND_ENDSMTS,     entry.remarksAndEndorsements);
+        }
+        if(entry.numDayLandings != null)
+        {
+            values.put(COLUMN_NR_DAY_LDG,           entry.numDayLandings);
+        }
+        if(entry.numNightLandings != null)
+        {
+            values.put(COLUMN_NR_NGT_LDG,           entry.numNightLandings);
+        }
+        if(entry.aircraftCategory != null)
+        {
+            values.put(COLUMN_AIRCRAFT_CATEGORY,    entry.aircraftCategory.toString());
+        }
+        if(entry.aircraftClass != null)
+        {
+            values.put(COLUMN_AIRCRAFT_CLASS,       entry.aircraftClass.toString());
+        }
+        if(entry.nightFlyingTime != null)
+        {
+            values.put(COLUMN_NGT_TIME,             entry.nightFlyingTime);
+        }
+        if(entry.actualInstrumentTime != null)
+        {
+            values.put(COLUMN_ACTL_INST_TIME,       entry.actualInstrumentTime);
+        }
+        if(entry.simulatedInstrumentTime != null)
+        {
+            values.put(COLUMN_SIM_INST_TIME,        entry.simulatedInstrumentTime);
+        }
+        if(entry.flightSimulatorTime != null)
+        {
+            values.put(COLUMN_FLGT_SIM_TIME,        entry.flightSimulatorTime);
+        }
+        if(entry.crossCountryTime != null)
+        {
+            values.put(COLUMN_XCOUNTRY_TIME,        entry.crossCountryTime);
+        }
+        if(entry.asFlightInstructorTime != null)
+        {
+            values.put(COLUMN_AS_FLGT_INSTRUCT,     entry.asFlightInstructorTime);
+        }
+        if(entry.dualRecievedTime != null)
+        {
+            values.put(COLUMN_DUAL_RECIVED,         entry.dualRecievedTime);
+        }
+        if(entry.pilotInCommandTime != null)
+        {
+            values.put(COLUMN_PIC_TIME,             entry.pilotInCommandTime);
+        }
 
         return values;
     }
@@ -500,6 +557,7 @@ public class DBHandler extends SQLiteOpenHelper
         createNewEntry(values, TABLE_FLIGHT_LOG);
     }
 
+    // TODO Sort the list based on data
     // Read
     private float getAggregateFloat(String query)
     {
@@ -528,14 +586,6 @@ public class DBHandler extends SQLiteOpenHelper
         }
     }
 
-    public void addNewEntry(LogbookEntry entry)
-    {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues data = translateToContentValues(entry, false);
-
-        // TODO Submit entry into the database
-    }
-
     public LogbookEntry[] getAll()
     {
         String query = "SELECT * " +
@@ -550,11 +600,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAY')";
         }
 
         return getEntries(query).toArray(new LogbookEntry[] {});
@@ -566,11 +616,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateFloat(query);
@@ -592,11 +642,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += " AND " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += " AND " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateFloat(query);
@@ -618,11 +668,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += " AND " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += " AND " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateFloat(query);
@@ -706,11 +756,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateFloat(query);
@@ -732,11 +782,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += " AND " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += " AND " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += " AND " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateFloat(query);
@@ -782,11 +832,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateInt(query);
@@ -805,11 +855,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateInt(query);
@@ -828,11 +878,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getAggregateInt(query);
@@ -917,11 +967,11 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now, 'start of day', -" + numDays + "DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
 
         return getEntries(query).toArray(new LogbookEntry[] {});
@@ -945,6 +995,8 @@ public class DBHandler extends SQLiteOpenHelper
     {
         deleteEntry(TABLE_FLIGHT_LOG, null);
     }
+
+
 
     // // JSON Store methods
     // General
@@ -985,6 +1037,8 @@ public class DBHandler extends SQLiteOpenHelper
     // @Returns: true if referenceName does not exist in the database.
     public Boolean insertJSON(String referenceName, JSONSchema schema, JSONObject json)
     {
+        ContentValues values = translateToContentValues(referenceName, schema, json);
+
         String query = "SELECT * " +
                 "FROM " + TABLE_JSON_STORE + " " +
                 "WHERE " + COLUMN_REFERENCE_NAME + " = \"" + referenceName + "\"";
@@ -993,12 +1047,15 @@ public class DBHandler extends SQLiteOpenHelper
 
         if((cursor != null) && (cursor.getCount() > 0))
         {
+            if(cursor.getString(cursor.getColumnIndex(COLUMN_SCHEMA_NAME)) == schema.toString())
+            {
+                updateJSON(referenceName, schema, json);
+                return true;
+            }
             return false;
         }
         else
         {
-            ContentValues values = translateToContentValues(referenceName, schema, json);
-
             createNewEntry(values, TABLE_JSON_STORE);
             return true;
         }
