@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class FlightPlannerEditActivity extends AppCompatActivity {
@@ -16,6 +19,12 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
     ArrayList<FlightPlanStep> steps = new ArrayList<>();
 
     FlightPlan flightPlan;
+
+    JSONObject json = new JSONObject();
+
+    private static final int REQUEST_CODE_NEW_ROW = 0;
+    private static final int REQUEST_CODE_PLANE_INFO = 1;
+    private static final int REQUEST_CODE_AIRPORT_INFO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +56,12 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
             // TODO Get the steps from the returned JSON
         }
 
-        TextView startingAirportTV = (TextView)findViewById(R.id.startingAirportTV);
-        startingAirportTV.setText(startingAirport);
         refreshAdapter();
+    }
+
+    private void refreshAdapter()
+    {
+        stepsList.setAdapter(new FlightPlannerEditArrayAdapter(this, flightPlan.toArray()));
     }
 
     public void addRow(View view)
@@ -57,8 +69,67 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
         // TODO Start the new Row activity
     }
 
-    private void refreshAdapter()
+    public void editPlaneInfo(View view)
     {
-        stepsList.setAdapter(new FlightPlannerEditArrayAdapter(this, flightPlan.toArray()));
+        Intent intent = new Intent(this, FlightPlannerEditPlaneInfoActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_PLANE_INFO);
+    }
+    public void editAirportInfo(View view)
+    {
+        Intent intent = new Intent(this, FlightPlannerEditAirportInfoActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_AIRPORT_INFO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == REQUEST_CODE_NEW_ROW)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                try
+                {
+                    JSONObject newCheckpoint = new JSONObject(data.getStringExtra("CHECKPOINT_INFO"));
+
+                    // TODO Translate the JSON to a new FlightPlanStep and enter it into the flightPlan
+
+                    refreshAdapter();
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else if(requestCode == REQUEST_CODE_PLANE_INFO)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                try
+                {
+                    JSONObject planeInfo = new JSONObject(data.getStringExtra("PLANE_INFO"));
+                    json.put("planeInfo", planeInfo);
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else if(requestCode == REQUEST_CODE_AIRPORT_INFO)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                try
+                {
+                    JSONObject airportInfo = new JSONObject(data.getStringExtra("AIRPORT_INFO"));
+                    json.put("airportInfo", airportInfo);
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

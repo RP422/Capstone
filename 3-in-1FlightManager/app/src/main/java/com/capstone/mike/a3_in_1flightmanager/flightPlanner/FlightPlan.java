@@ -49,7 +49,7 @@ public class FlightPlan
     }
     public void setFuelRate(String aircraft)
     {
-        // TODO Query for the plane's fuel consumption
+        // TODO Query for the plane's fuel consumption when I have a Planes table
         throw new UnsupportedOperationException();
     }
 

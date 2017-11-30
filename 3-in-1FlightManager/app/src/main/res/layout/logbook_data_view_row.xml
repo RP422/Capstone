@@ -5,6 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:id="@+id/entryID"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <TextView
         android:id="@+id/EntryDate"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="17sp"
@@ -203,6 +208,18 @@
         app:layout_constraintLeft_toRightOf="@+id/DualReceivedTime"
         android:layout_margin="15sp"/>
 
-    <!-- TODO Add edit and delete buttons somewhere on this -->
+    <!-- TODO Add an edit button here? -->
+
+    <Button
+        android:id="@+id/deleteLogbookRowBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Row"
+        android:onClick="deleteLogbookEntry"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/PicTime"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="15sp"/>
 
 </android.support.constraint.ConstraintLayout>

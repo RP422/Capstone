@@ -172,7 +172,7 @@ public class CreateChecklistActivity extends AppCompatActivity
 
     public void saveList(View view)
     {
-        // TODO Update the file if the activity started with a file
+
         JSONObject json = new JSONObject();
         JSONArray jsonItems = new JSONArray();
 
@@ -187,34 +187,36 @@ public class CreateChecklistActivity extends AppCompatActivity
 
             final Context context = this;
 
-            // TODO Modify this when the time comes I guess
+            // TODO Modify this when I have a Planes table
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("What do you want to name the checklist?");
 
-            final EditText input = new EditText(context);
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-//            input.setText(fileName);
-            builder.setView(input);
 
             final JSONObject jsonToSave = json;
 
-//            if(editingExistingList)
-//            {
-//                DBHandler db = DBHandler.getInstance(this);
-//
-//                db.updateJSON(fileName, JSONSchema.CHECKLIST, json);
-//                finish();
-//                Toast.makeText(context, "Save Sucessful", Toast.LENGTH_SHORT).show();
-//            }
-//            else
-//            {
+            // TODO If the activity started with a file, update that file instead of saving a new one
+
+            if(editingExistingList)
+            {
+                DBHandler db = DBHandler.getInstance(this);
+
+                db.updateJSON(fileName, JSONSchema.CHECKLIST, json);
+                finish();
+                Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
                         DBHandler db = DBHandler.getInstance(context);
 
-                        // TODO Look into ways to get this box to stay open in case of bad input
+                        // TODO Look into ways to get this box to stay open in case of bad input?
                         if(!db.insertJSON(input.getText().toString(), JSONSchema.CHECKLIST, jsonToSave))
                         {
                             Toast.makeText(context, "Save failed: that name is already in use", Toast.LENGTH_LONG).show();
@@ -223,7 +225,7 @@ public class CreateChecklistActivity extends AppCompatActivity
                         {
                             dialog.dismiss();
                             finish();
-                            Toast.makeText(context, "Save Sucessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -237,7 +239,7 @@ public class CreateChecklistActivity extends AppCompatActivity
                 });
 
                 builder.show();
-//            }
+            }
         }
         catch (JSONException e)
         {

@@ -73,13 +73,22 @@ public class LogbookNewEntryActivity extends AppCompatActivity
     public void saveEntry(View view)
     {
         LogbookEntry entry = new LogbookEntry();
-        DBHandler db = DBHandler.getInstance(this);
 
         try {
             int iNum = 0;
             float fNum = 0f;
 
-            // TODO Reject saves in the future
+            // Check if the the date is invalid
+            //   Read: in the future
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Date currentDate = new java.sql.Date(utilDate.getTime());
+
+            if(currentDate.compareTo(entry.date) == -1)
+            {
+                throw new IllegalStateException("Cannot create a logbook entry in the future");
+            }
+
+            // The actual save block
             EditText dateET = (EditText)findViewById(R.id.newEntryDatePicker);
             SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
             entry.date = new Date(format.parse(dateET.getText().toString()).getTime());
@@ -189,10 +198,19 @@ public class LogbookNewEntryActivity extends AppCompatActivity
                 entry.pilotInCommandTime = fNum;
             }
 
+            DBHandler db = DBHandler.getInstance(this);
             db.createLogbookEntry(entry);
+
             Toast.makeText(this, "Save Successful", Toast.LENGTH_SHORT).show();
+
             finish();
-        } catch (Exception e) {
+        }
+        catch (IllegalStateException e)
+        {
+            Toast.makeText(this, "Save Failed: Invalid Date Selected", Toast.LENGTH_LONG).show();
+        }
+        catch (ParseException e)
+        {
             Toast.makeText(this, "Save Failed: Parse Error", Toast.LENGTH_LONG).show();
         }
     }
