@@ -56,10 +56,9 @@
         <activity android:name=".flightPlanner.FlightPlannerMainActivity" />
         <activity android:name=".logbook.LogbookNewEntryActivity" />
         <activity android:name=".flightPlanner.FlightPlannerEditActivity" />
-        <activity
-            android:name=".flightPlanner.FlightPlannerEditNewRowActivity"
-            android:label="@string/title_activity_flight_planner_edit_new_row"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".flightPlanner.FlightPlannerEditPlaneInfoActivity" />
+        <activity android:name=".flightPlanner.FlightPlannerEditAirportInfoActivity" />
+        <activity android:name=".flightPlanner.FlightPlannerEditNewRowActivity"></activity>
     </application>
 
 </manifest>

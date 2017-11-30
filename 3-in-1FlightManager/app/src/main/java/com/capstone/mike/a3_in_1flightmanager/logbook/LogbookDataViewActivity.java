@@ -1,10 +1,13 @@
 package com.capstone.mike.a3_in_1flightmanager.logbook;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
@@ -79,6 +82,16 @@ public class LogbookDataViewActivity extends AppCompatActivity {
 
         list.setAdapter(adapter);
 
-        // TODO Put edit and delete buttons for these entries
+        // TODO Put an edit button for these entries?
+    }
+
+    public void deleteLogbookEntry(View view)
+    {
+        ConstraintLayout parent = (ConstraintLayout)view.getParent();
+        TextView idBox = parent.findViewById(R.id.entryID);
+        int entryID = Integer.parseInt(idBox.getText().toString());
+
+        DBHandler db = DBHandler.getInstance(this);
+        db.removeLogbookEntry(entryID);
     }
 }

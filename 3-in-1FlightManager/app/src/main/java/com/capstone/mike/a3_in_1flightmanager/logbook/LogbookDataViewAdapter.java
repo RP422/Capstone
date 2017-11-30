@@ -36,7 +36,10 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
 
         LogbookEntry entry = logbookEntries[position];
 
-        TextView date = (TextView)convertView.findViewById(R.id.EntryDate);
+        TextView entryID = convertView.findViewById(R.id.entryID);
+        entryID.setText(entry.id);
+
+        TextView date = convertView.findViewById(R.id.EntryDate);
         if(entry.date != null)
         {
             SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
@@ -47,7 +50,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
             date.setText("N/A");
         }
 
-        TextView model = (TextView)convertView.findViewById(R.id.AircraftModel);
+        TextView model = convertView.findViewById(R.id.AircraftModel);
         if(entry.aircraftModel != null && !entry.aircraftModel.isEmpty())
         {
             model.setText(entry.aircraftModel);
@@ -57,14 +60,14 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
             model.setText("N/A");
         }
 
-        TextView id = (TextView)convertView.findViewById(R.id.AircraftID);
+        TextView aircraftID = convertView.findViewById(R.id.AircraftID);
         if(entry.aircraftID != null && !entry.aircraftID.isEmpty())
         {
-            id.setText(entry.aircraftID);
+            aircraftID.setText(entry.aircraftID);
         }
         else
         {
-            id.setText("N/A");
+            aircraftID.setText("N/A");
         }
 
         TextView depatrure = (TextView)convertView.findViewById(R.id.Departure);

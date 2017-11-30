@@ -1,5 +1,9 @@
 package com.capstone.mike.a3_in_1flightmanager.flightPlanner;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -49,7 +53,7 @@ public class FlightPlan
     }
     public void setFuelRate(String aircraft)
     {
-        // TODO Query for the plane's fuel consumption
+        // TODO Query for the plane's fuel consumption when I have a Planes table
         throw new UnsupportedOperationException();
     }
 
@@ -172,5 +176,20 @@ public class FlightPlan
             flightPlan.get(x).remainingFuel = remainFuel;
             remainFuel += step.legFuelUsage;
         }
+    }
+
+    public JSONObject toJSON() throws JSONException
+    {
+        JSONObject json = new JSONObject();
+        JSONArray jsonSteps = new JSONArray();
+
+        for (FlightPlanStep step : flightPlan)
+        {
+            jsonSteps.put(step.toJSON());
+        }
+
+        json.put("steps", jsonSteps);
+
+        return json;
     }
 }

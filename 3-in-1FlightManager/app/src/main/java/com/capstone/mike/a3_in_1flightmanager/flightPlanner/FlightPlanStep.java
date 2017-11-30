@@ -1,5 +1,8 @@
 package com.capstone.mike.a3_in_1flightmanager.flightPlanner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Mike on 11/20/2017.
  */
@@ -17,24 +20,24 @@ public class FlightPlanStep
     public int windSpeed;
     public Integer windTemp;
 
-    public Integer trueAirSpeed;
+    public int trueAirSpeed;
 
-    public Integer windAdjustment;
-    public Integer windAdjustmentAngle;
+    public int windAdjustment;
+    public int windAdjustmentAngle;
 
-    public Integer trueHeadingAdjustment;
-    public Integer headingCorrectedAngle;
+    public int trueHeadingAdjustment;
+    public int headingCorrectedAngle;
 
-    public Integer magneticHeadingAdjustment;
-    public Integer finalCorrectedHeading;
+    public int magneticHeadingAdjustment;
+    public int finalCorrectedHeading;
 
-    public Integer legDistance;
-    public Integer remainingDistance = 0;
+    public int legDistance;
+    public int remainingDistance = 0;
 
-    public Integer estimatedGroundSpeed;
+    public int estimatedGroundSpeed;
     public Integer actualGroundSpeed;
 
-    public Integer estimatedTimeEnroute;
+    public int estimatedTimeEnroute;
     public Integer actualTimeEnroute;
     public Integer estimatedTimeArrival;
     public Integer actualTimeArrival;
@@ -162,6 +165,23 @@ public class FlightPlanStep
         }
     }
 
+    public JSONObject toJSON() throws JSONException
+    {
+        JSONObject json = new JSONObject();
+
+        json.put("checkpointName", checkpointName);
+        json.put("legDistance", legDistance);
+        json.put("course", course);
+        json.put("altitude", altitude);
+        json.put("tas", trueAirSpeed);
+        json.put("windDir", windDirection);
+        json.put("windSpeed", windSpeed);
+        json.put("headAdjust", trueHeadingAdjustment);
+        json.put("magHeadAdjust", magneticHeadingAdjustment);
+
+        return json;
+    }
+
     public String getCheckpointName() {
         return checkpointName;
     }
@@ -194,51 +214,51 @@ public class FlightPlanStep
         return windTemp;
     }
 
-    public Integer getTrueAirSpeed() {
+    public int getTrueAirSpeed() {
         return trueAirSpeed;
     }
 
-    public Integer getWindAdjustment() {
+    public int getWindAdjustment() {
         return windAdjustment;
     }
 
-    public Integer getWindAdjustmentAngle() {
+    public int getWindAdjustmentAngle() {
         return windAdjustmentAngle;
     }
 
-    public Integer getTrueHeadingAdjustment() {
+    public int getTrueHeadingAdjustment() {
         return trueHeadingAdjustment;
     }
 
-    public Integer getHeadingCorrectedAngle() {
+    public int getHeadingCorrectedAngle() {
         return headingCorrectedAngle;
     }
 
-    public Integer getMagneticHeadingAdjustment() {
+    public int getMagneticHeadingAdjustment() {
         return magneticHeadingAdjustment;
     }
 
-    public Integer getFinalCorrectedHeading() {
+    public int getFinalCorrectedHeading() {
         return finalCorrectedHeading;
     }
 
-    public Integer getLegDistance() {
+    public int getLegDistance() {
         return legDistance;
     }
 
-    public Integer getRemainingDistance() {
+    public int getRemainingDistance() {
         return remainingDistance;
     }
 
-    public Integer getEstimatedGroundSpeed() {
+    public int getEstimatedGroundSpeed() {
         return estimatedGroundSpeed;
     }
 
-    public Integer getActualGroundSpeed() {
+    public int getActualGroundSpeed() {
         return actualGroundSpeed;
     }
 
-    public Integer getEstimatedTimeEnroute() {
+    public int getEstimatedTimeEnroute() {
         return estimatedTimeEnroute;
     }
 

@@ -549,6 +549,7 @@ public class DBHandler extends SQLiteOpenHelper
         return entries;
     }
 
+
     // Create
     public void createLogbookEntry(LogbookEntry entry)
     {
@@ -557,7 +558,7 @@ public class DBHandler extends SQLiteOpenHelper
         createNewEntry(values, TABLE_FLIGHT_LOG);
     }
 
-    // TODO Sort the list based on data
+
     // Read
     private float getAggregateFloat(String query)
     {
@@ -589,7 +590,8 @@ public class DBHandler extends SQLiteOpenHelper
     public LogbookEntry[] getAll()
     {
         String query = "SELECT * " +
-                       "FROM " + TABLE_FLIGHT_LOG;
+                       "FROM " + TABLE_FLIGHT_LOG + " " +
+                       "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
@@ -600,12 +602,14 @@ public class DBHandler extends SQLiteOpenHelper
 
         if(numDays > 1)
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAYS')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAYS') ";
         }
         else
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAY')";
+            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAY') ";
         }
+
+        query += "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
@@ -713,7 +717,7 @@ public class DBHandler extends SQLiteOpenHelper
         }
 
         String query = "SELECT SUM(" + requestedColumn + ") " +
-                       "FROM " + TABLE_FLIGHT_LOG + " ";
+                       "FROM " + TABLE_FLIGHT_LOG;
 
         return getAggregateFloat(query);
     }
@@ -796,7 +800,8 @@ public class DBHandler extends SQLiteOpenHelper
     {
         String query = "SELECT * " +
                        "FROM " + TABLE_FLIGHT_LOG + " " +
-                       "WHERE STRFTIME('%y-%m-%d'" + COLUMN_DATE + ") = " + dateFormat.format(date);
+                       "WHERE STRFTIME('%y-%m-%d'" + COLUMN_DATE + ") = " + dateFormat.format(date) + " " +
+                       "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
@@ -805,7 +810,8 @@ public class DBHandler extends SQLiteOpenHelper
     {
         String query = "SELECT * " +
                        "FROM " + TABLE_FLIGHT_LOG + " " +
-                       "WHERE " + COLUMN_ARRIVAL_LOC + " = \"" + airportID + "\"";
+                       "WHERE " + COLUMN_ARRIVAL_LOC + " = \"" + airportID + "\" " +
+                       "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
@@ -813,7 +819,8 @@ public class DBHandler extends SQLiteOpenHelper
     {
         String query = "SELECT * " +
                        "FROM " + TABLE_FLIGHT_LOG + " " +
-                       "WHERE " + COLUMN_DEPARTURE_LOC + " = \"" + airportID + "\"";
+                       "WHERE " + COLUMN_DEPARTURE_LOC + " = \"" + airportID + "\" " +
+                       "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
@@ -923,8 +930,9 @@ public class DBHandler extends SQLiteOpenHelper
         }
 
         String query = "SELECT * " +
-                "FROM " + TABLE_FLIGHT_LOG + " " +
-                "WHERE " + requestedColumn + " > 0";
+            "FROM " + TABLE_FLIGHT_LOG + " " +
+            "WHERE " + requestedColumn + " > 0 " +
+            "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
@@ -973,6 +981,8 @@ public class DBHandler extends SQLiteOpenHelper
         {
             query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
         }
+
+        query += "ORDER BY " + COLUMN_DATE + " DESC";
 
         return getEntries(query).toArray(new LogbookEntry[] {});
     }

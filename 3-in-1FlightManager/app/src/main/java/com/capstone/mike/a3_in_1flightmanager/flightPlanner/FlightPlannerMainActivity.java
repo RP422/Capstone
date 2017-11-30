@@ -25,8 +25,8 @@ public class FlightPlannerMainActivity extends AppCompatActivity
 
     public void newPlan(View view)
     {
-//        Intent intent = new Intent(this, FlightPlannerEditActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, FlightPlannerEditActivity.class);
+        startActivity(intent);
     }
 
     public void editPlan(View view)
