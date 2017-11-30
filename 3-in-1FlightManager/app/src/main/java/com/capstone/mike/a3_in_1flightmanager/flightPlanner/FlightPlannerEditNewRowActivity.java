@@ -1,11 +1,8 @@
 package com.capstone.mike.a3_in_1flightmanager.flightPlanner;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
+import android.view.View;import android.widget.EditText;
 import android.widget.Toast;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
@@ -81,7 +78,6 @@ public class FlightPlannerEditNewRowActivity extends AppCompatActivity {
             }
         }
     }
-
     public void saveRow(View view)
     {
         JSONObject json = new JSONObject();
