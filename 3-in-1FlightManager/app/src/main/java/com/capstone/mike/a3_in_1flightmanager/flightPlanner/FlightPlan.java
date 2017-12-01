@@ -13,8 +13,7 @@ import java.util.ArrayList;
 public class FlightPlan
 {
     private ArrayList<FlightPlanStep> flightPlan = new ArrayList<>();
-    private String startingAirportName;
-    private int startingAirportMSL;
+    private int startingAltitude;
 
     private String aircraft;
     private float fuelRate;
@@ -23,24 +22,9 @@ public class FlightPlan
     private int totalDistance;
     private int totalFuel;
 
-    public FlightPlan(String startingAirportName, int startingAirportMSL)
-    {
-        this.startingAirportName = startingAirportName;
-        this.startingAirportMSL = startingAirportMSL;
-    }
-
     public FlightPlanStep[] toArray()
     {
         return flightPlan.toArray(new FlightPlanStep[] {});
-    }
-
-    public String getStartingAirportName()
-    {
-        return startingAirportName;
-    }
-    public void setStartingAirportName(String startingAirportName)
-    {
-        this.startingAirportName = startingAirportName;
     }
 
     public float getFuelRate()
@@ -53,8 +37,17 @@ public class FlightPlan
     }
     public void setFuelRate(String aircraft)
     {
-        // TODO Query for the plane's fuel consumption when I have a Planes table
+        // TODO NOTIM: Query for the plane's fuel consumption when I have a Planes table
         throw new UnsupportedOperationException();
+    }
+
+    public int getStartingAltitude()
+    {
+        return startingAltitude;
+    }
+    public void setStartingAltitude(int newAltitude)
+    {
+        startingAltitude = newAltitude;
     }
 
     public int size()
@@ -102,7 +95,7 @@ public class FlightPlan
         float remainFuel = fuelRate * 0.45f;
 
         int[] altMSL = new int[flightPlan.size() + 1];
-        altMSL[0] = startingAirportMSL;
+        altMSL[0] = startingAltitude;
 
         for(int x = 0; x < flightPlan.size(); x++)
         {
@@ -117,6 +110,7 @@ public class FlightPlan
             step.remainingDistance = remainDistance;
             remainDistance += legDistance;
 
+            // TODO double check the math here
             // Finding estimatedGroundSpeed
             int windAngleToCourse = step.windDirection - step.course;
             int headingToCourse = step.windAdjustmentAngle - step.course;

@@ -37,7 +37,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         LogbookEntry entry = logbookEntries[position];
 
         TextView entryID = convertView.findViewById(R.id.entryID);
-        entryID.setText(entry.id);
+        entryID.setText("" + entry.id);
 
         TextView date = convertView.findViewById(R.id.EntryDate);
         if(entry.date != null)

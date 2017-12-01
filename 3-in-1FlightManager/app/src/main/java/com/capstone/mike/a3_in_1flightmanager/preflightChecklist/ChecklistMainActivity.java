@@ -71,6 +71,20 @@ public class ChecklistMainActivity extends AppCompatActivity {
     // TODO Create a delete entry button
     public void deleteChecklist(View view)
     {
+        final Context context = this;
 
+        DBHandler db = DBHandler.getInstance(context);
+        final String[] files = db.getFilesOfSchema(JSONSchema.CHECKLIST);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Which list do you want to edit?");
+        builder.setItems(files, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DBHandler db = DBHandler.getInstance(context);
+                db.deleteJSON(files[which]);
+            }
+        });
+        builder.show();
     }
 }

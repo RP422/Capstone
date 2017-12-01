@@ -29,31 +29,44 @@ public class FlightPlannerMainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void editPlan(View view)
+    public void viewPlan(View view)
     {
-        Intent intent = new Intent(this, FlightPlannerEditActivity.class);
-        intent.putExtra("TEST", true);
-        startActivity(intent);
-//        final Context context = this;
-//
-//        DBHandler db = DBHandler.getInstance(context);
-//        final String[] files = db.getFilesOfSchema(JSONSchema.FLIGHT_PLAN);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setTitle("Which list do you want?");
-//        builder.setItems(files, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent intent = new Intent(context, FlightPlannerEditActivity.class);
-//                intent.putExtra("FILE", files[which]);
-//                context.startActivity(intent);
-//            }
-//        });
-//        builder.show();
+        final Context context = this;
+
+        DBHandler db = DBHandler.getInstance(context);
+        final String[] files = db.getFilesOfSchema(JSONSchema.FLIGHT_PLAN);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Which flight plan do you want?");
+        builder.setItems(files, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, FlightPlannerEditActivity.class);
+                intent.putExtra("FILE", files[which]);
+                context.startActivity(intent);
+            }
+        });
+        builder.show();
     }
 
-    public void reviewPlan(View view)
+
+    public void deletePlan(View view)
     {
-//        PopupBuilder.selectFlightPlan(this, FlightPlannerReviewPlanActivity.class);
+        // TODO Implement deleting plans
+        final Context context = this;
+
+        DBHandler db = DBHandler.getInstance(context);
+        final String[] files = db.getFilesOfSchema(JSONSchema.FLIGHT_PLAN);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Which flight plan do you want to delete?");
+        builder.setItems(files, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DBHandler db = DBHandler.getInstance(context);
+                db.deleteJSON(files[which]);
+            }
+        });
+        builder.show();
     }
 }

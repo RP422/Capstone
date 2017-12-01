@@ -33,7 +33,7 @@ public class PopupBuilder
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-        // TODO Look into ways to get this box to stay open in case of bad input
+        // TODO NOTIM: Look into ways to get this box to stay open in case of bad input
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which)

@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.capstone.mike.a3_in_1flightmanager.flightPlanner.FlightPlan;
+import com.capstone.mike.a3_in_1flightmanager.flightPlanner.FlightPlanStep;
 import com.capstone.mike.a3_in_1flightmanager.logbook.AircraftCategory;
 import com.capstone.mike.a3_in_1flightmanager.logbook.AircraftClass;
 import com.capstone.mike.a3_in_1flightmanager.logbook.LogbookEntry;
@@ -204,6 +207,50 @@ public class DBHandler extends SQLiteOpenHelper
                                         "\"SINGLE_ENGINE_LAND\"," +
                                         "\"TAIL_WHEEL\")");
 
+        FlightPlan testPlan = new FlightPlan();
+        testPlan.add(new FlightPlanStep("TOC", 213, 8, 2500, 90, 280, 13, 6, 0, null, null));
+        testPlan.add(new FlightPlanStep("VAY", 213, 12, 2500, 110, 280, 13, 6, 0, null, null));
+        testPlan.add(new FlightPlanStep("VCN", 195, 25, 2500, 110, 280, 13, 6, 0, 115.2f, "205"));
+        testPlan.add(new FlightPlanStep("ATR", 195, 44, 2500, 110, 280, 13, 6, 0, 112.6f, "205"));
+        testPlan.add(new FlightPlanStep("TOD", 172, 3, 2500, 110, 280, 13, 6, 0, 112.6f, "180"));
+        testPlan.add(new FlightPlanStep("OBX", 172, 27, 1011, 110, 280, 13, 6, 0, null, null));
+
+        JSONObject testPlaneInfo = new JSONObject();
+        JSONObject testAirportInfo = new JSONObject();
+
+        try
+        {
+            testPlaneInfo.put("model", "Paper");
+            testPlaneInfo.put("gph", 7.2);
+
+            testAirportInfo.put("departureAirport", "N87");
+            testAirportInfo.put("departureATIS", "126.775");
+            testAirportInfo.put("departureDep", "124.15");
+            testAirportInfo.put("departureCTAF", "123.0");
+            testAirportInfo.put("departureTPA", "1100");
+            testAirportInfo.put("departureFieldElev", "115");
+
+            testAirportInfo.put("destinationAirport", "OBX");
+            testAirportInfo.put("destinationRunway", "2/20 14/32");
+            testAirportInfo.put("destinationCTAF", "123.05");
+            testAirportInfo.put("destinationTPA", "1010");
+            testAirportInfo.put("destinationFieldElev", "10");
+
+            JSONObject jsonPlan = new JSONObject(testPlan.toJSON().toString());
+            jsonPlan.put("planeInfo", testPlaneInfo);
+            jsonPlan.put("airportInfo", testAirportInfo);
+
+
+            db.execSQL("INSERT INTO jsonStore(REFERENCE_NAME, SCHEMA, JSON)" +
+                    " VALUES(\"Test Flight Plan\", 1, '"+ jsonPlan.toString() + "')");
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+            System.err.println("There was an error stopping the test plan from inserting");
+        }
+
+
 //        testLog1.date = new Date(2016, 12, 30);
 //        testLog2.date = new Date(2017,  5, 14);
 //        testLog3.date = new Date(2017,  7,  4);
@@ -346,7 +393,7 @@ public class DBHandler extends SQLiteOpenHelper
                 }
             }
 
-            // TODO Think about including a "entry does not exist" failsafe?
+            // TODO NOTIM: Think about including a "entry does not exist" failsafe?
         }
         catch(Exception e)
         {
@@ -1149,6 +1196,6 @@ public class DBHandler extends SQLiteOpenHelper
     // Delete
     public void deleteJSON(String referenceName)
     {
-        deleteEntry(TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = " + referenceName);
+        deleteEntry(TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = '" + referenceName + "'");
     }
 }

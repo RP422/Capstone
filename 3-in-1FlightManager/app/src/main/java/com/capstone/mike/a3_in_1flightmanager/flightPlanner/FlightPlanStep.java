@@ -47,7 +47,8 @@ public class FlightPlanStep
 
     public FlightPlanStep(String checkpointName, int course, int legDistance,
                           int altitude, int trueAirSpeed, int windDirection,
-                          int windSpeed, int headingAdjustment, int magneticHeadingAdjustment)
+                          int windSpeed, int headingAdjustment, int magneticHeadingAdjustment,
+                          Float frequency, String identification)
     {
         this.checkpointName = checkpointName;
         this.course = course;
@@ -58,6 +59,15 @@ public class FlightPlanStep
         this.windSpeed = windSpeed;
         this.trueHeadingAdjustment = headingAdjustment;
         this.magneticHeadingAdjustment = magneticHeadingAdjustment;
+
+        if(frequency != null)
+        {
+            this.frequency = frequency;
+        }
+        if(identification != null && !identification.isEmpty())
+        {
+            this.identification = identification;
+        }
 
         int awa = 0;
         int windAngleToCourse = windDirection - course;
@@ -178,6 +188,15 @@ public class FlightPlanStep
         json.put("windSpeed", windSpeed);
         json.put("headAdjust", trueHeadingAdjustment);
         json.put("magHeadAdjust", magneticHeadingAdjustment);
+
+        if(frequency != null)
+        {
+            json.put("freq", frequency);
+        }
+        if(identification != null && !identification.isEmpty())
+        {
+            json.put("ident", identification);
+        }
 
         return json;
     }

@@ -39,6 +39,7 @@
         app:layout_constraintBottom_toTopOf="@+id/editChecklistBtn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
     <Button
         android:id="@+id/editChecklistBtn"
         android:layout_width="wrap_content"
@@ -46,6 +47,17 @@
         android:text="Edit a checklist"
         android:onClick="editChecklist"
         app:layout_constraintTop_toBottomOf="@+id/newChecklistBtn"
+        app:layout_constraintBottom_toTopOf="@id/deleteChecklistBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/deleteChecklistBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete a checklist"
+        android:onClick="deleteChecklist"
+        app:layout_constraintTop_toBottomOf="@id/editChecklistBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
