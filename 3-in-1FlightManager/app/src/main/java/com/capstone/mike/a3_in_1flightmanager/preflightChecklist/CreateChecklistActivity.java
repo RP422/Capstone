@@ -60,10 +60,9 @@ public class CreateChecklistActivity extends AppCompatActivity
         else if(intent.hasExtra("FILE"))
         {
             editingExistingList = true;
-            fileName = intent.getStringExtra("FILE");
 
             DBHandler db = DBHandler.getInstance(this);
-            JSONObject json = db.getJSONfromReferenceName(fileName);
+            JSONObject json = db.getJSONfromReferenceName(intent.getStringExtra("FILE"));
 
             try
             {
@@ -187,20 +186,21 @@ public class CreateChecklistActivity extends AppCompatActivity
 
             final Context context = this;
 
-            // TODO Modify this when I have a Planes table
+            // TODO NOTIM: Modify this when I have a Planes table
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("What do you want to name the checklist?");
 
 
             final JSONObject jsonToSave = json;
 
-            // TODO If the activity started with a file, update that file instead of saving a new one
+            // TODO Test that the update functionality works
 
             if(editingExistingList)
             {
                 DBHandler db = DBHandler.getInstance(this);
+                Intent data = getIntent();
 
-                db.updateJSON(fileName, JSONSchema.CHECKLIST, json);
+                db.updateJSON(data.getStringExtra("FILE"), JSONSchema.CHECKLIST, json);
                 finish();
                 Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
             }
@@ -216,7 +216,7 @@ public class CreateChecklistActivity extends AppCompatActivity
                     {
                         DBHandler db = DBHandler.getInstance(context);
 
-                        // TODO Look into ways to get this box to stay open in case of bad input?
+                        // TODO NOTIM: Look into ways to get this box to stay open in case of bad input?
                         if(!db.insertJSON(input.getText().toString(), JSONSchema.CHECKLIST, jsonToSave))
                         {
                             Toast.makeText(context, "Save failed: that name is already in use", Toast.LENGTH_LONG).show();

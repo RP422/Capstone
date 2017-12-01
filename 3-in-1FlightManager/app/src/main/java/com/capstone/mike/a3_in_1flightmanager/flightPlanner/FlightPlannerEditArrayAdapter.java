@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by Mike on 11/20/2017.
  */
@@ -35,6 +37,9 @@ public class FlightPlannerEditArrayAdapter  extends ArrayAdapter<FlightPlanStep>
 
         FlightPlanStep step = steps[position];
 
+        TextView rowIndicator = convertView.findViewById(R.id.rowNumTV);
+        rowIndicator.setText("" + position);
+
         TextView checkpoint = convertView.findViewById(R.id.checkpointTV);
         checkpoint.setText(step.getCheckpointName());
 
@@ -53,6 +58,10 @@ public class FlightPlannerEditArrayAdapter  extends ArrayAdapter<FlightPlanStep>
         // Course
         TextView course = convertView.findViewById(R.id.courseTV);
         course.setText("" + step.getCourse());
+
+        // Altitude
+        TextView altitude = convertView.findViewById(R.id.altitudeTV);
+        altitude.setText("" + step.getAltitude());
 
         // Wind
         TextView windDir = convertView.findViewById(R.id.windDirTV);

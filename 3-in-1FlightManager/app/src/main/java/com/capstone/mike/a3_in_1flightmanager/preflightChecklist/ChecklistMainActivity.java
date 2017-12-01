@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.capstone.mike.a3_in_1flightmanager.R;
 import com.capstone.mike.a3_in_1flightmanager.common.DBHandler;
@@ -71,6 +72,21 @@ public class ChecklistMainActivity extends AppCompatActivity {
     // TODO Create a delete entry button
     public void deleteChecklist(View view)
     {
+        final Context context = this;
 
+        DBHandler db = DBHandler.getInstance(context);
+        final String[] files = db.getFilesOfSchema(JSONSchema.CHECKLIST);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Which list do you want to edit?");
+        builder.setItems(files, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DBHandler db = DBHandler.getInstance(context);
+                db.deleteJSON(files[which]);
+                Toast.makeText(context, "Checklist deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
     }
 }

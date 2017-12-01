@@ -16,8 +16,8 @@
     <string name="preflight_checklist_create_a_new_checklist">Create a new checklist</string>
     <string name="flight_planner_title">Flight\nPlanner</string>
     <string name="flight_plan_new_plan">Create a new Flight Plan</string>
-    <string name="flight_plan_edit_plan">Edit a Flight Plan</string>
-    <string name="flight_plan_review_plan">Review a Flight Plan</string>
+    <string name="flight_plan_edit_plan">View a Flight Plan</string>
+    <string name="flight_plan_review_plan">Delete a Flight Plan</string>
     <string name="checklist_new_row_edit">Edit</string>
     <string name="checklist_new_row_delete">Delete</string>
     <string name="sample_text">SAMPLE TEXT</string>

@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +14,7 @@
             android:id="@+id/newRowCheckpointNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Checkpoint Name"
+            android:text="Checkpoint Name*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -33,20 +34,20 @@
             android:layout_margin="15dp" />
 
         <TextView
-            android:id="@+id/newRowCourseLabel"
+            android:id="@+id/newRowFreqLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Course"
+            android:text="Frequency"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@+id/newRowCheckpointNameLabel"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/newRowCourse"
+            app:layout_constraintRight_toLeftOf="@+id/newRowFreq"
             android:layout_margin="15dp"/>
         <EditText
-            android:id="@+id/newRowCourse"
+            android:id="@+id/newRowFreq"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:textSize="20sp"
@@ -57,10 +58,58 @@
             android:layout_margin="15dp" />
 
         <TextView
+            android:id="@+id/newRowIdentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Identification"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/newRowFreqLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newRowIdent"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newRowIdent"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@+id/newRowFreq"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/newRowCourseLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Course*"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/newRowIdentLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/newRowCourse"
+            android:layout_margin="15dp"/>
+        <EditText
+            android:id="@+id/newRowCourse"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="20sp"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@+id/newRowIdent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" />
+
+        <TextView
             android:id="@+id/newRowLegDistanceLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Leg Distance"
+            android:text="Leg Distance*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -84,7 +133,7 @@
             android:id="@+id/newRowAltitudeLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Altitude"
+            android:text="Altitude*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -108,7 +157,7 @@
             android:id="@+id/newRowTASLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="True Air Speed"
+            android:text="True Air Speed*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -132,7 +181,7 @@
             android:id="@+id/newRowWindDirLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Wind Direction"
+            android:text="Wind Direction*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -156,7 +205,7 @@
             android:id="@+id/newRowWindSpeedLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Wind Speed"
+            android:text="Wind Speed*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -180,7 +229,7 @@
             android:id="@+id/newRowHeadAdjustLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Heading Adjustment"
+            android:text="Heading Adjustment*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -194,7 +243,7 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:textSize="20sp"
-            android:inputType="number"
+            android:inputType="numberSigned"
             app:layout_constraintTop_toBottomOf="@+id/newRowWindSpeed"
             app:layout_constraintRight_toRightOf="parent"
             android:padding="15dp"
@@ -204,7 +253,7 @@
             android:id="@+id/newRowMagHeadAdjustLabel"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Magnetic\nHeading Adjustment"
+            android:text="Magnetic\nHeading Adjustment*"
             android:textColor="?attr/actionMenuTextColor"
             android:textAlignment="center"
             android:gravity="center_vertical"
@@ -218,11 +267,24 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:textSize="20sp"
-            android:inputType="number"
+            android:inputType="numberSigned"
             app:layout_constraintTop_toBottomOf="@+id/newRowHeadAdjust"
             app:layout_constraintRight_toRightOf="parent"
             android:padding="15dp"
             android:layout_margin="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*Required Field"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/newRowMagHeadAdjustLabel"
+            app:layout_constraintLeft_toLeftOf="@id/newRowMagHeadAdjustLabel"
+            app:layout_constraintRight_toRightOf="@id/newRowMagHeadAdjustLabel"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -231,6 +293,7 @@
             android:onClick="saveRow"
             app:layout_constraintTop_toBottomOf="@+id/newRowMagHeadAdjust"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="20dp"/>
 
     </android.support.constraint.ConstraintLayout>

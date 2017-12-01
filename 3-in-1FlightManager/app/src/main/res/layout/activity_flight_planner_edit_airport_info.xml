@@ -42,18 +42,7 @@
                             android:gravity="center_vertical"
                             android:layout_gravity="center_vertical"
                             android:layout_margin="10dp"/>
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_row="0"
-                            android:layout_column="1"
-                            android:text="ATIS/Airport\nAdvisories"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="17sp"
-                            android:textAlignment="center"
-                            android:gravity="center_vertical"
-                            android:layout_gravity="center_vertical"
-                            android:layout_margin="10dp"/>
+
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
@@ -72,7 +61,7 @@
                             android:layout_height="wrap_content"
                             android:layout_row="1"
                             android:layout_column="1"
-                            android:text="ATIS Code"
+                            android:text="Airport"
                             android:textColor="?attr/actionMenuTextColor"
                             android:textSize="17sp"
                             android:textAlignment="center"
@@ -83,6 +72,18 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_row="2"
+                            android:layout_column="1"
+                            android:text="ATIS Code"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="3"
                             android:layout_column="1"
                             android:text="Wind"
                             android:textColor="?attr/actionMenuTextColor"
@@ -94,7 +95,7 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="3"
+                            android:layout_row="4"
                             android:layout_column="1"
                             android:text="Visibility"
                             android:textColor="?attr/actionMenuTextColor"
@@ -106,7 +107,7 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="4"
+                            android:layout_row="5"
                             android:layout_column="1"
                             android:text="Ceiling"
                             android:textColor="?attr/actionMenuTextColor"
@@ -118,7 +119,7 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="5"
+                            android:layout_row="6"
                             android:layout_column="1"
                             android:text="Altimiter"
                             android:textColor="?attr/actionMenuTextColor"
@@ -130,7 +131,7 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="6"
+                            android:layout_row="7"
                             android:layout_column="1"
                             android:text="Approach"
                             android:textColor="?attr/actionMenuTextColor"
@@ -142,7 +143,7 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="7"
+                            android:layout_row="8"
                             android:layout_column="1"
                             android:text="Runway"
                             android:textColor="?attr/actionMenuTextColor"
@@ -151,12 +152,105 @@
                             android:gravity="center_vertical"
                             android:layout_gravity="center_vertical"
                             android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="9"
+                            android:layout_column="1"
+                            android:text="Ground"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="10"
+                            android:layout_column="1"
+                            android:text="FSS"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="11"
+                            android:layout_column="1"
+                            android:text="Tower"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="12"
+                            android:layout_column="1"
+                            android:text="Dep/App"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="13"
+                            android:layout_column="1"
+                            android:text="CTAF"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="14"
+                            android:layout_column="1"
+                            android:text="TPA"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="15"
+                            android:layout_column="1"
+                            android:text="Field Elev"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="17sp"
+                            android:textAlignment="center"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"/>
 
                         <EditText
-                            android:id="@+id/departureATIS"
+                            android:id="@+id/departureAirport"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="1"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureATIS"
+                            android:inputType="numberDecimal"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="2"
                             android:layout_column="0"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
@@ -164,7 +258,7 @@
                             android:id="@+id/departureWind"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="2"
+                            android:layout_row="3"
                             android:layout_column="0"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
@@ -172,23 +266,25 @@
                             android:id="@+id/departureVisibility"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="3"
-                            android:layout_column="0"
-                            android:layout_gravity="bottom"
-                            android:layout_margin="5dp"/>
-                        <EditText
-                            android:id="@+id/departureCeiling"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
                             android:layout_row="4"
                             android:layout_column="0"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/departureAltimeter"
+                            android:id="@+id/departureCeiling"
+                            android:inputType="number"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="5"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureAltimeter"
+                            android:inputType="number"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="6"
                             android:layout_column="0"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
@@ -196,7 +292,7 @@
                             android:id="@+id/departureApproach"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="6"
+                            android:layout_row="7"
                             android:layout_column="0"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
@@ -204,13 +300,73 @@
                             android:id="@+id/departureRunway"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:layout_row="7"
+                            android:layout_row="8"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureGrnd"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="9"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureFSS"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="10"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureTower"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="11"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureDep"
+                            android:inputType="numberDecimal"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="12"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureCTAF"
+                            android:inputType="numberDecimal"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="13"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureTPA"
+                            android:inputType="number"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="14"
+                            android:layout_column="0"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/departureFieldElev"
+                            android:inputType="number"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="15"
                             android:layout_column="0"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
 
                         <EditText
-                            android:id="@+id/destinationATIS"
+                            android:id="@+id/destinationAirport"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="1"
@@ -218,7 +374,8 @@
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/destinationWind"
+                            android:id="@+id/destinationATIS"
+                            android:inputType="numberDecimal"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="2"
@@ -226,7 +383,7 @@
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/destinationVisibility"
+                            android:id="@+id/destinationWind"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="3"
@@ -234,7 +391,7 @@
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/destinationCeiling"
+                            android:id="@+id/destinationVisibility"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="4"
@@ -242,7 +399,8 @@
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/destinationAltemiter"
+                            android:id="@+id/destinationCeiling"
+                            android:inputType="number"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="5"
@@ -250,7 +408,8 @@
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/destinationApproach"
+                            android:id="@+id/destinationAltemeter"
+                            android:inputType="number"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="6"
@@ -258,10 +417,78 @@
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
                         <EditText
-                            android:id="@+id/destinationRunway"
+                            android:id="@+id/destinationApproach"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_row="7"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationRunway"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="8"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationGrnd"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="9"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationFSS"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="10"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationTower"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="11"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationAPP"
+                            android:inputType="numberDecimal"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="12"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationCTAF"
+                            android:inputType="numberDecimal"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="13"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationTPA"
+                            android:inputType="number"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="14"
+                            android:layout_column="2"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="5dp"/>
+                        <EditText
+                            android:id="@+id/destinationFieldElev"
+                            android:inputType="number"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="15"
                             android:layout_column="2"
                             android:layout_gravity="bottom"
                             android:layout_margin="5dp"/>
@@ -275,16 +502,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".05">
+        android:layout_weight=".1">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save Changes"
-                android:onClick="saveAirportInfo"/>
+                android:onClick="saveAirportInfo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="20dp"/>
 
         </android.support.constraint.ConstraintLayout>
 

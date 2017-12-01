@@ -208,7 +208,7 @@
         app:layout_constraintLeft_toRightOf="@+id/DualReceivedTime"
         android:layout_margin="15sp"/>
 
-    <!-- TODO Add an edit button here? -->
+    <!-- TODO NOTIM: Add an edit button here? -->
 
     <Button
         android:id="@+id/deleteLogbookRowBtn"

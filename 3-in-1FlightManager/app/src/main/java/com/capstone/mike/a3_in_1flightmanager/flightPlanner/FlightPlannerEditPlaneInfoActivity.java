@@ -28,100 +28,100 @@ public class FlightPlannerEditPlaneInfoActivity extends AppCompatActivity {
             {
                 JSONObject json = new JSONObject((String)data.getStringExtra("PLANE_INFO"));
 
-                if(json.has("planeModel"))
+                if(json.has("model"))
                 {
                     EditText planeModel = (EditText) findViewById(R.id.planeModelET);
-                    planeModel.setText((String)json.get("planeModel"));
+                    planeModel.setText(json.getString("model"));
                 }
 
-                if(json.has("fuelGPH"))
+                if(json.has("gph"))
                 {
                     EditText fuelGPH = (EditText) findViewById(R.id.fuelUseET);
-                    fuelGPH.setText((String)json.get("fuelGPH"));
+                    fuelGPH.setText(json.getString("gph"));
                 }
 
                 if(json.has("takeoffWeight"))
                 {
                     EditText takeoffWeight = (EditText) findViewById(R.id.takeoffWeight);
-                    takeoffWeight.setText((String)json.get("takeoffWeight"));
+                    takeoffWeight.setText(json.getString("takeoffWeight"));
                 }
 
                 if(json.has("maxWeight"))
                 {
                     EditText maxWeight = (EditText) findViewById(R.id.maxWeight);
-                    maxWeight.setText((String)json.get("maxWeight"));
+                    maxWeight.setText(json.getString("maxWeight"));
                 }
 
                 if(json.has("landingWeight"))
                 {
                     EditText landingWeight = (EditText) findViewById(R.id.landingWeight);
-                    landingWeight.setText((String)json.get("landingWeight"));
+                    landingWeight.setText(json.getString("landingWeight"));
                 }
 
                 if(json.has("takeoffMoment"))
                 {
                     EditText takeoffMoment = (EditText) findViewById(R.id.takeoffMoment);
-                    takeoffMoment.setText((String)json.get("takeoffMoment"));
+                    takeoffMoment.setText(json.getString("takeoffMoment"));
                 }
 
                 if(json.has("landingMoment"))
                 {
                     EditText landingMoment = (EditText) findViewById(R.id.landingMoment);
-                    landingMoment.setText((String)json.get("landingMoment"));
+                    landingMoment.setText(json.getString("landingMoment"));
                 }
 
                 if(json.has("takeoffGroundRoll"))
                 {
                     EditText takeoffGroundRoll = (EditText) findViewById(R.id.takeoffGroundRoll);
-                    takeoffGroundRoll.setText((String)json.get("takeoffGroundRoll"));
+                    takeoffGroundRoll.setText(json.getString("takeoffGroundRoll"));
                 }
 
                 if(json.has("departureATIS"))
                 {
                     EditText maxGroundRoll = (EditText) findViewById(R.id.maxGroundRoll);
-                    maxGroundRoll.setText((String)json.get("maxGroundRoll"));
+                    maxGroundRoll.setText(json.getString("maxGroundRoll"));
                 }
 
                 if(json.has("landingGroundRoll"))
                 {
                     EditText landingGroundRoll = (EditText) findViewById(R.id.landingGroundRoll);
-                    landingGroundRoll.setText((String)json.get("landingGroundRoll"));
+                    landingGroundRoll.setText(json.getString("landingGroundRoll"));
                 }
 
                 if(json.has("takeoffDistanceClear"))
                 {
                     EditText takeoffDistanceClear = (EditText) findViewById(R.id.takeoffDistanceClear);
-                    takeoffDistanceClear.setText((String)json.get("takeoffDistanceClear"));
+                    takeoffDistanceClear.setText(json.getString("takeoffDistanceClear"));
                 }
 
                 if(json.has("maxDistanceClear"))
                 {
                     EditText maxDistanceClear = (EditText) findViewById(R.id.maxDistanceClear);
-                    maxDistanceClear.setText((String)json.get("maxDistanceClear"));
+                    maxDistanceClear.setText(json.getString("maxDistanceClear"));
                 }
 
                 if(json.has("landingDistanceClear"))
                 {
                     EditText landingDistanceClear = (EditText) findViewById(R.id.landingDistanceClear);
-                    landingDistanceClear.setText((String)json.get("landingDistanceClear"));
+                    landingDistanceClear.setText(json.getString("landingDistanceClear"));
                 }
 
                 if(json.has("takeoffRunwayLength"))
                 {
                     EditText takeoffRunwayLength = (EditText) findViewById(R.id.takeoffRunwayLength);
-                    takeoffRunwayLength.setText((String)json.get("takeoffRunwayLength"));
+                    takeoffRunwayLength.setText(json.getString("takeoffRunwayLength"));
                 }
 
                 if(json.has("departureATIS"))
                 {
                     EditText departureATIS = (EditText) findViewById(R.id.departureATIS);
-                    departureATIS.setText((String)json.get("departureATIS"));
+                    departureATIS.setText(json.getString("departureATIS"));
                 }
 
                 if(json.has("landingRunwayLength"))
                 {
                     EditText landingRunwayLength = (EditText) findViewById(R.id.landingRunwayLength);
-                    landingRunwayLength.setText((String)json.get("landingRunwayLength"));
+                    landingRunwayLength.setText(json.getString("landingRunwayLength"));
                 }
 
             }
@@ -247,6 +247,7 @@ public class FlightPlannerEditPlaneInfoActivity extends AppCompatActivity {
             }
 
             finish();
+            Toast.makeText(this, "Save Successful", Toast.LENGTH_SHORT).show();
         }
         catch (JSONException e)
         {
