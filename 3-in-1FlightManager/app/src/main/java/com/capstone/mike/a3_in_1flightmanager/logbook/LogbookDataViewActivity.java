@@ -66,39 +66,44 @@ public class LogbookDataViewActivity extends AppCompatActivity {
                 entries = db.getAll(30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_90_DAYS:
-                db.getAll(90);
+                entries = db.getAll(90);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_NIGHT:
-                db.getSpecialConditionFlights(SpecialConditions.NIGHT_FLYING, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.NIGHT_FLYING, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_90_DAYS_NIGHT:
-                db.getSpecialConditionFlights(SpecialConditions.NIGHT_FLYING, 90);
+                entries = db.getSpecialConditionFlights(SpecialConditions.NIGHT_FLYING, 90);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_SIM_INST:
-                db.getSpecialConditionFlights(SpecialConditions.SIMULATED_INSTRUMENT, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.SIMULATED_INSTRUMENT, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_ACT_INST:
-                db.getSpecialConditionFlights(SpecialConditions.ACUTAL_INSTRUMENT, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.ACUTAL_INSTRUMENT, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_FLGT_SIM:
-                db.getSpecialConditionFlights(SpecialConditions.FLIGHT_SIMULATOR, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.FLIGHT_SIMULATOR, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_XCOUNTRY:
-                db.getSpecialConditionFlights(SpecialConditions.CROSS_COUNTRY, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.CROSS_COUNTRY, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_FLGT_INSTR:
-                db.getSpecialConditionFlights(SpecialConditions.AS_FLIGHT_INSTRUCTOR, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.AS_FLIGHT_INSTRUCTOR, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_DUAL_RECEIVED:
-                db.getSpecialConditionFlights(SpecialConditions.DUAL_RECIEVED, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.DUAL_RECIEVED, 30);
                 break;
             case LogbookQuerySelectionActivity.FILTER_30_DAYS_PIC:
-                db.getSpecialConditionFlights(SpecialConditions.PILOT_IN_COMMAND, 30);
+                entries = db.getSpecialConditionFlights(SpecialConditions.PILOT_IN_COMMAND, 30);
                 break;
             default:
                 Toast.makeText(this, "Sorry, that filter is not currently supported", Toast.LENGTH_LONG).show();
                 finish();
+        }
 
+        if(entries.length == 0)
+        {
+            Toast.makeText(this, "There are no flights that fit that filter.", Toast.LENGTH_LONG).show();
+            finish();
         }
 
         LogbookDataViewAdapter adapter = new LogbookDataViewAdapter(this, entries);

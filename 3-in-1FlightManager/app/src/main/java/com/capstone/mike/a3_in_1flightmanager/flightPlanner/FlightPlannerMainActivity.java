@@ -53,7 +53,6 @@ public class FlightPlannerMainActivity extends AppCompatActivity
 
     public void deletePlan(View view)
     {
-        // TODO Implement deleting plans
         final Context context = this;
 
         DBHandler db = DBHandler.getInstance(context);

@@ -32,9 +32,9 @@ import java.util.ArrayList;
 public class DBHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "logbookInfo";
+    private static final String DATABASE_NAME = "flightManagerDB";
 
-    private static final String TABLE_FLIGHT_LOG            = "flightLog";
+    private static final String TABLE_FLIGHT_LOG            = "logbook";
     private static final String COLUMN_LOG_ID               = "ID";
     private static final String COLUMN_DATE                 = "FLIGHT_DATE";
     private static final String COLUMN_AIRCRAFT_MODEL       = "AIRCRAFT_MODEL";
@@ -69,7 +69,7 @@ public class DBHandler extends SQLiteOpenHelper
     private static final JSONSchema[] schemas = new JSONSchema[] {JSONSchema.CHECKLIST, JSONSchema.FLIGHT_PLAN};
 
     private static DBHandler dbInstance;
-    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     // Private to prevent instances from being created willy-nilly
     private DBHandler(Context context)
@@ -85,6 +85,13 @@ public class DBHandler extends SQLiteOpenHelper
             dbInstance = new DBHandler(context.getApplicationContext());
         }
         return dbInstance;
+    }
+
+    public void resetDB(Context context)
+    {
+        super.close();
+        context.deleteDatabase(DATABASE_NAME);
+//        dbInstance = new DBHandler(context.getApplicationContext());
     }
 
     @Override
@@ -183,30 +190,6 @@ public class DBHandler extends SQLiteOpenHelper
             e.printStackTrace();
         }
 
-//        // LOGBOOK DUMMY DATA
-//        LogbookEntry testLog1 = new LogbookEntry();
-//        LogbookEntry testLog2 = new LogbookEntry();
-//        LogbookEntry testLog3 = new LogbookEntry();
-
-        db.execSQL("INSERT INTO flightLog(FLIGHT_DATE, " +
-                                         "AIRCRAFT_MODEL, " +
-                                         "AIRCRAFT_IDENT, " +
-                                         "DEPARTURE_LOC, " +
-                                         "ARRIVAL_LOC, " +
-                                         "FLIGHT_TIME, " +
-                                         "NR_DAY_LDG," +
-                                         "AIRCRAFT_CATEGORY," +
-                                         "AIRCRAFT_CLASS) " +
-                                 "VALUES(\"2016/12/30\", " +
-                                        "\"Cessna 182\", " +
-                                        "\"43138\", " +
-                                        "\"N87\", " +
-                                        "\"KTTN\", " +
-                                        "2.75, " +
-                                        "1," +
-                                        "\"SINGLE_ENGINE_LAND\"," +
-                                        "\"TAIL_WHEEL\")");
-
         FlightPlan testPlan = new FlightPlan();
         testPlan.add(new FlightPlanStep("TOC", 213, 8, 2500, 90, 280, 13, 6, 0, null, null));
         testPlan.add(new FlightPlanStep("VAY", 213, 12, 2500, 110, 280, 13, 6, 0, null, null));
@@ -236,7 +219,8 @@ public class DBHandler extends SQLiteOpenHelper
             testAirportInfo.put("destinationTPA", "1010");
             testAirportInfo.put("destinationFieldElev", "10");
 
-            JSONObject jsonPlan = new JSONObject(testPlan.toJSON().toString());
+            JSONObject jsonPlan = new JSONObject();
+            jsonPlan.put("steps", testPlan.toJSONArray());
             jsonPlan.put("planeInfo", testPlaneInfo);
             jsonPlan.put("airportInfo", testAirportInfo);
 
@@ -249,65 +233,6 @@ public class DBHandler extends SQLiteOpenHelper
             e.printStackTrace();
             System.err.println("There was an error stopping the test plan from inserting");
         }
-
-
-//        testLog1.date = new Date(2016, 12, 30);
-//        testLog2.date = new Date(2017,  5, 14);
-//        testLog3.date = new Date(2017,  7,  4);
-//
-//        String model = "Cessna 182";
-//
-//        testLog1.aircraftModel = model;
-//        testLog2.aircraftModel = model;
-//        testLog3.aircraftModel = model;
-//
-//        testLog1.aircraftID = "43138";
-//        testLog2.aircraftID = "4333A";
-//        testLog3.aircraftID = "2366W";
-//
-//        testLog1.flightDeparture = "N87";
-//        testLog2.flightDeparture = "N89";
-//        testLog3.flightDeparture = "N87";
-//
-//        testLog1.flightArrival = "KTTN";
-//        testLog2.flightArrival = "N87";
-//        testLog3.flightArrival = "N87";
-//
-//        testLog1.numInstrumentApproach = 1;
-//        testLog2.numInstrumentApproach = 3;
-//
-//        testLog1.numDayLandings = 2;
-//        testLog2.numDayLandings = 1;
-//        testLog3.numDayLandings = 5;
-//
-//        testLog2.numNightLandings = 3;
-//
-//        testLog1.aircraftCategory = AircraftCategory.SINGLE_ENGINE_LAND;
-//        testLog2.aircraftCategory = AircraftCategory.SINGLE_ENGINE_LAND;
-//        testLog3.aircraftCategory = AircraftCategory.SINGLE_ENGINE_LAND;
-//
-//        testLog1.aircraftClass = AircraftClass.TAIL_WHEEL;
-//        testLog2.aircraftClass = AircraftClass.TAIL_WHEEL;
-//        testLog3.aircraftClass = AircraftClass.TAIL_WHEEL;
-//
-//        testLog1.flightTime = 2.75f;
-//        testLog2.flightTime = 5f;
-//        testLog3.flightTime = 1.5f;
-//
-//        testLog2.nightFlyingTime = 2f;
-//
-//        testLog1.simulatedInstrumentTime = 1f;
-//
-//        testLog2.crossCountryTime = 3f;
-//
-//        testLog1.dualRecievedTime = 2.75f;
-//        testLog2.dualRecievedTime = 5f;
-//
-//        testLog3.pilotInCommandTime = 1.5f;
-//
-//        createLogbookEntry(testLog1);
-//        createLogbookEntry(testLog2);
-//        createLogbookEntry(testLog3);
     }
 
     @Override
@@ -438,19 +363,19 @@ public class DBHandler extends SQLiteOpenHelper
         {
             values.put(COLUMN_DATE,                 dateFormat.format(entry.date));
         }
-        if(entry.aircraftModel != null)
+        if(entry.aircraftModel != null && !entry.aircraftModel.isEmpty())
         {
             values.put(COLUMN_AIRCRAFT_MODEL,       entry.aircraftModel);
         }
-        if(entry.aircraftID != null)
+        if(entry.aircraftID != null && !entry.aircraftID.isEmpty())
         {
             values.put(COLUMN_AIRCRAFT_IDENT,       entry.aircraftID);
         }
-        if(entry.flightDeparture != null)
+        if(entry.flightDeparture != null && !entry.flightDeparture.isEmpty())
         {
             values.put(COLUMN_DEPARTURE_LOC,        entry.flightDeparture);
         }
-        if(entry.flightArrival != null)
+        if(entry.flightArrival != null && !entry.flightArrival.isEmpty())
         {
             values.put(COLUMN_ARRIVAL_LOC,          entry.flightArrival);
         }
@@ -458,7 +383,7 @@ public class DBHandler extends SQLiteOpenHelper
         {
             values.put(COLUMN_NR_INST_APP,          entry.numInstrumentApproach);
         }
-        if(entry.remarksAndEndorsements != null)
+        if(entry.remarksAndEndorsements != null && !entry.remarksAndEndorsements.isEmpty())
         {
             values.put(COLUMN_RMKS_AND_ENDSMTS,     entry.remarksAndEndorsements);
         }
@@ -596,7 +521,6 @@ public class DBHandler extends SQLiteOpenHelper
         return entries;
     }
 
-
     // Create
     public void createLogbookEntry(LogbookEntry entry)
     {
@@ -604,7 +528,6 @@ public class DBHandler extends SQLiteOpenHelper
 
         createNewEntry(values, TABLE_FLIGHT_LOG);
     }
-
 
     // Read
     private float getAggregateFloat(String query)
@@ -1034,7 +957,6 @@ public class DBHandler extends SQLiteOpenHelper
         return getEntries(query).toArray(new LogbookEntry[] {});
     }
 
-
     // Update
     public void updateLogbook(LogbookEntry entry)
     {
@@ -1091,7 +1013,7 @@ public class DBHandler extends SQLiteOpenHelper
     }
 
     // Create
-    // @Returns: true if referenceName does not exist in the database.
+    // @returns: true if referenceName does not exist in the database.
     public Boolean insertJSON(String referenceName, JSONSchema schema, JSONObject json)
     {
         ContentValues values = translateToContentValues(referenceName, schema, json);
@@ -1190,12 +1112,12 @@ public class DBHandler extends SQLiteOpenHelper
     {
         ContentValues values = translateToContentValues(referenceName, schema, json);
 
-        updateEntry(values, TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = " + values.getAsString(COLUMN_REFERENCE_NAME));
+        updateEntry(values, TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = \"" + values.getAsString(COLUMN_REFERENCE_NAME)+ "\"");
     }
 
     // Delete
     public void deleteJSON(String referenceName)
     {
-        deleteEntry(TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = '" + referenceName + "'");
+        deleteEntry(TABLE_JSON_STORE, COLUMN_REFERENCE_NAME + " = \"" + referenceName + "\"");
     }
 }

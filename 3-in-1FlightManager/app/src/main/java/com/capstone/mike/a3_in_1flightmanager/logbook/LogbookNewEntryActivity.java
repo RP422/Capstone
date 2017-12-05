@@ -83,15 +83,18 @@ public class LogbookNewEntryActivity extends AppCompatActivity
             java.util.Date utilDate = new java.util.Date();
             java.sql.Date currentDate = new java.sql.Date(utilDate.getTime());
 
-            if(currentDate.compareTo(entry.date) == -1)
+            // The actual save block
+            EditText dateET = (EditText)findViewById(R.id.newEntryDatePicker);
+            String rawDate = dateET.getText().toString();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+            java.util.Date d = format.parse(rawDate);
+            entry.date = new Date(d.getTime());
+
+            if(currentDate.before(entry.date))
             {
                 throw new IllegalStateException("Cannot create a logbook entry in the future");
             }
-
-            // The actual save block
-            EditText dateET = (EditText)findViewById(R.id.newEntryDatePicker);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
-            entry.date = new Date(format.parse(dateET.getText().toString()).getTime());
 
             EditText model = (EditText)findViewById(R.id.newEntryModelET);
             entry.aircraftModel = model.getText().toString();

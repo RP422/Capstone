@@ -44,7 +44,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="90">
+        android:layout_weight="95">
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
@@ -62,13 +62,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10">
+        android:layout_weight="5">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/totalFuelLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Fuel:"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="17sp"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/totalFuelTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="17sp"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/totalFuelLabel"
+                app:layout_constraintRight_toLeftOf="@+id/savePlanBtn"
+                android:layout_margin="10dp"/>
+
             <Button
+                android:id="@+id/addStintBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Stint"
@@ -76,7 +107,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_margin="10dp"/>
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:id="@+id/savePlanBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:onClick="saveFlightPlan"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/addStintBtn"
+                android:layout_margin="5dp"/>
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

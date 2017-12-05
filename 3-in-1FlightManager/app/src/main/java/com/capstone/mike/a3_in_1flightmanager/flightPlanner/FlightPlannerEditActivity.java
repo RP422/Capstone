@@ -52,76 +52,100 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
         stepsList = (ListView)findViewById(R.id.flightPlanSteps);
         boolean testing = data.getBooleanExtra("TEST", false);
 
-        String startingAirport = "";
+        flightPlan = new FlightPlan();
 
         if(testing)
         {
-            startingAirport = "N87";
-            flightPlan = new FlightPlan();
             flightPlan.setFuelRate(11.5f);
             flightPlan.add(new FlightPlanStep("TOC 1", 265, 10, 3000, 90, 36, 15, 13, 0, null, null));
             flightPlan.add(new FlightPlanStep("Turn 1", 275, 40, 3000, 110, 36, 15, 13, 0, null, null));
             flightPlan.add(new FlightPlanStep("TOC 2", 272, 15, 6500, 90, 1, 10, 13, 0, null, null));
             flightPlan.add(new FlightPlanStep("TOD", 272, 182, 6500, 110, 1, 10, 14, 0, null, null));
             flightPlan.add(new FlightPlanStep("AGC", 276, 12, 2200, 110, 1, 10, 14, 0, null, null));
+
+            refreshAdapter();
         }
-        else
+        else if(data.hasExtra("FILE"))
         {
-            flightPlan = new FlightPlan();
+            editing = true;
+            String file = data.getStringExtra("FILE");
 
-            if(data.hasExtra("FILE"))
+            DBHandler db = DBHandler.getInstance(this);
+            JSONObject json = db.getJSONfromReferenceName(file);
+
+            try
             {
-                editing = true;
-                String file = data.getStringExtra("FILE");
+                JSONArray steps = json.getJSONArray("steps");
 
-                DBHandler db = DBHandler.getInstance(this);
-                JSONObject json = db.getJSONfromReferenceName(file);
-
-                try
+                for(int x = 0; x < steps.length(); x++)
                 {
-                    // TODO Get info from json if it exists, check TPA and GPH
+                    JSONObject jsonStep = steps.getJSONObject(x);
 
-                    JSONArray steps = json.getJSONArray("steps");
+                    String checkpointName = jsonStep.getString("checkpointName");
+                    int course = jsonStep.getInt("course");
+                    int legDistance = jsonStep.getInt("legDistance");
+                    int altitude = jsonStep.getInt("altitude");
+                    int tas = jsonStep.getInt("tas");
+                    int windDir = jsonStep.getInt("windDir");
+                    int windSpeed = jsonStep.getInt("windSpeed");
+                    int headAdjust = jsonStep.getInt("headAdjust");
+                    int magHeadAdjust = jsonStep.getInt("magHeadAdjust");
 
-                    for(int x = 0; x < steps.length(); x++)
+                    Float freq = null;
+                    String ident = null;
+
+                    if(jsonStep.has("freq"))
                     {
-                        JSONObject jsonStep = steps.getJSONObject(x);
+                        freq = (float)jsonStep.getDouble("freq");
+                    }
+                    if(jsonStep.has("ident"))
+                    {
+                        ident = jsonStep.getString("ident");
+                    }
 
+                    flightPlan.add(new FlightPlanStep(checkpointName, course, legDistance, altitude, tas, windDir, windSpeed, headAdjust, magHeadAdjust, freq, ident));
+                }
 
-                        String checkpointName = jsonStep.getString("checkpointName");
-                        int course = jsonStep.getInt("course");
-                        int legDistance = jsonStep.getInt("legDistance");
-                        int altitude = jsonStep.getInt("altitude");
-                        int tas = jsonStep.getInt("tas");
-                        int windDir = jsonStep.getInt("windDir");
-                        int windSpeed = jsonStep.getInt("windSpeed");
-                        int headAdjust = jsonStep.getInt("headAdjust");
-                        int magHeadAdjust = jsonStep.getInt("magHeadAdjust");
+                if(json.has("planeInfo"))
+                {
+                    JSONObject planeInfo = json.getJSONObject("planeInfo");
+                    if(planeInfo.has("gph"))
+                    {
+                        flightPlan.setFuelRate((float)planeInfo.getDouble("gph"));
 
-                        Float freq = null;
-                        String ident = null;
-
-                        if(jsonStep.has("freq"))
+                        TextView totalFuelTV = (TextView)findViewById(R.id.totalFuelTV);
+                        if(flightPlan.getTotalFuel() > 0)
                         {
-                            freq = (float)jsonStep.getDouble("freq");
+                            String fuelBlurb = String.format("%.2f gal", flightPlan.getTotalFuel());
+                            totalFuelTV.setText(fuelBlurb);
                         }
-                        if(jsonStep.has("ident"))
+                        else
                         {
-                            ident = jsonStep.getString("ident");
+                            totalFuelTV.setText("N/A");
                         }
-
-                        flightPlan.add(new FlightPlanStep(checkpointName, course, legDistance, altitude, tas, windDir, windSpeed, headAdjust, magHeadAdjust, freq, ident));
                     }
                 }
-                catch (JSONException e)
+                if(json.has("airportInfo"))
                 {
-                    e.printStackTrace();
-                    Toast.makeText(this, "There was an error loading the Flight Plan", Toast.LENGTH_LONG).show();
+                    JSONObject airportInfo = json.getJSONObject("airportInfo");
+                    if(airportInfo.has("departureTPA"))
+                    {
+                        flightPlan.setStartingAltitude(airportInfo.getInt("departureTPA"));
+                    }
                 }
-            }
-        }
 
-        refreshAdapter();
+
+                this.json = json;
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this, "There was an error loading the Flight Plan", Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+            refreshAdapter();
+        }
     }
 
     private void refreshAdapter()
@@ -208,26 +232,30 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
     {
         try
         {
-            json.put("flightPlan", flightPlan.toJSON());
-
-            final Context context = this;
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("What do you want to name the Flight Plan?");
-
-            final JSONObject jsonToSave = json;
+            if(json.has("steps"))
+            {
+                json.remove("steps");
+            }
+            json.put("steps", flightPlan.toJSONArray());
 
             if(editing)
             {
                 DBHandler db = DBHandler.getInstance(this);
                 Intent data = getIntent();
 
-                db.updateJSON(data.getStringExtra("FILE"), JSONSchema.CHECKLIST, json);
+                db.updateJSON(data.getStringExtra("FILE"), JSONSchema.FLIGHT_PLAN, json);
                 finish();
-                Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Save Successful", Toast.LENGTH_SHORT).show();
             }
             else
             {
+                final Context context = this;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("What do you want to name the Flight Plan?");
+
+                final JSONObject jsonToSave = json;
+
                 final EditText input = new EditText(context);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
 
@@ -239,7 +267,7 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
                         DBHandler db = DBHandler.getInstance(context);
 
                         // TODO NOTIM: Look into ways to get this box to stay open in case of bad input?
-                        if(!db.insertJSON(input.getText().toString(), JSONSchema.CHECKLIST, jsonToSave))
+                        if(!input.getText().toString().contains("\"") && !db.insertJSON(input.getText().toString(), JSONSchema.FLIGHT_PLAN, jsonToSave))
                         {
                             Toast.makeText(context, "Save failed: that name is already in use", Toast.LENGTH_LONG).show();
                         }
@@ -304,6 +332,17 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
 
                     flightPlan.add(new FlightPlanStep(checkpointName, course, legDistance, altitude, tas, windDir, windSpeed, headAdjust, magHeadAdjust, freq, ident));
 
+                    TextView totalFuelTV = (TextView)findViewById(R.id.totalFuelTV);
+                    if(flightPlan.getTotalFuel() > 0)
+                    {
+                        String fuelBlurb = String.format("%.2f gal", flightPlan.getTotalFuel());
+                        totalFuelTV.setText(fuelBlurb);
+                    }
+                    else
+                    {
+                        totalFuelTV.setText("N/A");
+                    }
+
                     refreshAdapter();
                 }
                 catch(JSONException e)
@@ -347,6 +386,17 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
                     flightPlan.remove(rowBeingEdited);
                     flightPlan.add(rowBeingEdited, updatedStep);
 
+                    TextView totalFuelTV = (TextView)findViewById(R.id.totalFuelTV);
+                    if(flightPlan.getTotalFuel() > 0)
+                    {
+                        String fuelBlurb = String.format("%.2f gal", flightPlan.getTotalFuel());
+                        totalFuelTV.setText(fuelBlurb);
+                    }
+                    else
+                    {
+                        totalFuelTV.setText("N/A");
+                    }
+
                     refreshAdapter();
                 }
                 catch (JSONException e)
@@ -364,7 +414,22 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
                     JSONObject planeInfo = new JSONObject(data.getStringExtra("PLANE_INFO"));
                     json.put("planeInfo", planeInfo);
 
-                    // TODO Snag gph if available and plug it into the flight plan
+                    if(planeInfo.has("gph"))
+                    {
+                        flightPlan.setFuelRate((float)planeInfo.getDouble("gph"));
+
+                        TextView totalFuelTV = (TextView)findViewById(R.id.totalFuelTV);
+                        if(flightPlan.getTotalFuel() > 0)
+                        {
+                            String fuelBlurb = String.format("%.2f gal", flightPlan.getTotalFuel());
+                            totalFuelTV.setText(fuelBlurb);
+                        }
+                        else
+                        {
+                            totalFuelTV.setText("N/A");
+                        }
+                        refreshAdapter();
+                    }
                 }
                 catch (JSONException e)
                 {
@@ -381,7 +446,11 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
                     JSONObject airportInfo = new JSONObject(data.getStringExtra("AIRPORT_INFO"));
                     json.put("airportInfo", airportInfo);
 
-                    // TODO Snag the starting airport's TPA for starting altitude
+                    if(airportInfo.has("departureTPA"))
+                    {
+                        flightPlan.setStartingAltitude(airportInfo.getInt("departureTPA"));
+                        refreshAdapter();
+                    }
                 }
                 catch (JSONException e)
                 {

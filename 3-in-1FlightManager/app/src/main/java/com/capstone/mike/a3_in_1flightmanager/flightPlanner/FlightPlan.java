@@ -20,7 +20,7 @@ public class FlightPlan
     private int fuelCapacity;
 
     private int totalDistance;
-    private int totalFuel;
+    private float totalFuel;
 
     public FlightPlanStep[] toArray()
     {
@@ -34,11 +34,17 @@ public class FlightPlan
     public void setFuelRate(float fuelRate)
     {
         this.fuelRate = fuelRate;
+        refreshSteps();
     }
     public void setFuelRate(String aircraft)
     {
         // TODO NOTIM: Query for the plane's fuel consumption when I have a Planes table
         throw new UnsupportedOperationException();
+    }
+
+    public float getTotalFuel()
+    {
+        return totalFuel;
     }
 
     public int getStartingAltitude()
@@ -48,6 +54,7 @@ public class FlightPlan
     public void setStartingAltitude(int newAltitude)
     {
         startingAltitude = newAltitude;
+        refreshSteps();
     }
 
     public int size()
@@ -110,7 +117,6 @@ public class FlightPlan
             step.remainingDistance = remainDistance;
             remainDistance += legDistance;
 
-            // TODO double check the math here
             // Finding estimatedGroundSpeed
             int windAngleToCourse = step.windDirection - step.course;
             int headingToCourse = step.windAdjustmentAngle - step.course;
@@ -170,11 +176,13 @@ public class FlightPlan
             flightPlan.get(x).remainingFuel = remainFuel;
             remainFuel += step.legFuelUsage;
         }
+
+        totalFuel = remainFuel;
+        totalDistance = remainDistance;
     }
 
-    public JSONObject toJSON() throws JSONException
+    public JSONArray toJSONArray() throws JSONException
     {
-        JSONObject json = new JSONObject();
         JSONArray jsonSteps = new JSONArray();
 
         for (FlightPlanStep step : flightPlan)
@@ -182,8 +190,6 @@ public class FlightPlan
             jsonSteps.put(step.toJSON());
         }
 
-        json.put("steps", jsonSteps);
-
-        return json;
+        return jsonSteps;
     }
 }

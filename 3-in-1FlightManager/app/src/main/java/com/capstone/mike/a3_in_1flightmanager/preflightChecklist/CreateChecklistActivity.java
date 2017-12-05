@@ -217,7 +217,7 @@ public class CreateChecklistActivity extends AppCompatActivity
                         DBHandler db = DBHandler.getInstance(context);
 
                         // TODO NOTIM: Look into ways to get this box to stay open in case of bad input?
-                        if(!db.insertJSON(input.getText().toString(), JSONSchema.CHECKLIST, jsonToSave))
+                        if(!input.getText().toString().contains("\"") && !db.insertJSON(input.getText().toString(), JSONSchema.CHECKLIST, jsonToSave))
                         {
                             Toast.makeText(context, "Save failed: that name is already in use", Toast.LENGTH_LONG).show();
                         }

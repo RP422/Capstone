@@ -42,7 +42,7 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
         TextView date = convertView.findViewById(R.id.EntryDate);
         if(entry.date != null)
         {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
             date.setText(format.format(entry.date));
         }
         else
