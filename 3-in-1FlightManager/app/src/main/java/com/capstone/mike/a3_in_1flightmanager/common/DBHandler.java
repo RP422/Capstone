@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Mike on 10/11/2017.
@@ -567,21 +568,31 @@ public class DBHandler extends SQLiteOpenHelper
     }
     public LogbookEntry[] getAll(int numDays)
     {
+        // TODO NOTIM: Expand these changes to the rest of the queries
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -(numDays));
+        java.util.Date cutoff = cal.getTime();
+
         String query = "SELECT * " +
-                       "FROM " + TABLE_FLIGHT_LOG + " ";
+                       "FROM " + TABLE_FLIGHT_LOG + " " +
+                       "ORDER BY " + COLUMN_DATE + " DESC";
 
-        if(numDays > 1)
+        ArrayList<LogbookEntry> entries = getEntries(query);
+
+        int index = 0;
+        while (index < entries.size())
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAYS') ";
-        }
-        else
-        {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + " DAY') ";
+            if(entries.get(index).date.before(cutoff))
+            {
+                entries.remove(index);
+            }
+            else
+            {
+                index++;
+            }
         }
 
-        query += "ORDER BY " + COLUMN_DATE + " DESC";
-
-        return getEntries(query).toArray(new LogbookEntry[] {});
+        return entries.toArray(new LogbookEntry[] {});
     }
     public float getHoursFlown(int numDays)
     {
@@ -910,6 +921,10 @@ public class DBHandler extends SQLiteOpenHelper
     {
         String requestedColumn;
 
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -(numDays));
+        java.util.Date cutoff = cal.getTime();
+
         switch(conditions)
         {
             case NIGHT_FLYING:
@@ -940,21 +955,27 @@ public class DBHandler extends SQLiteOpenHelper
                 throw new UnsupportedOperationException("That condition option is not supported yet.");
         }
 
-        String query = "SELECT SUM(" + requestedColumn + ") " +
-                "FROM " + TABLE_FLIGHT_LOG + " ";
+        String query = "SELECT * " +
+                       "FROM " + TABLE_FLIGHT_LOG + " " +
+                       "WHERE " + requestedColumn + " > 0 " +
+                       "ORDER BY " + COLUMN_DATE + " DESC";
 
-        if(numDays > 1)
+        ArrayList<LogbookEntry> entries = getEntries(query);
+
+        int index = 0;
+        while (index < entries.size())
         {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAYS')";
-        }
-        else
-        {
-            query += "WHERE " + COLUMN_DATE + " >= DATE('now', 'start of day', '-" + numDays + "DAY')";
+            if(entries.get(index).date.before(cutoff))
+            {
+                entries.remove(index);
+            }
+            else
+            {
+                index++;
+            }
         }
 
-        query += "ORDER BY " + COLUMN_DATE + " DESC";
-
-        return getEntries(query).toArray(new LogbookEntry[] {});
+        return entries.toArray(new LogbookEntry[] {});
     }
 
     // Update

@@ -87,6 +87,28 @@
         app:layout_constraintLeft_toRightOf="@+id/NumInstApr"
         android:layout_margin="15sp"/>
     <TextView
+        android:id="@+id/DayLandings"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/RemarksAndEndorsments"
+        android:layout_margin="15sp"/>
+    <TextView
+        android:id="@+id/NightLandings"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/DayLandings"
+        android:layout_margin="15sp"/>
+    <TextView
         android:id="@+id/AircraftClass"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="17sp"
@@ -95,7 +117,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/RemarksAndEndorsments"
+        app:layout_constraintLeft_toRightOf="@+id/NightLandings"
         android:layout_margin="15sp"/>
     <TextView
         android:id="@+id/AircraftCategory"

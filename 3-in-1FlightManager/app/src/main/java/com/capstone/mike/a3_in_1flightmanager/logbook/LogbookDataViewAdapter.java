@@ -110,6 +110,26 @@ public class LogbookDataViewAdapter extends ArrayAdapter<LogbookEntry>
             remarks.setText("N/A");
         }
 
+        TextView dayLdgs = (TextView)convertView.findViewById(R.id.DayLandings);
+        if(entry.numDayLandings != null)
+        {
+            dayLdgs.setText("" + entry.numDayLandings);
+        }
+        else
+        {
+            dayLdgs.setText("N/A");
+        }
+
+        TextView ngtLdgs = (TextView)convertView.findViewById(R.id.NightLandings);
+        if(entry.numNightLandings != null)
+        {
+            ngtLdgs.setText("" + entry.numNightLandings);
+        }
+        else
+        {
+            ngtLdgs.setText("N/A");
+        }
+
         TextView aircraftClass = (TextView)convertView.findViewById(R.id.AircraftClass);
         if(entry.aircraftClass != null)
         {
