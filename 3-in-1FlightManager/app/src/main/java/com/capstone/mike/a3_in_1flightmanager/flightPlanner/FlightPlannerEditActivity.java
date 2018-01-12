@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.capstone.mike.a3_in_1flightmanager.R;
 import com.capstone.mike.a3_in_1flightmanager.common.DBHandler;
 import com.capstone.mike.a3_in_1flightmanager.common.JSONSchema;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +43,7 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
     private JSONObject json = new JSONObject();
 
     private boolean editing = false;
+    String file = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,100 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
         else if(data.hasExtra("FILE"))
         {
             editing = true;
-            String file = data.getStringExtra("FILE");
+            file = data.getStringExtra("FILE");
 
             DBHandler db = DBHandler.getInstance(this);
             JSONObject json = db.getJSONfromReferenceName(file);
+
+            try
+            {
+                JSONArray steps = json.getJSONArray("steps");
+
+                for(int x = 0; x < steps.length(); x++)
+                {
+                    JSONObject jsonStep = steps.getJSONObject(x);
+
+                    String checkpointName = jsonStep.getString("checkpointName");
+                    int course = jsonStep.getInt("course");
+                    int legDistance = jsonStep.getInt("legDistance");
+                    int altitude = jsonStep.getInt("altitude");
+                    int tas = jsonStep.getInt("tas");
+                    int windDir = jsonStep.getInt("windDir");
+                    int windSpeed = jsonStep.getInt("windSpeed");
+                    int headAdjust = jsonStep.getInt("headAdjust");
+                    int magHeadAdjust = jsonStep.getInt("magHeadAdjust");
+
+                    Float freq = null;
+                    String ident = null;
+
+                    if(jsonStep.has("freq"))
+                    {
+                        freq = (float)jsonStep.getDouble("freq");
+                    }
+                    if(jsonStep.has("ident"))
+                    {
+                        ident = jsonStep.getString("ident");
+                    }
+
+                    flightPlan.add(new FlightPlanStep(checkpointName, course, legDistance, altitude, tas, windDir, windSpeed, headAdjust, magHeadAdjust, freq, ident));
+                }
+
+                if(json.has("planeInfo"))
+                {
+                    JSONObject planeInfo = json.getJSONObject("planeInfo");
+                    if(planeInfo.has("gph"))
+                    {
+                        flightPlan.setFuelRate((float)planeInfo.getDouble("gph"));
+
+                        TextView totalFuelTV = (TextView)findViewById(R.id.totalFuelTV);
+                        if(flightPlan.getTotalFuel() > 0)
+                        {
+                            String fuelBlurb = String.format("%.2f gal", flightPlan.getTotalFuel());
+                            totalFuelTV.setText(fuelBlurb);
+                        }
+                        else
+                        {
+                            totalFuelTV.setText("N/A");
+                        }
+                    }
+                }
+                if(json.has("airportInfo"))
+                {
+                    JSONObject airportInfo = json.getJSONObject("airportInfo");
+                    if(airportInfo.has("departureTPA"))
+                    {
+                        flightPlan.setStartingAltitude(airportInfo.getInt("departureTPA"));
+                    }
+                }
+
+
+                this.json = json;
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this, "There was an error loading the Flight Plan", Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+            refreshAdapter();
+        }
+        else if(data.hasExtra("FBFILE"))
+        {
+            editing = true;
+            String rawJSON = data.getStringExtra("FBFILE");
+            JSONObject json = null;
+
+            try
+            {
+                json = new JSONObject(rawJSON);
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+
+            file = data.getStringExtra("FILE_NAME");
 
             try
             {
@@ -243,7 +336,7 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
                 DBHandler db = DBHandler.getInstance(this);
                 Intent data = getIntent();
 
-                db.updateJSON(data.getStringExtra("FILE"), JSONSchema.FLIGHT_PLAN, json);
+                db.updateJSON(file, JSONSchema.FLIGHT_PLAN, json);
                 finish();
                 Toast.makeText(this, "Save Successful", Toast.LENGTH_SHORT).show();
             }
@@ -295,6 +388,74 @@ public class FlightPlannerEditActivity extends AppCompatActivity {
         {
             e.printStackTrace();
         }
+    }
+
+    // TODO: Add a button for this function
+    public void saveFlightPlanFB(View view)
+    {
+        try
+        {
+            if(json.has("steps"))
+            {
+                json.remove("steps");
+            }
+            json.put("steps", flightPlan.toJSONArray());
+
+            if(editing)
+            {
+                Intent data = getIntent();
+                saveToFB(file);
+
+                finish();
+                Toast.makeText(this, "Save Successful", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                final Context context = this;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("What do you want to name the Flight Plan?");
+
+                final JSONObject jsonToSave = json;
+
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        saveToFB(input.getText().toString());
+
+                        dialog.dismiss();
+                        finish();
+                        Toast.makeText(context, "Save Successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void saveToFB(String fileName)
+    {
+        // TODO: Add relevant Firebase Code relevant
+
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference();
+        dataRef.child(fileName).setValue(json.toString());
     }
 
     @Override
